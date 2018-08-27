@@ -8,7 +8,7 @@ defmodule Mix.Tasks.Scenic.Newt do
 
   import Mix.Generator
 
-  import IEx
+  # import IEx
 
   @switches [
     app: :string,
@@ -16,6 +16,9 @@ defmodule Mix.Tasks.Scenic.Newt do
   ]
 
   @scenic_version Mix.Project.config()[:version]
+  @parrot_bin File.read!("static/scenic_parrot.png")
+
+  @parrot_hash      "UfHCVlANI2cFbwSpJey64FxjT-0"
 
   # --------------------------------------------------------
   def run(argv) do
@@ -65,7 +68,7 @@ defmodule Mix.Tasks.Scenic.Newt do
     create_file("lib/#{app}.ex", lib_template(assigns))
 
     create_directory("static")
-    create_file("static/images/parrot.jpg.sQoeVCEh0_rzjnsAJgdRlXcObfU", parrot_template(assigns))
+    create_file("static/images/scenic_parrot.png.#{@parrot_hash}", @parrot_bin)
 
     create_directory("lib/scenes")
     create_file("lib/scenes/first.ex", first_scene_template(assigns))
@@ -285,8 +288,8 @@ defmodule Mix.Tasks.Scenic.Newt do
     alias Scenic.Graph
     import Scenic.Primitives
 
-    @parrot       "/static/images/parrot.jpg.sQoeVCEh0_rzjnsAJgdRlXcObfU"
-    @parrot_hash  "sQoeVCEh0_rzjnsAJgdRlXcObfU"
+    @parrot       "/static/images/scenic_parrot.png.#{@parrot_hash}"
+    @parrot_hash  "#{@parrot_hash}"
 
     @graph Graph.build()
       |> text("First Scene", font: :roboto, font_size: 60, translate: {20, 120})
@@ -385,8 +388,6 @@ defmodule Mix.Tasks.Scenic.Newt do
   end
   """)
 
-  # --------------------------------------------------------
-  embed_template(:parrot, from_file: "/static/scenic_parrot.png")
 
   # ============================================================================
   # validity functions taken from Elixir new task
