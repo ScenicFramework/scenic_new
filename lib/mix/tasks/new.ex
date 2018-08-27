@@ -193,10 +193,15 @@ defmodule Mix.Tasks.Scenic.New do
         # of components wrapped up in their own Hex package
         # {:scenic_clock, ">= 0.0.0"},
 
+        # the https versions
+        { :scenic, git: "https://github.com/boydm/scenic.git" },
+        { :scenic_driver_glfw, git: "https://github.com/boydm/scenic_driver_glfw.git"},
+        { :scenic_clock, git: "https://github.com/boydm/scenic_clock.git"},
+        
         # the ssh versions
-        { :scenic, git: "git@github.com:boydm/scenic.git" },
-        { :scenic_driver_glfw, git: "git@github.com:boydm/scenic_driver_glfw.git"},
-        { :scenic_clock, git: "git@github.com:boydm/scenic_clock.git"},
+        # { :scenic, git: "git@github.com:boydm/scenic.git" },
+        # { :scenic_driver_glfw, git: "git@github.com:boydm/scenic_driver_glfw.git"},
+        # { :scenic_clock, git: "git@github.com:boydm/scenic_clock.git"},
 
 
         # {:dep_from_hexpm, "~> 0.3.0"},
