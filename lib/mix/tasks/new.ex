@@ -3,7 +3,7 @@
 #  Copyright © 2018 Kry10 Industries. All rights reserved.
 #
 
-defmodule Mix.Tasks.Scenic.Newt do
+defmodule Mix.Tasks.Scenic.New do
   use Mix.Task
 
   import Mix.Generator
