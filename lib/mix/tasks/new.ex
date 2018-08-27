@@ -3,10 +3,12 @@
 #  Copyright © 2018 Kry10 Industries. All rights reserved.
 #
 
-defmodule Mix.Tasks.Scenic.New do
+defmodule Mix.Tasks.Scenic.Newt do
   use Mix.Task
 
   import Mix.Generator
+
+  import IEx
 
   @switches [
     app: :string,
@@ -35,16 +37,14 @@ defmodule Mix.Tasks.Scenic.New do
           File.mkdir_p!(path)
         end
 
-        scenic_path = File.cwd!()
-
         File.cd!(path, fn ->
-          generate(app, mod, scenic_path, path, opts)
+          generate(app, mod, path, opts)
         end)
     end
   end
 
   # --------------------------------------------------------
-  defp generate(app, mod, scenic_path, _path, _opts) do
+  defp generate(app, mod, _path, _opts) do
     assigns = [
       app: app,
       mod: mod,
@@ -65,8 +65,7 @@ defmodule Mix.Tasks.Scenic.New do
     create_file("lib/#{app}.ex", lib_template(assigns))
 
     create_directory("static")
-    parrot = scenic_path <> "/static/scenic_parrot.png"
-    create_file("static/images/parrot.jpg.sQoeVCEh0_rzjnsAJgdRlXcObfU", File.read!(parrot))
+    create_file("static/images/parrot.jpg.sQoeVCEh0_rzjnsAJgdRlXcObfU", parrot_template(assigns))
 
     create_directory("lib/scenes")
     create_file("lib/scenes/first.ex", first_scene_template(assigns))
@@ -385,6 +384,9 @@ defmodule Mix.Tasks.Scenic.New do
 
   end
   """)
+
+  # --------------------------------------------------------
+  embed_template(:parrot, from_file: "/static/scenic_parrot.png")
 
   # ============================================================================
   # validity functions taken from Elixir new task

@@ -23,3 +23,6 @@ erl_crash.dump
 scenic_bootstrap-*.tar
 
 .DS_Store
+
+# ignore the archives directory. That is it's own repo
+archives/
