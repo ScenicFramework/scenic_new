@@ -194,7 +194,7 @@ defmodule Mix.Tasks.Scenic.New do
         # {:scenic_clock, ">= 0.0.0"},
 
         # the https versions
-        { :scenic, git: "https://github.com/boydm/scenic.git" },
+        { :scenic, git: "https://github.com/boydm/scenic.git", override: true },
         { :scenic_driver_glfw, git: "https://github.com/boydm/scenic_driver_glfw.git"},
         { :scenic_clock, git: "https://github.com/boydm/scenic_clock.git"},
         
