@@ -341,7 +341,7 @@ defmodule Mix.Tasks.Scenic.New do
 
   # --------------------------------------------------------
   embed_template(:nav, """
-  defmodule Temp.Component.Nav do
+  defmodule <%= @mod %>.Component.Nav do
     @moduledoc \"""
     Sample componentized nav bar.
     \"""
