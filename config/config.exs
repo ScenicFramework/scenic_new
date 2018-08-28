@@ -10,11 +10,11 @@ use Mix.Config
 
 # You can configure your application as:
 #
-#     config :scenic_bootstrap, key: :value
+#     config :scenic_new, key: :value
 #
 # and access this configuration in your application as:
 #
-#     Application.get_env(:scenic_bootstrap, :key)
+#     Application.get_env(:scenic_new, :key)
 #
 # You can also configure a 3rd-party app:
 #

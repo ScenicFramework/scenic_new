@@ -20,7 +20,7 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-scenic_bootstrap-*.tar
+scenic_new-*.tar
 
 .DS_Store
 

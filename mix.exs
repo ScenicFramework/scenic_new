@@ -36,8 +36,8 @@ defmodule ScenicNew.MixProject do
   defp build_releases(_) do
     Mix.Tasks.Compile.run([])
     Mix.Tasks.Archive.Build.run([])
-    Mix.Tasks.Archive.Build.run(["--output=scenic_bootstrap.ez"])
-    File.rename("scenic_bootstrap.ez", "./archives/scenic_new.ez")
-    File.rename("scenic_bootstrap-#{@version}.ez", "./archives/scenic_new-#{@version}.ez")
+    Mix.Tasks.Archive.Build.run(["--output=scenic_new.ez"])
+    File.rename("scenic_new.ez", "./archives/scenic_new.ez")
+    File.rename("scenic_new-#{@version}.ez", "./archives/scenic_new-#{@version}.ez")
   end
 end
