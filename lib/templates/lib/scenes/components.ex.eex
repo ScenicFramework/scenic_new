@@ -1,0 +1,101 @@
+defmodule <%= @mod %>.Scene.Components do
+  @moduledoc """
+  Sample scene.
+  """
+
+  use Scenic.Scene
+  alias <%= @mod %>.Component.Nav
+  alias Scenic.Graph
+  import Scenic.Primitives
+  import Scenic.Components
+
+  @graph Graph.build(font: :roboto, font_size: 24, theme: :dark)
+    |> text("Various components", translate: {15, 80})
+    |> text("Event received:", translate: {15, 110}, id: :event)
+    # this button will cause the scene to crash.
+    |> button({"Crash", :btn_crash}, t: {250, 20}, theme: :danger)
+    # sample components
+    |> group( fn(g) ->
+      g
+      # buttons as a group
+      |> group( fn(g) ->
+        g
+        |> button({"Primary", :btn_primary}, theme: :primary)
+        |> button({"Success", :btn_success}, t: {90, 0}, theme: :success)
+        |> button({"Info", :btn_info}, t: {180, 0}, theme: :info)
+        |> button({"Light", :btn_light}, t: {270, 0}, theme: :light)
+        |> button({"Warning", :btn_warning}, t: {360, 0}, theme: :warning)
+        |> button({"Dark", :btn_dark}, t: {0, 40}, theme: :dark)
+        |> button({"Text", :btn_text}, t: {90, 40}, theme: :text)
+        |> button({"Secondary", :btn_success, [width: 100]}, t: {180, 40},
+          theme: :secondary)
+      end, translate: {0, 10})
+      |> slider( {{0,100}, 0, :num_slider}, id: :num_slider, t: {0, 95})
+      |> radio_group({[
+          {"Dark Theme", :radio_dark},
+          {"Light Theme", :radio_light, false},
+          {"Default Theme", :radio_default, true},
+        ], :radio_group}, t: {0, 140} )
+      |> checkbox({"Check Box", :check_box, true}, t: {200, 140})
+      |> text_field( {"", :text, [w: 240, hint: "Type here..."]}, t: {200, 160}  )
+      |> text_field( {"", :password, [w: 240, hint: "Password", type: :password]},
+        t: {200, 200} )
+      |> dropdown({
+          [ {"Choice 1", :choice_1}, {"Choice 2", :choice_2}, {"Choice 3", :choice_3} ],
+          :choice_1, :dropdown
+        }, translate: {0, 202}
+      )
+    end, t: {15, 140})
+    # standard nav controls
+    |> Nav.add_to_graph(__MODULE__)
+
+  @event_str  "Event received: "
+
+  #============================================================================
+
+  def init( _, _styles, _viewport ) do
+    push_graph(@graph)
+    {:ok, @graph}
+  end
+
+  # force the scene to crash
+  def filter_event( {:click, :btn_crash}, _, graph ) do
+    :ok = :bad    # this will crash!!
+    {:stop, graph }
+  end
+
+  # change the overall theme for the window
+  # def filter_event( {:value_changed, :radio_group, :radio_dark} = event, _, graph ) do
+  #   graph = graph
+  #   |> Graph.modify(:_root_, &update_opts(&1, theme: :dark) )
+  #   |> Graph.modify(:event, &text(&1, @event_str <> inspect(event)) )
+  #   |> push_graph()
+  #   {:stop, graph }
+  # end
+
+  # # change the overall theme for the window
+  # def filter_event( {:value_changed, :radio_group, :radio_light} = event, _, graph ) do
+  #   graph = graph
+  #   |> Graph.modify(:_root_, &update_opts(&1, theme: :light) )
+  #   |> Graph.modify(:event, &text(&1, @event_str <> inspect(event)) )
+  #   |> push_graph()
+  #   {:stop, graph }
+  # end
+
+  # def filter_event( {:value_changed, :radio_group, _} = event, _, graph ) do
+  #   graph = graph
+  #   |> Graph.modify(:_root_, &update_opts(&1, theme: nil) )
+  #   |> Graph.modify(:event, &text(&1, @event_str <> inspect(event)) )
+  #   |> push_graph()
+  #   {:stop, graph }
+  # end
+
+  # display the received message
+  def filter_event( event, _, graph ) do
+    graph = graph
+    |> Graph.modify(:event, &text(&1, @event_str <> inspect(event)) )
+    |> push_graph()
+    {:continue, event, graph }
+  end
+
+end

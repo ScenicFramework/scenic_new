@@ -1,0 +1,78 @@
+defmodule <%= @mod %>.Scene.Splash do
+  @moduledoc """
+  Sample splash scene.
+
+  This scene demonstrate a very simple animation and transition to another scene.
+
+  It also shows how to load a static texture and paint it into a rectangle.
+  """
+
+  use Scenic.Scene
+  alias Scenic.Graph
+  alias Scenic.ViewPort
+  import Scenic.Primitives, only: [{:rect, 3}, {:update_opts, 2}]
+
+  @parrot       "/static/images/scenic_parrot.png.UfHCVlANI2cFbwSpJey64FxjT-0"
+  @parrot_hash  "UfHCVlANI2cFbwSpJey64FxjT-0"
+  @parrot_width 62
+  @parrot_height 114
+
+  @graph Graph.build()
+    |> rect(
+      {@parrot_width, @parrot_height}, id: :parrot,
+      fill: {:image, {@parrot_hash, 0}}
+    )
+
+  @animate_ms  30
+
+  # --------------------------------------------------------
+  def init( _, _styles, viewport ) do
+
+    # calculate the transform that centers the parrot in the viewport
+    {:ok, %ViewPort.Status{size: {vp_width, vp_height}}} = ViewPort.info(viewport)
+    move = {
+      (vp_width / 2) - (@parrot_width / 2),
+      (vp_height / 2) - (@parrot_height / 2)
+    }
+
+    # load the parrot texture into the cache
+    :code.priv_dir(:foo)
+    |> Path.join( @parrot )
+    |> Scenic.Cache.Texture.load()
+
+    # move the parrot into the right location
+    graph = Graph.modify(@graph, :parrot, &update_opts(&1, translate: move ))
+    |> push_graph()
+
+    # start a very simple animation timer
+    {:ok, timer} = :timer.send_interval(@animate_ms, :animate)
+
+    state = %{
+      viewport: viewport,
+      timer: timer,
+      graph: graph,
+      alpha: 0
+    }
+
+    push_graph(graph)
+
+    {:ok, state}
+  end
+
+  # --------------------------------------------------------
+  # A very simple animation. A timer runs, which increments a counter. The counter
+  # Is applied as an alpha channel to the parrot png.
+  # When it is fully saturated, transition to the first real scene
+  def handle_info( :animate, %{viewport: vp, alpha: a} = state ) when a >= 256 do
+    ViewPort.set_root( vp, {<%= @mod %>.Scene.Demo, nil} )
+    {:noreply, state}
+  end
+
+  def handle_info( :animate, %{alpha: alpha, graph: graph} = state ) do
+    graph = graph
+    |> Graph.modify( :parrot, &update_opts(&1, fill: {:image, {@parrot_hash, alpha}}))
+    |> push_graph()
+    {:noreply, %{state | graph: graph, alpha: alpha + 2}}
+  end
+
+end

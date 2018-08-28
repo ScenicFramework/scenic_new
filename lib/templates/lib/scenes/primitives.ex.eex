@@ -1,0 +1,20 @@
+defmodule <%= @mod %>.Scene.Primitives do
+  @moduledoc """
+  Sample scene.
+  """
+
+  use Scenic.Scene
+  alias <%= @mod %>.Component.Nav
+  alias Scenic.Graph
+  import Scenic.Primitives
+
+  @graph Graph.build(font: :roboto, font_size: 24)
+    |> text("Various primitives and styles", translate: {20, 120})
+    |> Nav.add_to_graph(__MODULE__)
+
+  def init( _, _styles, _viewport ) do
+    push_graph(@graph)
+    {:ok, @graph}
+  end
+
+end

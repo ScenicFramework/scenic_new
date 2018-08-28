@@ -1,11 +1,11 @@
-defmodule ScenicBootstrap.MixProject do
+defmodule ScenicNew.MixProject do
   use Mix.Project
 
   @version  "0.7.0"
 
   def project do
     [
-      app: :scenic_bootstrap,
+      app: :scenic_new,
       version: @version,
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,

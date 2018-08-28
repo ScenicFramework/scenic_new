@@ -1,0 +1,51 @@
+defmodule <%= @mod %>.Component.Nav do
+  @moduledoc """
+  Sample componentized nav bar.
+  """
+
+  use Scenic.Component
+  alias Scenic.Graph
+  alias Scenic.ViewPort
+
+  import Scenic.Primitives, only: [{:text, 3}]
+  import Scenic.Components, only: [{:dropdown, 3}]
+  import Scenic.Clock.Components
+
+  #--------------------------------------------------------
+  def verify( scene ) when is_atom(scene), do: {:ok, scene}
+  def verify( {scene,_} = data ) when is_atom(scene), do: {:ok, data}
+  def verify( _ ), do: :invalid_data
+
+  #--------------------------------------------------------
+  def init( current_scene, styles, viewport ) do
+
+    # get the viewport width to position the clock
+    {:ok, %ViewPort.Status{size: {width,_}}} = ViewPort.info(viewport)
+
+    graph = Graph.build(styles: styles, font_size: 20)
+    |> text("Scene:", translate: {14, 40}, align: :right)
+    |> dropdown({[
+        {"Demo", <%= @mod %>.Scene.Demo},
+        {"Primitives", <%= @mod %>.Scene.Primitives},
+        {"Components", <%= @mod %>.Scene.Components},
+      ], current_scene, :nav}, translate: {70, 20})
+    |> digital_clock( text_align: :right, translate: {width - 20, 40} )
+    |> push_graph()
+
+    {:ok, %{graph: graph, viewport: viewport}}
+  end
+
+  #--------------------------------------------------------
+  def filter_event( {:value_changed, :nav, scene}, _, %{viewport: vp} = state )
+  when is_atom(scene) do
+     Scenic.ViewPort.set_root( vp, {scene, nil} )
+    {:stop, state }
+  end
+
+  #--------------------------------------------------------
+  def filter_event( {:value_changed, :nav, scene}, _, %{viewport: vp} = state ) do
+     Scenic.ViewPort.set_root( vp, scene )
+    {:stop, state }
+  end
+
+end

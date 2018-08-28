@@ -368,8 +368,8 @@ defmodule Mix.Tasks.Scenic.New do
       graph = Graph.build(font_size: 20)
       |> text("Scene:", translate: {14, 40}, align: :right)
       |> dropdown({[
-          {"First Scene", Temp.Scene.First},
-          {"Second Scene", Temp.Scene.Second},
+          {"First Scene", <%= @mod %>.Scene.First},
+          {"Second Scene", <%= @mod %>.Scene.Second},
         ], current_scene, :nav}, translate: {70, 20})
       |> digital_clock( text_align: :right, translate: {width - 20, 40} )
       |> push_graph()
