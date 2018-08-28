@@ -17,8 +17,10 @@ defmodule Mix.Tasks.Scenic.New do
 
   @scenic_version Mix.Project.config()[:version]
   @parrot_bin File.read!("static/scenic_parrot.png")
+  @cyanoramphus_bin File.read!("static/cyanoramphus_zealandicus_1849.jpg")
 
-  @parrot_hash      "UfHCVlANI2cFbwSpJey64FxjT-0"
+  @parrot_hash "UfHCVlANI2cFbwSpJey64FxjT-0"
+  @cyanoramphus_hash "0DMsqJaAU2OyRdd9Hp3WWJoO3WE"
 
   # --------------------------------------------------------
   def run(argv) do
@@ -69,7 +71,9 @@ defmodule Mix.Tasks.Scenic.New do
     create_file("lib/#{app}.ex", app_template(assigns))
 
     create_directory("static")
+    create_file("static/images/attribution.txt", attribution_template(assigns))
     create_file("static/images/scenic_parrot.png.#{@parrot_hash}", @parrot_bin)
+    create_file("static/images/cyanoramphus_zealandicus_1849.jpg.#{@cyanoramphus_hash}", @cyanoramphus_bin)
 
     create_directory("lib/scenes")
     create_file("lib/scenes/components.ex", scene_components_template(assigns))
@@ -125,6 +129,8 @@ defmodule Mix.Tasks.Scenic.New do
   embed_template(:app, from_file: "templates/lib/app.ex.eex" )
 
   embed_template(:nav, from_file: "templates/lib/components/nav.ex.eex" )
+
+  embed_template(:attribution, from_file: "static/attribution.txt" )
 
   embed_template(:scene_components, from_file: "templates/lib/scenes/components.ex.eex" )
   embed_template(:scene_demo, from_file: "templates/lib/scenes/demo.ex.eex" )

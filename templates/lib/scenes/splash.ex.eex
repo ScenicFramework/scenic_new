@@ -12,8 +12,8 @@ defmodule <%= @mod %>.Scene.Splash do
   alias Scenic.ViewPort
   import Scenic.Primitives, only: [{:rect, 3}, {:update_opts, 2}]
 
-  @parrot       "/static/images/scenic_parrot.png.<%= @parrot_hash %>"
-  @parrot_hash  "<%= @parrot_hash %>"
+  @parrot       "/static/images/scenic_parrot.png.UfHCVlANI2cFbwSpJey64FxjT-0"
+  @parrot_hash  "UfHCVlANI2cFbwSpJey64FxjT-0"
   @parrot_width 62
   @parrot_height 114
 
@@ -64,7 +64,7 @@ defmodule <%= @mod %>.Scene.Splash do
   # Is applied as an alpha channel to the parrot png.
   # When it is fully saturated, transition to the first real scene
   def handle_info( :animate, %{viewport: vp, alpha: a} = state ) when a >= 256 do
-    ViewPort.set_root( vp, {<%= @mod %>.Scene.Demo, nil} )
+    go_to_first_scene( state )
     {:noreply, state}
   end
 
@@ -73,6 +73,24 @@ defmodule <%= @mod %>.Scene.Splash do
     |> Graph.modify( :parrot, &update_opts(&1, fill: {:image, {@parrot_hash, alpha}}))
     |> push_graph()
     {:noreply, %{state | graph: graph, alpha: alpha + 2}}
+  end
+
+  # --------------------------------------------------------
+  # short cut to go right to the new scene on user input
+  def handle_input( {:cursor_button, {_,:press,_,_}}, _context, %{viewport: vp} = state ) do
+    go_to_first_scene( state )
+    {:noreply, state}
+  end
+  def handle_input( {:key, _}, _context, %{viewport: vp} = state ) do
+    go_to_first_scene( state )
+    {:noreply, state}
+  end
+  def handle_input( _input, _context, state ), do: {:noreply, state}
+
+
+  # --------------------------------------------------------
+  defp go_to_first_scene( %{viewport: vp} ) do
+    ViewPort.set_root( vp, {<%= @mod %>.Scene.Demo, nil} )
   end
 
 end

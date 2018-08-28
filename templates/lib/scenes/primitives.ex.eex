@@ -10,10 +10,10 @@ defmodule <%= @mod %>.Scene.Primitives do
 
   import IEx
 
-  @parrot       "/static/images/scenic_parrot.png.UfHCVlANI2cFbwSpJey64FxjT-0"
-  @parrot_hash  "UfHCVlANI2cFbwSpJey64FxjT-0"
-  @parrot_width 62
-  @parrot_height 114
+  @bird       "/static/images/cyanoramphus_zealandicus_1849.jpg.0DMsqJaAU2OyRdd9Hp3WWJoO3WE"
+  @bird_hash  "0DMsqJaAU2OyRdd9Hp3WWJoO3WE"
+  @bird_width 100
+  @bird_height 128
 
   @line {{0,0}, {60,60}}
 
@@ -75,18 +75,21 @@ defmodule <%= @mod %>.Scene.Primitives do
       |> arc( {100, -0.1, -0.8}, stroke: {6, :orange}, translate: {320,70} )
     end, t: {15, 190})
 
-    # row
+    #bird
+    |> rect({@bird_width, @bird_height}, fill: {:image, @bird_hash}, t: {15, 280} )
+
+    # text
     |> group( fn(g) ->
       g
-      |> rect({@parrot_width, @parrot_height}, fill: {:image, @parrot_hash} )
-      |> text("Hello", translate: {80, 40})
-      |> text("World", translate: {170, 40}, fill: :yellow)
-      |> text("Blur", translate: {80, 80}, font_blur: 2)
+      |> text("Hello", translate: {0, 40})
+      |> text("World", translate: {90, 40}, fill: :yellow)
+      |> text("Blur", translate: {0, 80}, font_blur: 2)
 
-      |> text("Shadow", translate: {162, 82}, font_blur: 2, fill: :light_grey)
-      |> text("Shadow", translate: {160, 80})
-    end, font_size: 40, t: {15, 280})
+      |> text("Shadow", translate: {82, 82}, font_blur: 2, fill: :light_grey)
+      |> text("Shadow", translate: {80, 80})
+    end, font_size: 40, t: {130, 280})
 
+    # twisty path
     |> path([
         :begin,
         {:move_to, 0, 0},
@@ -95,7 +98,7 @@ defmodule <%= @mod %>.Scene.Primitives do
         {:bezier_to, 100, 20, 110, 0, 120, 0},
         {:bezier_to, 140, 0, 160, 30, 160, 50},
       ],
-      stroke: {2, :red}, t: {315, 300}
+      stroke: {2, :red}, t: {355, 280}, rotate: 0.5
     )
 
     |> Nav.add_to_graph(__MODULE__)
@@ -103,7 +106,7 @@ defmodule <%= @mod %>.Scene.Primitives do
   def init( _, _styles, _viewport ) do
     # load the parrot texture into the cache
     resp = :code.priv_dir(:<%= @app %>)
-    |> Path.join( @parrot )
+    |> Path.join( @bird )
     |> Scenic.Cache.Texture.load()
 
     push_graph(@graph)
