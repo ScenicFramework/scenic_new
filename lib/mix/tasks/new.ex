@@ -114,7 +114,6 @@ defmodule Mix.Tasks.Scenic.New do
   # ============================================================================
   # template files
 
-  # --------------------------------------------------------
   embed_template(:readme, from_file: "templates/README.md.eex" )
   embed_template(:formatter, from_file: "templates/formatter.exs" )
   embed_template(:gitignore, from_file: "templates/gitignore" )

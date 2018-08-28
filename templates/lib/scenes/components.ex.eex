@@ -27,7 +27,8 @@ defmodule <%= @mod %>.Scene.Components do
         |> button({"Warning", :btn_warning}, t: {360, 0}, theme: :warning)
         |> button({"Dark", :btn_dark}, t: {0, 40}, theme: :dark)
         |> button({"Text", :btn_text}, t: {90, 40}, theme: :text)
-        |> button({"Secondary", :btn_success, [width: 100]}, t: {180, 40},
+        |> button({"Danger", :btn_danger}, theme: :danger, t: {180, 40})
+        |> button({"Secondary", :btn_success, [width: 100]}, t: {270, 40},
           theme: :secondary)
       end, translate: {0, 10})
       |> slider( {{0,100}, 0, :num_slider}, id: :num_slider, t: {0, 95})
