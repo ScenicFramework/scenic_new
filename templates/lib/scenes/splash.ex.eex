@@ -12,8 +12,8 @@ defmodule <%= @mod %>.Scene.Splash do
   alias Scenic.ViewPort
   import Scenic.Primitives, only: [{:rect, 3}, {:update_opts, 2}]
 
-  @parrot       "/static/images/scenic_parrot.png.UfHCVlANI2cFbwSpJey64FxjT-0"
-  @parrot_hash  "UfHCVlANI2cFbwSpJey64FxjT-0"
+  @parrot       "/static/images/scenic_parrot.png.<%= @parrot_hash %>"
+  @parrot_hash  "<%= @parrot_hash %>"
   @parrot_width 62
   @parrot_height 114
 
@@ -36,7 +36,7 @@ defmodule <%= @mod %>.Scene.Splash do
     }
 
     # load the parrot texture into the cache
-    :code.priv_dir(:foo)
+    :code.priv_dir(:<%= @app %>)
     |> Path.join( @parrot )
     |> Scenic.Cache.Texture.load()
 

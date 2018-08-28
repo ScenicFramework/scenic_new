@@ -32,9 +32,9 @@ defmodule <%= @mod %>.Scene.Components do
       end, translate: {0, 10})
       |> slider( {{0,100}, 0, :num_slider}, id: :num_slider, t: {0, 95})
       |> radio_group({[
-          {"Dark Theme", :radio_dark},
-          {"Light Theme", :radio_light, false},
-          {"Default Theme", :radio_default, true},
+          {"Radio A", :radio_a},
+          {"Radio B", :radio_b, true},
+          {"Radio C", :radio_c, false},
         ], :radio_group}, t: {0, 140} )
       |> checkbox({"Check Box", :check_box, true}, t: {200, 140})
       |> text_field( {"", :text, [w: 240, hint: "Type here..."]}, t: {200, 160}  )

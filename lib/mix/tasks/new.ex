@@ -52,7 +52,8 @@ defmodule Mix.Tasks.Scenic.New do
       app: app,
       mod: mod,
       elixir_version: get_version(System.version()),
-      scenic_version: @scenic_version
+      scenic_version: @scenic_version,
+      parrot_hash: @parrot_hash
     ]
 
     create_file("README.md", readme_template(assigns))
@@ -65,14 +66,16 @@ defmodule Mix.Tasks.Scenic.New do
     create_file("config/config.exs", config_template(assigns))
 
     create_directory("lib")
-    create_file("lib/#{app}.ex", lib_template(assigns))
+    create_file("lib/#{app}.ex", app_template(assigns))
 
     create_directory("static")
     create_file("static/images/scenic_parrot.png.#{@parrot_hash}", @parrot_bin)
 
     create_directory("lib/scenes")
-    create_file("lib/scenes/first.ex", first_scene_template(assigns))
-    create_file("lib/scenes/second.ex", second_scene_template(assigns))
+    create_file("lib/scenes/components.ex", scene_components_template(assigns))
+    create_file("lib/scenes/demo.ex", scene_demo_template(assigns))
+    create_file("lib/scenes/primitives.ex", scene_primitives_template(assigns))
+    create_file("lib/scenes/splash.ex", scene_splash_template(assigns))
 
     create_directory("lib/components")
     create_file("lib/components/nav.ex", nav_template(assigns))
@@ -112,286 +115,23 @@ defmodule Mix.Tasks.Scenic.New do
   # template files
 
   # --------------------------------------------------------
-  embed_template(:readme, """
-  Readme text goes here
-  """)
+  embed_template(:readme, from_file: "templates/README.md.eex" )
+  embed_template(:formatter, from_file: "templates/formatter.exs" )
+  embed_template(:gitignore, from_file: "templates/gitignore" )
+  embed_template(:mix_exs, from_file: "templates/mix.exs.eex" )
+  embed_template(:makefile, from_file: "templates/Makefile" )
 
-  # --------------------------------------------------------
-  embed_template(:formatter, """
-  # Used by "mix format"
-  [
-    inputs: ["{mix,.formatter}.exs", "{config,lib,test}/**/*.{ex,exs}"]
-  ]
-  """)
+  embed_template(:config, from_file: "templates/config/config.exs.eex" )
 
-  # --------------------------------------------------------
-  embed_template(:gitignore, """
-  # The directory Mix will write compiled artifacts to.
-  /_build/
+  embed_template(:app, from_file: "templates/lib/app.ex.eex" )
 
-  # If you run "mix test --cover", coverage assets end up here.
-  /cover/
+  embed_template(:nav, from_file: "templates/lib/components/nav.ex.eex" )
 
-  # The directory Mix downloads your dependencies sources to.
-  /deps/
+  embed_template(:scene_components, from_file: "templates/lib/scenes/components.ex.eex" )
+  embed_template(:scene_demo, from_file: "templates/lib/scenes/demo.ex.eex" )
+  embed_template(:scene_primitives, from_file: "templates/lib/scenes/primitives.ex.eex" )
+  embed_template(:scene_splash, from_file: "templates/lib/scenes/splash.ex.eex" )
 
-  # Where 3rd-party dependencies like ExDoc output generated docs.
-  /doc/
-
-  # Ignore .fetch files in case you like to edit your project deps locally.
-  /.fetch
-
-  # If the VM crashes, it generates a dump, let's ignore it too.
-  erl_crash.dump
-
-  # Also ignore archive artifacts (built via "mix archive.build").
-  *.ez
-  <%= if @app do %>
-  # Ignore package tarball (built via "mix hex.build").
-  <%= @app %>-*.tar
-  <% end %>
-
-  # Ignore scripts marked as secret - usually passwords and such in config files
-  *.secret.exs
-  *.secrets.exs
-  """)
-
-  # --------------------------------------------------------
-  embed_template(:mix_exs, """
-  defmodule <%= @mod %>.MixProject do
-    use Mix.Project
-
-    def project do
-      [
-        app: :<%= @app %>,
-        version: "0.1.0",
-        elixir: "~> <%= @elixir_version %>",
-        start_permanent: Mix.env() == :prod,
-        compilers: [:elixir_make] ++ Mix.compilers,
-        make_env: %{"MIX_ENV" => to_string(Mix.env)},
-        make_clean: ["clean"],
-        deps: deps()
-      ]
-    end
-
-    # Run "mix help compile.app" to learn about applications.
-    def application do
-      [
-        mod: {<%= @mod %>, []},
-        extra_applications: []
-      ]
-    end
-
-    # Run "mix help deps" to learn about dependencies.
-    defp deps do
-      [
-        {:elixir_make, "~> 0.4"},
-        # {:scenic, "~> <%= @scenic_version %>"},
-        # {:scenic_driver_glfw, "~> <%= @scenic_version %>"},
-
-        # this clock is optional. It is. included as an example of a set
-        # of components wrapped up in their own Hex package
-        # {:scenic_clock, ">= 0.0.0"},
-
-        # the https versions
-        # { :scenic, git: "https://github.com/boydm/scenic.git", override: true },
-        # { :scenic_driver_glfw, git: "https://github.com/boydm/scenic_driver_glfw.git"},
-        # { :scenic_clock, git: "https://github.com/boydm/scenic_clock.git"},
-        
-        # the ssh versions
-        { :scenic, git: "git@github.com:boydm/scenic.git" },
-        { :scenic_driver_glfw, git: "git@github.com:boydm/scenic_driver_glfw.git"},
-        { :scenic_clock, git: "git@github.com:boydm/scenic_clock.git"},
-
-
-        # {:dep_from_hexpm, "~> 0.3.0"},
-        # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
-      ]
-    end
-  end
-  """)
-
-  # --------------------------------------------------------
-  embed_template(:makefile, """
-  .PHONY: all clean
-
-  all: priv static
-
-  priv:
-  \tmkdir -p priv
-
-  static: priv/
-  \tln -fs ../static priv/
-
-  clean:
-  \t$(RM) -r priv
-  """)
-
-  # --------------------------------------------------------
-  embed_template(:config, """
-  # This file is responsible for configuring your application
-  # and its dependencies with the aid of the Mix.Config module.
-  use Mix.Config
-
-
-  # Configure the main viewport for the Scenic application
-  config :<%= @app %>, :viewport, %{
-        name: :main_viewport,
-        size: {700, 600},
-        default_scene: {<%= @mod %>.Scene.First, nil},
-        drivers: [
-          %{
-            module: Scenic.Driver.Glfw,
-            name: :glfw,
-            opts: [resizeable: false, title: "<%= @app %>"],
-          }
-        ]
-      }
-
-
-  # It is also possible to import configuration files, relative to this
-  # directory. For example, you can emulate configuration per environment
-  # by uncommenting the line below and defining dev.exs, test.exs and such.
-  # Configuration from the imported file will override the ones defined
-  # here (which is why it is important to import them last).
-  #
-  #     import_config "#{Mix.env()}.exs"
-  """)
-
-  # --------------------------------------------------------
-  embed_template(:lib, """
-  defmodule <%= @mod %> do
-    @moduledoc \"""
-    Starter application using the Scenic framework.
-    \"""
-
-    def start(_type, _args) do
-      import Supervisor.Spec, warn: false
-
-      # load the viewport configuration from config
-      main_viewport_config = Application.get_env(:<%= @app %>, :viewport)
-
-      # start the application with the viewport
-      children = [
-        supervisor(Scenic, [viewports: [main_viewport_config]]),
-      ]
-      Supervisor.start_link(children, strategy: :one_for_one)
-    end
-
-  end
-  """)
-
-  # --------------------------------------------------------
-  embed_template(:first_scene, """
-  defmodule <%= @mod %>.Scene.First do
-    @moduledoc \"""
-    Sample scene.
-    \"""
-
-    use Scenic.Scene
-    alias <%= @mod %>.Component.Nav
-    alias Scenic.Graph
-    import Scenic.Primitives
-
-    @parrot       "/static/images/scenic_parrot.png.#{@parrot_hash}"
-    @parrot_hash  "#{@parrot_hash}"
-
-    @graph Graph.build()
-      |> text("First Scene", font: :roboto, font_size: 60, translate: {20, 120})
-      |> rect({100, 200}, fill: {:image, @parrot_hash}, translate: {20, 180})
-      |> Nav.add_to_graph(__MODULE__)
-
-    def init( _, _styles, _viewport ) do
-
-      # load the dog texture into the cache
-      :code.priv_dir(:<%= @app %>)
-      |> Path.join( @parrot )
-      |> Scenic.Cache.Texture.load()
-
-      push_graph(@graph)
-      {:ok, @graph}
-    end
-
-  end
-  """)
-
-  # --------------------------------------------------------
-  embed_template(:second_scene, """
-  defmodule <%= @mod %>.Scene.Second do
-    @moduledoc \"""
-    Sample scene.
-    \"""
-
-    use Scenic.Scene
-    alias <%= @mod %>.Component.Nav
-    alias Scenic.Graph
-    import Scenic.Primitives
-
-    @graph Graph.build()
-      |> text("Second Scene", font: :roboto, font_size: 60, translate: {20, 120})
-      |> Nav.add_to_graph(__MODULE__)
-
-    def init( _, _styles, _viewport ) do
-      push_graph(@graph)
-      {:ok, @graph}
-    end
-
-  end
-  """)
-
-  # --------------------------------------------------------
-  embed_template(:nav, """
-  defmodule <%= @mod %>.Component.Nav do
-    @moduledoc \"""
-    Sample componentized nav bar.
-    \"""
-
-    use Scenic.Component
-    alias Scenic.Graph
-    alias Scenic.ViewPort
-
-    import Scenic.Primitives, only: [{:text, 3}]
-    import Scenic.Components, only: [{:dropdown, 3}]
-    import Scenic.Clock.Components
-
-    #--------------------------------------------------------
-    def verify( scene ) when is_atom(scene), do: {:ok, scene}
-    def verify( {scene,_} = data ) when is_atom(scene), do: {:ok, data}
-    def verify( _ ), do: :invalid_data
-
-    #--------------------------------------------------------
-    def init( current_scene, _styles, viewport ) do
-
-      # get the viewport width to position the clock
-      {:ok, %ViewPort.Status{size: {width,_}}} = ViewPort.info(viewport)
-
-      graph = Graph.build(font_size: 20)
-      |> text("Scene:", translate: {14, 40}, align: :right)
-      |> dropdown({[
-          {"First Scene", <%= @mod %>.Scene.First},
-          {"Second Scene", <%= @mod %>.Scene.Second},
-        ], current_scene, :nav}, translate: {70, 20})
-      |> digital_clock( text_align: :right, translate: {width - 20, 40} )
-      |> push_graph()
-
-      {:ok, %{graph: graph, viewport: viewport}}
-    end
-
-    #--------------------------------------------------------
-    def filter_event( {:value_changed, :nav, scene}, _, %{viewport: vp} = state )
-    when is_atom(scene) do
-       Scenic.ViewPort.set_root( vp, {scene, nil} )
-      {:stop, state }
-    end
-
-    #--------------------------------------------------------
-    def filter_event( {:value_changed, :nav, scene}, _, %{viewport: vp} = state ) do
-       Scenic.ViewPort.set_root( vp, scene )
-      {:stop, state }
-    end
-
-  end
-  """)
 
 
   # ============================================================================
