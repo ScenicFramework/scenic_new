@@ -29,7 +29,8 @@ defmodule <%= @mod %>.Scene.Splash do
   @animate_ms  30
 
   # --------------------------------------------------------
-  def init( _, _styles, viewport ) do
+  def init( _, opts ) do
+    viewport = opts[:viewport]
 
     # calculate the transform that centers the parrot in the viewport
     {:ok, %ViewPort.Status{size: {vp_width, vp_height}}} = ViewPort.info(viewport)

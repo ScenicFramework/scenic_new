@@ -17,7 +17,9 @@ defmodule <%= @mod %>.Component.Nav do
   def verify( _ ), do: :invalid_data
 
   #--------------------------------------------------------
-  def init( current_scene, styles, viewport ) do
+  def init( current_scene, opts ) do
+    styles = opts[:styles]
+    viewport = opts[:viewport]
 
     # get the viewport width to position the clock
     {:ok, %ViewPort.Status{size: {width,_}}} = ViewPort.info(viewport)
@@ -28,7 +30,7 @@ defmodule <%= @mod %>.Component.Nav do
         {"Demo", <%= @mod %>.Scene.Demo},
         {"Primitives", <%= @mod %>.Scene.Primitives},
         {"Components", <%= @mod %>.Scene.Components},
-      ], current_scene, :nav}, translate: {70, 20})
+      ], current_scene}, id: :nav, translate: {70, 20})
     |> digital_clock( text_align: :right, translate: {width - 20, 40} )
     |> push_graph()
 

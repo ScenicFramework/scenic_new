@@ -13,38 +13,38 @@ defmodule <%= @mod %>.Scene.Components do
     |> text("Various components", translate: {15, 80})
     |> text("Event received:", translate: {15, 110}, id: :event)
     # this button will cause the scene to crash.
-    |> button({"Crash", :btn_crash}, t: {250, 20}, theme: :danger)
+    |> button("Crash", id: :btn_crash, t: {250, 20}, theme: :danger)
     # sample components
     |> group( fn(g) ->
       g
       # buttons as a group
       |> group( fn(g) ->
         g
-        |> button({"Primary", :btn_primary}, theme: :primary)
-        |> button({"Success", :btn_success}, t: {90, 0}, theme: :success)
-        |> button({"Info", :btn_info}, t: {180, 0}, theme: :info)
-        |> button({"Light", :btn_light}, t: {270, 0}, theme: :light)
-        |> button({"Warning", :btn_warning}, t: {360, 0}, theme: :warning)
-        |> button({"Dark", :btn_dark}, t: {0, 40}, theme: :dark)
-        |> button({"Text", :btn_text}, t: {90, 40}, theme: :text)
-        |> button({"Danger", :btn_danger}, theme: :danger, t: {180, 40})
-        |> button({"Secondary", :btn_success, [width: 100]}, t: {270, 40},
+        |> button("Primary", id: :btn_primary, theme: :primary)
+        |> button("Success", id: :btn_success, t: {90, 0}, theme: :success)
+        |> button("Info", id: :btn_info, t: {180, 0}, theme: :info)
+        |> button("Light", id: :btn_light, t: {270, 0}, theme: :light)
+        |> button("Warning", id: :btn_warning, t: {360, 0}, theme: :warning)
+        |> button("Dark", id: :btn_dark, t: {0, 40}, theme: :dark)
+        |> button("Text", id: :btn_text, t: {90, 40}, theme: :text)
+        |> button("Danger", id: :btn_danger, theme: :danger, t: {180, 40})
+        |> button("Secondary", id: :btn_success, width: 100, t: {270, 40},
           theme: :secondary)
       end, translate: {0, 10})
-      |> slider( {{0,100}, 0, :num_slider}, id: :num_slider, t: {0, 95})
-      |> radio_group({[
+      |> slider( {{0,100}, 0}, id: :num_slider, t: {0, 95})
+      |> radio_group([
           {"Radio A", :radio_a},
           {"Radio B", :radio_b, true},
           {"Radio C", :radio_c, false},
-        ], :radio_group}, t: {0, 140} )
-      |> checkbox({"Check Box", :check_box, true}, t: {200, 140})
-      |> text_field( {"", :text, [w: 240, hint: "Type here..."]}, t: {200, 160}  )
-      |> text_field( {"", :password, [w: 240, hint: "Password", type: :password]},
+        ], id: :radio_group, t: {0, 140} )
+      |> checkbox({"Check Box", true}, id: :check_box, t: {200, 140})
+      |> text_field( "", id: :text, width: 240, hint: "Type here...", t: {200, 160}  )
+      |> text_field( "", id: :password, width: 240, hint: "Password", type: :password,
         t: {200, 200} )
       |> dropdown({
           [ {"Choice 1", :choice_1}, {"Choice 2", :choice_2}, {"Choice 3", :choice_3} ],
-          :choice_1, :dropdown
-        }, translate: {0, 202}
+          :choice_1
+        }, id: :dropdown, translate: {0, 202}
       )
     end, t: {15, 140})
     # standard nav controls
@@ -54,7 +54,7 @@ defmodule <%= @mod %>.Scene.Components do
 
   #============================================================================
 
-  def init( _, _styles, _viewport ) do
+  def init( _, _opts ) do
     push_graph(@graph)
     {:ok, @graph}
   end

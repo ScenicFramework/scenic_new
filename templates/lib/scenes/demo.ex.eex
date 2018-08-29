@@ -12,7 +12,7 @@ defmodule <%= @mod %>.Scene.Demo do
     |> text("First Scene", font: :roboto, font_size: 60, translate: {20, 120})
     |> Nav.add_to_graph(__MODULE__)
 
-  def init( _, _styles, _viewport ) do
+  def init( _, _opts ) do
     push_graph(@graph)
     {:ok, @graph}
   end
