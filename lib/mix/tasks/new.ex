@@ -19,9 +19,6 @@ defmodule Mix.Tasks.Scenic.New do
   @parrot_bin File.read!("static/scenic_parrot.png")
   @cyanoramphus_bin File.read!("static/cyanoramphus_zealandicus_1849.jpg")
 
-  @parrot_hash "UfHCVlANI2cFbwSpJey64FxjT-0"
-  @cyanoramphus_hash "0DMsqJaAU2OyRdd9Hp3WWJoO3WE"
-
   # --------------------------------------------------------
   def run(argv) do
     {opts, argv} = OptionParser.parse!(argv, strict: @switches)
@@ -54,8 +51,7 @@ defmodule Mix.Tasks.Scenic.New do
       app: app,
       mod: mod,
       elixir_version: get_version(System.version()),
-      scenic_version: @scenic_version,
-      parrot_hash: @parrot_hash
+      scenic_version: @scenic_version
     ]
 
     create_file("README.md", readme_template(assigns))
@@ -72,8 +68,8 @@ defmodule Mix.Tasks.Scenic.New do
 
     create_directory("static")
     create_file("static/images/attribution.txt", attribution_template(assigns))
-    create_file("static/images/scenic_parrot.png.#{@parrot_hash}", @parrot_bin)
-    create_file("static/images/cyanoramphus_zealandicus_1849.jpg.#{@cyanoramphus_hash}", @cyanoramphus_bin)
+    create_file("static/images/scenic_parrot.png", @parrot_bin)
+    create_file("static/images/cyanoramphus_zealandicus_1849.jpg", @cyanoramphus_bin)
 
     create_directory("lib/scenes")
     create_file("lib/scenes/components.ex", scene_components_template(assigns))

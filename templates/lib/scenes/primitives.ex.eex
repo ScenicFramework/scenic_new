@@ -8,10 +8,10 @@ defmodule <%= @mod %>.Scene.Primitives do
   alias Scenic.Graph
   import Scenic.Primitives
 
-  import IEx
-
-  @bird       "/static/images/cyanoramphus_zealandicus_1849.jpg.0DMsqJaAU2OyRdd9Hp3WWJoO3WE"
   @bird_hash  "0DMsqJaAU2OyRdd9Hp3WWJoO3WE"
+  @bird_path  :code.priv_dir(:<%= @app %>)
+              |> Path.join( "/static/images/cyanoramphus_zealandicus_1849.jpg" )
+
   @bird_width 100
   @bird_height 128
 
@@ -105,9 +105,7 @@ defmodule <%= @mod %>.Scene.Primitives do
 
   def init( _, _styles, _viewport ) do
     # load the parrot texture into the cache
-    resp = :code.priv_dir(:<%= @app %>)
-    |> Path.join( @bird )
-    |> Scenic.Cache.Texture.load()
+    Scenic.Cache.File.load(@bird_path, @bird_hash)
 
     push_graph(@graph)
 

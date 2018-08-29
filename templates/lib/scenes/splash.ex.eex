@@ -12,8 +12,11 @@ defmodule <%= @mod %>.Scene.Splash do
   alias Scenic.ViewPort
   import Scenic.Primitives, only: [{:rect, 3}, {:update_opts, 2}]
 
-  @parrot       "/static/images/scenic_parrot.png.UfHCVlANI2cFbwSpJey64FxjT-0"
+
   @parrot_hash  "UfHCVlANI2cFbwSpJey64FxjT-0"
+  @parrot_path  :code.priv_dir(:<%= @app %>)
+              |> Path.join( "/static/images/scenic_parrot.png" )
+
   @parrot_width 62
   @parrot_height 114
 
@@ -36,12 +39,10 @@ defmodule <%= @mod %>.Scene.Splash do
     }
 
     # load the parrot texture into the cache
-    :code.priv_dir(:<%= @app %>)
-    |> Path.join( @parrot )
-    |> Scenic.Cache.Texture.load()
+    Scenic.Cache.File.load( @parrot_path, @parrot_hash )
 
     # move the parrot into the right location
-    graph = Graph.modify(@graph, :parrot, &update_opts(&1, translate: move ))
+    graph = Graph.modify( @graph, :parrot, &update_opts(&1, translate: move) )
     |> push_graph()
 
     # start a very simple animation timer
