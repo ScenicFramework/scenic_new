@@ -27,6 +27,7 @@ defmodule <%= @mod %>.Scene.Splash do
     )
 
   @animate_ms  30
+  @finish_delay_ms 1000
 
   # --------------------------------------------------------
   def init( _, opts ) do
@@ -65,9 +66,17 @@ defmodule <%= @mod %>.Scene.Splash do
   # A very simple animation. A timer runs, which increments a counter. The counter
   # Is applied as an alpha channel to the parrot png.
   # When it is fully saturated, transition to the first real scene
-  def handle_info( :animate, %{viewport: vp, alpha: a} = state ) when a >= 256 do
-    go_to_first_scene( state )
+  def handle_info( :animate,
+    %{viewport: vp, timer: timer, alpha: a} = state
+  ) when a >= 256 do
+    :timer.cancel(timer)
+    Process.send_after(self(), :finish, @finish_delay_ms)
     {:noreply, state}
+  end
+
+  def handle_info( :finish, %{viewport: vp} = state ) do
+    go_to_first_scene( state )
+    {:noreply, state }
   end
 
   def handle_info( :animate, %{alpha: alpha, graph: graph} = state ) do
