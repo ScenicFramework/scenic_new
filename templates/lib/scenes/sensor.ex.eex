@@ -43,12 +43,15 @@ defmodule <%= @mod %>.Scene.Sensor do
       )
       |> group( fn(g) ->
         g
-        |> button( "Calibrate", width: col * 4, height: 46, theme: :primary,
-          button_font_size: 24 )
-        |> button( "Maintenance", width: col * 2 - 6, height: 46, theme: :secondary,
-          translate: {0, 60} )
-        |> button( "Settings", width: col * 2 - 6, height: 46, theme: :secondary,
-          translate: {col * 2 + 6, 60}, button_font_size: 24 )
+        |> button( "Calibrate", width: col * 4, height: 46, theme: :primary )
+        |> button(
+          "Maintenance", width: col * 2 - 6, height: 46,
+          theme: :secondary, translate: {0, 60}
+        )
+        |> button(
+          "Settings", width: col * 2 - 6, height: 46,
+          theme: :secondary, translate: {col * 2 + 6, 60}
+        )
       end, translate: {col, @font_size + 60}, button_font_size: 24)
 
     end, translate: {0, @body_offset} )
