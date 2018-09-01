@@ -4,104 +4,99 @@ defmodule <%= @mod %>.Scene.Primitives do
   """
 
   use Scenic.Scene
-  alias <%= @mod %>.Component.Nav
   alias Scenic.Graph
   import Scenic.Primitives
 
+  alias <%= @mod %>.Component.Nav
+  alias <%= @mod %>.Component.Notes
+
   @bird_hash  "0DMsqJaAU2OyRdd9Hp3WWJoO3WE"
-  @bird_path  :code.priv_dir(:<%= @app %>)
+  @bird_path  :code.priv_dir(:zz)
               |> Path.join( "/static/images/cyanoramphus_zealandicus_1849.jpg" )
 
   @bird_width 100
   @bird_height 128
 
+  @body_offset      80
+
   @line {{0,0}, {60,60}}
 
-  # @t  1
-  # @s0  (1 + :math.sin(@t * 1.2345+:math.cos(@t*0.33457)*0.44)) * 0.5,
-  # @s1  (1 + :math.sin(@t * 0.68363+:math.cos(@t*1.3)*1.55)) * 0.5,
-  # @s2  (1 + :math.sin(@t * 1.1642+:math.cos(@t*0.33457)*1.24)) * 0.5,
-  # @s3  (1 + :math.sin(@t * 0.56345+:math.cos(@t*1.63)*0.14)) * 0.5,
-  # @s4  (1 + :math.sin(@t * 1.6245+:math.cos(@t*0.254)*0.3)) * 0.5,
-  # @s5  (1 + :math.sin(@t * 0.345+:math.cos(@t*0.03)*0.6)) * 0.5
+  @notes  """
+    \"Primitives\" shows the various primitives available in Scenic.
+    It also shows a sampling of the styles you can apply to them.
+  """
+
 
   @graph Graph.build(font: :roboto, font_size: 24)
-    |> text("Various primitives and styles", translate: {15, 80})
-
-    # lines
     |> group( fn(g) ->
       g
-      |> line( @line, stroke: {4, :red} )
-      |> line( @line, stroke: {20, :green}, cap: :butt, t: {60, 0} )
-      |> line( @line, stroke: {20, :yellow}, cap: :round, t: {120, 0} )
-      # |> line( @line, stroke: {20, :blue}, cap: :square, t: {180, 0} )
+      |> text("Various primitives and styles", translate: {15, 20})
 
-      |> line( @line,
-        stroke: {20, {:linear, {0,0,60,70,:yellow,:purple}}},
-        cap: :butt, translate: {0,80}
+      # lines
+      |> group( fn(g) ->
+        g
+        |> line( @line, stroke: {4, :red} )
+        |> line( @line, stroke: {20, :green}, cap: :butt, t: {60, 0} )
+        |> line( @line, stroke: {20, :yellow}, cap: :round, t: {120, 0} )
+      end, t: {290, 50} )
+
+      # row
+      |> group( fn(g) ->
+        g
+        |> triangle( {{0, 60}, {50, 0}, {50, 60}}, fill: :khaki, stroke: {4, :green})
+        |> circle( 30, fill: :green, stroke: {6, :yellow}, t: {110, 30})
+        |> ellipse( {30, 40}, rotate: 0.5, fill: :green, stroke: {4, :gray}, t: {200, 30})
+      end, t: {15, 50})
+
+      # row
+      |> group( fn(g) ->
+        g
+        |> rect( {50,60}, fill: :khaki, stroke: {4, :green})
+        |> rrect( {50,60, 6}, fill: :green, stroke: {6, :yellow}, t: {85, 0})
+        |> quad({{0,100},{160,0},{300,110},{200,260}}, id: :quad,
+          fill: {:linear, {0,0,400,400,:yellow,:purple}}, stroke: {10, :khaki}, 
+          translate: {160,0}, scale: 0.3, pin: {0,0}
+        )
+        |> sector( {100, -0.3, -0.8},
+          stroke: {3, :grey},
+          fill: {:radial, {0,0, 20,160, {:yellow, 128}, {:purple, 128} }},
+          translate: {270,70}
+        )
+        |> arc( {100, -0.1, -0.8}, stroke: {6, :orange}, translate: {320,70} )
+      end, t: {15, 130})
+
+      #bird
+      |> rect({@bird_width, @bird_height}, fill: {:image, @bird_hash}, t: {15, 230} )
+
+      # text
+      |> group( fn(g) ->
+        g
+        |> text("Hello", translate: {0, 40})
+        |> text("World", translate: {90, 40}, fill: :yellow)
+        |> text("Blur", translate: {0, 80}, font_blur: 2)
+
+        |> text("Shadow", translate: {82, 82}, font_blur: 2, fill: :light_grey)
+        |> text("Shadow", translate: {80, 80})
+      end, font_size: 40, t: {130, 240})
+
+      # twisty path
+      |> path([
+          :begin,
+          {:move_to, 0, 0},
+          {:bezier_to, 0, 20, 0, 50, 40, 50},
+          {:bezier_to, 60, 50, 60, 20, 80, 20},
+          {:bezier_to, 100, 20, 110, 0, 120, 0},
+          {:bezier_to, 140, 0, 160, 30, 160, 50},
+        ],
+        stroke: {2, :red}, translate: {355, 230}, rotate: 0.5
       )
-      |> line( @line,
-        stroke: {20, {:box, {0,0,60,70, 20, 20, :yellow, :purple }}},
-        cap: :round, translate: {60, 80}
-      )
-      |> line( @line,
-        stroke: {20, {:radial, {30,35, 10,30, :yellow, :purple }}},
-        cap: :square, translate: {120,80}
-      )
-    end, t: {300, 20} )
 
-    # row
-    |> group( fn(g) ->
-      g
-      |> triangle( {{0, 60}, {50, 0}, {50, 60}}, fill: :khaki, stroke: {4, :green})
-      |> circle( 30, fill: :green, stroke: {6, :yellow}, t: {110, 30})
-      |> ellipse( {30, 40}, rotate: 0.5, fill: :green, stroke: {4, :gray}, t: {200, 30})
-    end, t: {15, 110})
+    end, translate: {15, @body_offset})
 
-    # row
-    |> group( fn(g) ->
-      g
-      |> rect( {50,60}, fill: :khaki, stroke: {4, :green})
-      |> rrect( {50,60, 6}, fill: :green, stroke: {6, :yellow}, t: {85, 0})
-      |> quad({{0,100},{160,0},{300,110},{200,260}}, id: :quad,
-        fill: {:linear, {0,0,400,400,:yellow,:purple}}, stroke: {10, :khaki}, 
-        translate: {160,0}, scale: 0.3, pin: {0,0}
-      )
-      |> sector( {100, -0.3, -0.8},
-        stroke: {3, :grey},
-        fill: {:radial, {0,0, 20,160, {:yellow, 128}, {:purple, 128} }},
-        translate: {270,70}
-      )
-      |> arc( {100, -0.1, -0.8}, stroke: {6, :orange}, translate: {320,70} )
-    end, t: {15, 190})
 
-    #bird
-    |> rect({@bird_width, @bird_height}, fill: {:image, @bird_hash}, t: {15, 280} )
-
-    # text
-    |> group( fn(g) ->
-      g
-      |> text("Hello", translate: {0, 40})
-      |> text("World", translate: {90, 40}, fill: :yellow)
-      |> text("Blur", translate: {0, 80}, font_blur: 2)
-
-      |> text("Shadow", translate: {82, 82}, font_blur: 2, fill: :light_grey)
-      |> text("Shadow", translate: {80, 80})
-    end, font_size: 40, t: {130, 280})
-
-    # twisty path
-    |> path([
-        :begin,
-        {:move_to, 0, 0},
-        {:bezier_to, 0, 20, 0, 50, 40, 50},
-        {:bezier_to, 60, 50, 60, 20, 80, 20},
-        {:bezier_to, 100, 20, 110, 0, 120, 0},
-        {:bezier_to, 140, 0, 160, 30, 160, 50},
-      ],
-      stroke: {2, :red}, t: {355, 280}, rotate: 0.5
-    )
-
-    |> Nav.add_to_graph(__MODULE__)
+    # Nav and Notes are added last so that they draw on top
+    |> Nav.add_to_graph( __MODULE__ )
+    |> Notes.add_to_graph( @notes )
 
   def init( _, _opts ) do
     # load the parrot texture into the cache

@@ -30,7 +30,7 @@ defmodule <%= @mod %>.Scene.Splash do
   @finish_delay_ms 1000
 
   # --------------------------------------------------------
-  def init( _, opts ) do
+  def init( first_scene, opts ) do
     viewport = opts[:viewport]
 
     # calculate the transform that centers the parrot in the viewport
@@ -54,6 +54,7 @@ defmodule <%= @mod %>.Scene.Splash do
       viewport: viewport,
       timer: timer,
       graph: graph,
+      first_scene: first_scene,
       alpha: 0
     }
 
@@ -67,14 +68,14 @@ defmodule <%= @mod %>.Scene.Splash do
   # Is applied as an alpha channel to the parrot png.
   # When it is fully saturated, transition to the first real scene
   def handle_info( :animate,
-    %{viewport: vp, timer: timer, alpha: a} = state
+    %{timer: timer, alpha: a} = state
   ) when a >= 256 do
     :timer.cancel(timer)
     Process.send_after(self(), :finish, @finish_delay_ms)
     {:noreply, state}
   end
 
-  def handle_info( :finish, %{viewport: vp} = state ) do
+  def handle_info( :finish, state ) do
     go_to_first_scene( state )
     {:noreply, state }
   end
@@ -88,11 +89,11 @@ defmodule <%= @mod %>.Scene.Splash do
 
   # --------------------------------------------------------
   # short cut to go right to the new scene on user input
-  def handle_input( {:cursor_button, {_,:press,_,_}}, _context, %{viewport: vp} = state ) do
+  def handle_input( {:cursor_button, {_,:press,_,_}}, _context, state ) do
     go_to_first_scene( state )
     {:noreply, state}
   end
-  def handle_input( {:key, _}, _context, %{viewport: vp} = state ) do
+  def handle_input( {:key, _}, _context, state ) do
     go_to_first_scene( state )
     {:noreply, state}
   end
@@ -100,8 +101,8 @@ defmodule <%= @mod %>.Scene.Splash do
 
 
   # --------------------------------------------------------
-  defp go_to_first_scene( %{viewport: vp} ) do
-    ViewPort.set_root( vp, {<%= @mod %>.Scene.Demo, nil} )
+  defp go_to_first_scene( %{viewport: vp, first_scene: first_scene} ) do
+    ViewPort.set_root( vp, {first_scene, nil} )
   end
 
 end

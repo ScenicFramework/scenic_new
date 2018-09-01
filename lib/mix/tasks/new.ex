@@ -73,12 +73,18 @@ defmodule Mix.Tasks.Scenic.New do
 
     create_directory("lib/scenes")
     create_file("lib/scenes/components.ex", scene_components_template(assigns))
-    create_file("lib/scenes/demo.ex", scene_demo_template(assigns))
+    create_file("lib/scenes/sensor.ex", scene_sensor_template(assigns))
     create_file("lib/scenes/primitives.ex", scene_primitives_template(assigns))
     create_file("lib/scenes/splash.ex", scene_splash_template(assigns))
 
     create_directory("lib/components")
     create_file("lib/components/nav.ex", nav_template(assigns))
+    create_file("lib/components/notes.ex", notes_template(assigns))
+
+    create_directory("lib/sensors")
+    create_file("lib/sensors/supervisor.ex", sensor_sup_template(assigns))
+    create_file("lib/sensors/temperature.ex", sensor_temp_template(assigns))
+
 
     # create_directory("test")
     # create_file("test/test_helper.exs", test_helper_template(assigns))
@@ -125,14 +131,17 @@ defmodule Mix.Tasks.Scenic.New do
   embed_template(:app, from_file: "templates/lib/app.ex.eex" )
 
   embed_template(:nav, from_file: "templates/lib/components/nav.ex.eex" )
+  embed_template(:notes, from_file: "templates/lib/components/notes.ex.eex" )
 
   embed_template(:attribution, from_file: "static/attribution.txt" )
 
   embed_template(:scene_components, from_file: "templates/lib/scenes/components.ex.eex" )
-  embed_template(:scene_demo, from_file: "templates/lib/scenes/demo.ex.eex" )
+  embed_template(:scene_sensor, from_file: "templates/lib/scenes/sensor.ex.eex" )
   embed_template(:scene_primitives, from_file: "templates/lib/scenes/primitives.ex.eex" )
   embed_template(:scene_splash, from_file: "templates/lib/scenes/splash.ex.eex" )
 
+  embed_template(:sensor_sup, from_file: "templates/lib/sensors/supervisor.ex.eex" )
+  embed_template(:sensor_temp, from_file: "templates/lib/sensors/temperature.ex.eex" )
 
 
   # ============================================================================
