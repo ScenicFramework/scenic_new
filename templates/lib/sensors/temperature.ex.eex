@@ -4,7 +4,7 @@
 defmodule <%= @mod %>.Sensor.Temperature do
   use GenServer
 
-  alias Scenic.SensorPubSub
+  alias Scenic.Sensor
 
   @name   :temperature
   @version      "0.1.0"
@@ -26,10 +26,10 @@ defmodule <%= @mod %>.Sensor.Temperature do
   def init( _ ) do
 
     # register this sensor
-    SensorPubSub.register( :temperature, @version, @description )
+    Sensor.register( :temperature, @version, @description )
 
     # put the first sensor value - in kelvin
-    SensorPubSub.publish( :temperature, @initial_temp )
+    Sensor.publish( :temperature, @initial_temp )
 
     # start the timer so that it simulates a changing temperature
     {:ok, timer} = :timer.send_interval(@timer_ms, :tick)
@@ -41,7 +41,7 @@ defmodule <%= @mod %>.Sensor.Temperature do
   # in a real sensor you would use a timer like this to read from a real device.
   # this one just fakes it with a sine wave
   def handle_info( :tick, %{t: t} = state ) do
-    SensorPubSub.publish(
+    Sensor.publish(
       :temperature,
       @initial_temp + @amplitude * :math.sin(@tau * @frequency * t )
     )

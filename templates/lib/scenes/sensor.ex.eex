@@ -3,7 +3,7 @@ defmodule <%= @mod %>.Scene.Sensor do
 
   alias Scenic.Graph
   alias Scenic.ViewPort
-  alias Scenic.SensorPubSub
+  alias Scenic.Sensor
 
   import Scenic.Primitives
   import Scenic.Components
@@ -17,7 +17,7 @@ defmodule <%= @mod %>.Scene.Sensor do
 
   @notes  """
     \"Sensor\" is a simple scene that displays data from a simulated sensor.
-    The sensor is in /lib/sensors/temperature and uses Scenic.SensorPubSub
+    The sensor is in /lib/sensors/temperature and uses Scenic.Sensor
     The buttons are placeholders showing custom alignment.
   """
 
@@ -60,7 +60,7 @@ defmodule <%= @mod %>.Scene.Sensor do
     |> push_graph()
 
     # subscribe to the simulated temperature sensor
-    SensorPubSub.subscribe( :temperature )
+    Sensor.subscribe( :temperature )
 
     {:ok, graph}
   end

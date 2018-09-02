@@ -12,7 +12,7 @@ defmodule <%= @mod %>.Sensor.Supervisor do
 
   def init(:ok) do
     children = [
-      {Scenic.SensorPubSub, nil},
+      {Scenic.Sensor, nil},
       {Temperature, nil}
     ]
 
