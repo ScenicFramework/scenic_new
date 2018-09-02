@@ -17,7 +17,7 @@ defmodule <%= @mod %>.Scene.Components do
   @notes  """
     \"Components\" shows the basic components available in Scenic.
     Messages sent by the component are displayed live.
-    The crash button crashes, causing the scene to restart.
+    The crash button raises an error, demonstrating how recovery works.
   """
 
   @graph Graph.build(font: :roboto, font_size: 24, theme: :dark)
@@ -62,7 +62,7 @@ defmodule <%= @mod %>.Scene.Components do
         )
       end, t: {15, 74})
 
-    end, translate: {0, @body_offset + 10})
+    end, translate: {0, @body_offset + 20})
 
     # Nav and Notes are added last so that they draw on top
     |> Nav.add_to_graph( __MODULE__ )
@@ -79,7 +79,7 @@ defmodule <%= @mod %>.Scene.Components do
 
   # force the scene to crash
   def filter_event( {:click, :btn_crash}, _, graph ) do
-    :ok = :bad    # this will crash!!
+    raise "The crash button was pressed. Crashing now..."
     {:stop, graph }
   end
 
