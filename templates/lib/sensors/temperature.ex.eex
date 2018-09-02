@@ -12,7 +12,7 @@ defmodule <%= @mod %>.Sensor.Temperature do
 
   @timer_ms     400
   @initial_temp 295.372
-  @amplitude    2
+  @amplitude    1.5
   @frequency    0.001
   @tau          :math.pi() * 2
  

@@ -11,10 +11,8 @@ defmodule <%= @mod %>.Scene.Sensor do
   alias <%= @mod %>.Component.Nav
   alias <%= @mod %>.Component.Notes
 
-#  import IEx
-
   @body_offset      80
-  @font_size        180
+  @font_size        160
   @degrees          "°"
 
   @notes  """
@@ -71,15 +69,13 @@ defmodule <%= @mod %>.Scene.Sensor do
   # receive updates from the simulated temperature sensor
   def handle_info( {:sensor, :data, {:temperature, kelvin, _}}, graph ) do
 
-    farenheit = (9/5) * (kelvin - 273) + 32
-    |> :erlang.float_to_binary(decimals: 0)
-
-    # celcius = kelvin - 273
-    # |> Float.to_string(decimals: 1)
+    temperature = (9/5) * (kelvin - 273) + 32        # fahrenheit
+    # temperature = kelvin - 273                      # celcius
+    |> :erlang.float_to_binary(decimals: 1)
 
     graph
     # center the temperature on the viewport
-    |> Graph.modify( :temperature, &text(&1, farenheit <> @degrees) )
+    |> Graph.modify( :temperature, &text(&1, temperature <> @degrees) )
     |> push_graph()
 
     {:noreply, graph}
