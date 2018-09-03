@@ -42,7 +42,7 @@ defmodule <%= @mod %>.Scene.Components do
           |> button("Dark", id: :btn_dark, t: {0, 40}, theme: :dark)
           |> button("Text", id: :btn_text, t: {90, 40}, theme: :text)
           |> button("Danger", id: :btn_danger, theme: :danger, t: {180, 40})
-          |> button("Secondary", id: :btn_success, width: 100, t: {270, 40},
+          |> button("Secondary", id: :btn_secondary, width: 100, t: {270, 40},
             theme: :secondary)
         end, translate: {0, 10})
         |> slider( {{0,100}, 0}, id: :num_slider, t: {0, 95})
