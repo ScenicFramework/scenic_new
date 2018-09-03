@@ -9,11 +9,6 @@ defmodule <%= @mod %>.Scene.Transforms do
   alias <%= @mod %>.Component.Notes
 
   @notes  """
-    Sensor Notes
-    \"Sensor\" is a simple scene that displays data from a simulated sensor.
-    The buttons are placeholders showing custom alignment.
-  """
-  @notes  """
     \"Transforms\" demonstrates using transforms to position, rotate and scale.
     The upper sliders apply transforms to the group containing the inset UI.
     The lower slider rotates the quad independantly of the upper sliders.
@@ -32,15 +27,15 @@ defmodule <%= @mod %>.Scene.Transforms do
       |> text("Y", translate: {0, 20})
       |> text("Scale", translate: {0, 40})
       |> text("Angle", translate: {0, 60})
-    end, translate: {70, 20}, text_align: :right)
+    end, translate: {60, 20}, text_align: :right)
     |> group( fn(g) ->
       g
       |> slider({{00,500},@start_x}, id: :pos_x)
-      |> slider({{200,500},@start_y}, id: :pos_y, translate: {0,20})
+      |> slider({{180,400},@start_y}, id: :pos_y, translate: {0,20})
       |> slider({{0.2,3.0},@start_scale}, id: :scale, translate: {0,40})
       |> slider({{-1.5708,1.5708},0}, id: :rotate_ui, translate: {0,60})
-    end, translate: {80, 6})
-  end, translate: {0, 80})
+    end, translate: {70, 6})
+  end, translate: {0, 70})
   |> group( fn(g) ->
     g
     |> text( "Inner UI group", translate: {0, 30})
