@@ -75,6 +75,7 @@ defmodule Mix.Tasks.Scenic.New do
     create_file("lib/scenes/components.ex", scene_components_template(assigns))
     create_file("lib/scenes/sensor.ex", scene_sensor_template(assigns))
     create_file("lib/scenes/primitives.ex", scene_primitives_template(assigns))
+    create_file("lib/scenes/transforms.ex", scene_transforms_template(assigns))
     create_file("lib/scenes/splash.ex", scene_splash_template(assigns))
 
     create_directory("lib/components")
@@ -138,6 +139,7 @@ defmodule Mix.Tasks.Scenic.New do
   embed_template(:scene_components, from_file: "templates/lib/scenes/components.ex.eex" )
   embed_template(:scene_sensor, from_file: "templates/lib/scenes/sensor.ex.eex" )
   embed_template(:scene_primitives, from_file: "templates/lib/scenes/primitives.ex.eex" )
+  embed_template(:scene_transforms, from_file: "templates/lib/scenes/transforms.ex.eex" )
   embed_template(:scene_splash, from_file: "templates/lib/scenes/splash.ex.eex" )
 
   embed_template(:sensor_sup, from_file: "templates/lib/sensors/supervisor.ex.eex" )

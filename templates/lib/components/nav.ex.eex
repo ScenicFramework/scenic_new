@@ -34,6 +34,7 @@ defmodule <%= @mod %>.Component.Nav do
         {"Sensor", <%= @mod %>.Scene.Sensor},
         {"Primitives", <%= @mod %>.Scene.Primitives},
         {"Components", <%= @mod %>.Scene.Components},
+        {"Transforms", <%= @mod %>.Scene.Transforms},
       ], current_scene}, id: :nav, translate: {70, 15})
     |> digital_clock(text_align: :right, translate: {width - 20, 35})
     |> push_graph()
