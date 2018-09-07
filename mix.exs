@@ -20,7 +20,8 @@ defmodule ScenicNew.MixProject do
         contributors: ["Boyd Multerer"],
         maintainers: ["Boyd Multerer"],
         licenses: ["Apache 2"],
-        links: %{github: @github}
+        links: %{github: @github},
+        files: ["/static", "/templates"]
       ],
     ]
   end
