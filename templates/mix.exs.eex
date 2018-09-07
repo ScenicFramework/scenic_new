@@ -28,13 +28,13 @@ defmodule <%= @mod %>.MixProject do
       {:elixir_make, "~> 0.4"},
 
       # deps to use AFTER it is released publicly
-      # {:scenic, "~> <%= @scenic_version %>"},
-      # {:scenic_driver_glfw, "~> <%= @scenic_version %>"},
+      {:scenic, "~> <%= @scenic_version %>"},
+      {:scenic_driver_glfw, "~> <%= @scenic_version %>"},
 
       # These deps are optional and are included as they are often used.
       # If your app doesn't need them, they are safe to remove.
-      # {:scenic_sensor, "~> <%= @scenic_version %>"},
-      # {:scenic_clock, ">= 0.0.0"},
+      {:scenic_sensor, "~> <%= @scenic_version %>"},
+      {:scenic_clock, ">= 0.0.0"},
 
       # the https versions
       # { :scenic, git: "https://github.com/boydm/scenic.git", override: true },
@@ -43,10 +43,10 @@ defmodule <%= @mod %>.MixProject do
       # { :scenic_clock, git: "https://github.com/boydm/scenic_clock.git"},
       
       # the ssh versions
-      { :scenic, git: "git@github.com:boydm/scenic.git" },
-      { :scenic_driver_glfw, git: "git@github.com:boydm/scenic_driver_glfw.git"},
-      { :scenic_sensor, git: "git@github.com:boydm/scenic_sensor.git"},
-      { :scenic_clock, git: "git@github.com:boydm/scenic_clock.git"},
+      #{ :scenic, git: "git@github.com:boydm/scenic.git" },
+      #{ :scenic_driver_glfw, git: "git@github.com:boydm/scenic_driver_glfw.git"},
+      #{ :scenic_sensor, git: "git@github.com:boydm/scenic_sensor.git"},
+      #{ :scenic_clock, git: "git@github.com:boydm/scenic_clock.git"},
 
       # example deps
       # {:dep_from_hexpm, "~> 0.3.0"},
