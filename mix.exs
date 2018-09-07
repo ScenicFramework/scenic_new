@@ -13,7 +13,8 @@ defmodule ScenicNew.MixProject do
       aliases: aliases(),
       docs: [
         main: "Mix.Tasks.Scenic.New"
-      ]
+      ],
+      description: description()
     ]
   end
 
@@ -44,4 +45,11 @@ defmodule ScenicNew.MixProject do
     File.rename("scenic_new.ez", "./archives/scenic_new.ez")
     File.rename("scenic_new-#{@version}.ez", "./archives/scenic_new-#{@version}.ez")
   end
+
+  defp description() do
+    """
+    ScenicNew - Mix task to generate a starter app
+    """
+  end
+
 end
