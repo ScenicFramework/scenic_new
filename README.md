@@ -8,6 +8,8 @@ The scenic.new mix task, which generates out a starter application for you. This
 mix archive.install hex scenic_new
 ```
 
+To build and run scenic applications, you will also need to install a few dependencies. See the [Getting started](https://hexdocs.pm/scenic/getting_started.html#install-dependencies) for more information.
+
 ## Build the Starter App
 
 
