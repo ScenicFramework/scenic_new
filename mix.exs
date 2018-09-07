@@ -1,7 +1,7 @@
 defmodule ScenicNew.MixProject do
   use Mix.Project
 
-  @version  "0.7.0"
+  @version "0.7.0"
 
   def project do
     [
@@ -27,14 +27,13 @@ defmodule ScenicNew.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, ">= 0.0.0", only: [:dev, :docs]},
+      {:ex_doc, ">= 0.0.0", only: [:dev, :docs]}
     ]
   end
 
-
   defp aliases do
     [
-      build: [ &build_releases/1],
+      build: [&build_releases/1]
     ]
   end
 

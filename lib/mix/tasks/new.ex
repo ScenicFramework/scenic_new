@@ -8,7 +8,6 @@ defmodule Mix.Tasks.Scenic.New do
 
   import Mix.Generator
 
-
   @moduledoc """
   Generates a starter Scenic application.
 
@@ -151,7 +150,6 @@ defmodule Mix.Tasks.Scenic.New do
     create_file("lib/sensors/supervisor.ex", sensor_sup_template(assigns))
     create_file("lib/sensors/temperature.ex", sensor_temp_template(assigns))
 
-
     # create_directory("test")
     # create_file("test/test_helper.exs", test_helper_template(assigns))
     # create_file("test/#{app}_test.exs", test_template(assigns))
@@ -186,30 +184,29 @@ defmodule Mix.Tasks.Scenic.New do
   # ============================================================================
   # template files
 
-  embed_template(:readme, from_file: "templates/README.md.eex" )
-  embed_template(:formatter, from_file: "templates/formatter.exs" )
-  embed_template(:gitignore, from_file: "templates/gitignore" )
-  embed_template(:mix_exs, from_file: "templates/mix.exs.eex" )
-  embed_template(:makefile, from_file: "templates/Makefile" )
+  embed_template(:readme, from_file: "templates/README.md.eex")
+  embed_template(:formatter, from_file: "templates/formatter.exs")
+  embed_template(:gitignore, from_file: "templates/gitignore")
+  embed_template(:mix_exs, from_file: "templates/mix.exs.eex")
+  embed_template(:makefile, from_file: "templates/Makefile")
 
-  embed_template(:config, from_file: "templates/config/config.exs.eex" )
+  embed_template(:config, from_file: "templates/config/config.exs.eex")
 
-  embed_template(:app, from_file: "templates/lib/app.ex.eex" )
+  embed_template(:app, from_file: "templates/lib/app.ex.eex")
 
-  embed_template(:nav, from_file: "templates/lib/components/nav.ex.eex" )
-  embed_template(:notes, from_file: "templates/lib/components/notes.ex.eex" )
+  embed_template(:nav, from_file: "templates/lib/components/nav.ex.eex")
+  embed_template(:notes, from_file: "templates/lib/components/notes.ex.eex")
 
-  embed_template(:attribution, from_file: "static/attribution.txt" )
+  embed_template(:attribution, from_file: "static/attribution.txt")
 
-  embed_template(:scene_components, from_file: "templates/lib/scenes/components.ex.eex" )
-  embed_template(:scene_sensor, from_file: "templates/lib/scenes/sensor.ex.eex" )
-  embed_template(:scene_primitives, from_file: "templates/lib/scenes/primitives.ex.eex" )
-  embed_template(:scene_transforms, from_file: "templates/lib/scenes/transforms.ex.eex" )
-  embed_template(:scene_splash, from_file: "templates/lib/scenes/splash.ex.eex" )
+  embed_template(:scene_components, from_file: "templates/lib/scenes/components.ex.eex")
+  embed_template(:scene_sensor, from_file: "templates/lib/scenes/sensor.ex.eex")
+  embed_template(:scene_primitives, from_file: "templates/lib/scenes/primitives.ex.eex")
+  embed_template(:scene_transforms, from_file: "templates/lib/scenes/transforms.ex.eex")
+  embed_template(:scene_splash, from_file: "templates/lib/scenes/splash.ex.eex")
 
-  embed_template(:sensor_sup, from_file: "templates/lib/sensors/supervisor.ex.eex" )
-  embed_template(:sensor_temp, from_file: "templates/lib/sensors/temperature.ex.eex" )
-
+  embed_template(:sensor_sup, from_file: "templates/lib/sensors/supervisor.ex.eex")
+  embed_template(:sensor_temp, from_file: "templates/lib/sensors/temperature.ex.eex")
 
   # ============================================================================
   # validity functions taken from Elixir new task
