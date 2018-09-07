@@ -2,6 +2,7 @@ defmodule ScenicNew.MixProject do
   use Mix.Project
 
   @version "0.7.0"
+  @github "https://github.com/boydm/scenic_new"
 
   def project do
     [
@@ -14,7 +15,13 @@ defmodule ScenicNew.MixProject do
       docs: [
         main: "Mix.Tasks.Scenic.New"
       ],
-      description: description()
+      description: description(),
+      package: [
+        contributors: ["Boyd Multerer"],
+        maintainers: ["Boyd Multerer"],
+        licenses: ["Apache 2"],
+        links: %{github: @github}
+      ],
     ]
   end
 
