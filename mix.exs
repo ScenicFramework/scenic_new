@@ -10,7 +10,10 @@ defmodule ScenicNew.MixProject do
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      aliases: aliases()
+      aliases: aliases(),
+      docs: [
+        main: "Mix.Tasks.Scenic.New"
+      ]
     ]
   end
 
@@ -23,7 +26,9 @@ defmodule ScenicNew.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    []
+    [
+      {:ex_doc, ">= 0.0.0", only: [:dev, :docs]},
+    ]
   end
 
 
