@@ -2,6 +2,43 @@
 
 The scenic.new mix task, which generates out a starter application for you. This is the easiest way to set up a new Scenic project.
 
+## Erlang/Elixir versions
+
+Please note, it currently needs OTP 21 and Elixir 1.7. If you have trouble compiling, please check that you are running those versions first.
+
+## Install Prerequisites
+
+The design of Scenic goes to great lengths to minimize its dependencies to just the minimum. Namely, it needs Erlang/Elixir and OpenGL.
+
+Rendering your application into a window on your local computer (MacOS, Ubuntu and others) is done by the `scenic_driver_glfw` driver. It uses the GLFW and GLEW libraries to connect to OpenGL.
+
+The instructions below assume you have already installed Elixir/Erlang. If you need to install Elixir/Erlang there are instructions on the [elixir-lang website](https://elixir-lang.org/install.html).
+
+
+### Installing on MacOS
+
+The easiest way to install on MacOS is to use Homebrew. Just run the following in a terminal:
+
+```bash
+brew update
+brew install glfw3 glew pkg-config
+```
+
+
+Once these components have been installed, you should be able to build the `scenic_driver_glfw` driver.
+
+### Installing on Ubuntu
+
+The easiest way to install on Ubuntu is to use apt-get. Just run the following:
+
+```bash
+apt-get update
+apt-get install pkgconf libglfw3 libglfw3-dev libglew2.0 libglew-dev
+```
+
+Once these components have been installed, you should be able to build the `scenic_driver_glfw` driver.
+
+
 ## Install `scenic.new`
 
 ```bash

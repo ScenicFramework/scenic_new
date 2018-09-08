@@ -40,8 +40,8 @@ defmodule <%= @mod %>.MixProject do
       # { :scenic_driver_glfw, git: "https://github.com/boydm/scenic_driver_glfw.git"},
       # { :scenic_sensor, git: "https://github.com/boydm/scenic_sensor.git"},
       # { :scenic_clock, git: "https://github.com/boydm/scenic_clock.git"},
-      
-      # latest from github (via ssh)
+
+      # the ssh versions
       #{ :scenic, git: "git@github.com:boydm/scenic.git" },
       #{ :scenic_driver_glfw, git: "git@github.com:boydm/scenic_driver_glfw.git"},
       #{ :scenic_sensor, git: "git@github.com:boydm/scenic_sensor.git"},
