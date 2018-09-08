@@ -2,6 +2,10 @@
 
 The scenic.new mix task, which generates out a starter application for you. This is the easiest way to set up a new Scenic project.
 
+## Erlang/Elixir versions
+
+Please note, it currently needs OTP 21 and Elixir 1.7. If you have trouble compiling, please check that you are running those versions first.
+
 ## Install Prerequisites
 
 The design of Scenic goes to great lengths to minimize its dependencies to just the minimum. Namely, it needs Erlang/Elixir and OpenGL.
