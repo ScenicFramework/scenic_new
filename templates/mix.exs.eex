@@ -27,7 +27,6 @@ defmodule <%= @mod %>.MixProject do
     [
       {:elixir_make, "~> 0.4"},
 
-      # deps to use AFTER it is released publicly
       {:scenic, "~> <%= @scenic_version %>"},
       {:scenic_driver_glfw, "~> <%= @scenic_version %>"},
 
@@ -36,7 +35,7 @@ defmodule <%= @mod %>.MixProject do
       {:scenic_sensor, "~> <%= @scenic_version %>"},
       {:scenic_clock, ">= 0.0.0"},
 
-      # the https versions
+      # latest from github (via https)
       # { :scenic, git: "https://github.com/boydm/scenic.git", override: true },
       # { :scenic_driver_glfw, git: "https://github.com/boydm/scenic_driver_glfw.git"},
       # { :scenic_sensor, git: "https://github.com/boydm/scenic_sensor.git"},
@@ -47,10 +46,6 @@ defmodule <%= @mod %>.MixProject do
       #{ :scenic_driver_glfw, git: "git@github.com:boydm/scenic_driver_glfw.git"},
       #{ :scenic_sensor, git: "git@github.com:boydm/scenic_sensor.git"},
       #{ :scenic_clock, git: "git@github.com:boydm/scenic_clock.git"},
-
-      # example deps
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
     ]
   end
 end
