@@ -34,18 +34,6 @@ defmodule <%= @mod %>.MixProject do
       # If your app doesn't need them, they are safe to remove.
       {:scenic_sensor, "~> <%= @scenic_version %>"},
       {:scenic_clock, ">= 0.0.0"},
-
-      # latest from github (via https)
-      # { :scenic, git: "https://github.com/boydm/scenic.git", override: true },
-      # { :scenic_driver_glfw, git: "https://github.com/boydm/scenic_driver_glfw.git"},
-      # { :scenic_sensor, git: "https://github.com/boydm/scenic_sensor.git"},
-      # { :scenic_clock, git: "https://github.com/boydm/scenic_clock.git"},
-
-      # the ssh versions
-      #{ :scenic, git: "git@github.com:boydm/scenic.git" },
-      #{ :scenic_driver_glfw, git: "git@github.com:boydm/scenic_driver_glfw.git"},
-      #{ :scenic_sensor, git: "git@github.com:boydm/scenic_sensor.git"},
-      #{ :scenic_clock, git: "git@github.com:boydm/scenic_clock.git"},
     ]
   end
 end
