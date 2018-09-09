@@ -110,7 +110,7 @@ defmodule Mix.Tasks.Scenic.New do
   end
 
   # --------------------------------------------------------
-  defp generate(app, mod, _path, _opts) do
+  defp generate(app, mod, path, _opts) do
     assigns = [
       app: app,
       mod: mod,
@@ -158,12 +158,18 @@ defmodule Mix.Tasks.Scenic.New do
 
     Your Scenic project was created successfully.
 
-    Next:
-      cd into your app directory and run "mix deps.get"
+    Next steps for getting started:
 
-    Then:
-      Run "mix scenic.run" (in the app directory) to start your app
-      Run "iex -S mix" (in the app directory) to debug your app
+        $ cd #{path}
+        $ mix deps.get
+
+    You can start your app with:
+
+        $ mix scenic.run
+
+    You can also run it interactively like this:
+
+        $ iex -S mix
 
     """
     # |> String.trim_trailing()
