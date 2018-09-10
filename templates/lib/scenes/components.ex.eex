@@ -4,7 +4,6 @@ defmodule <%= @mod %>.Scene.Components do
   """
 
   use Scenic.Scene
-  alias <%= @mod %>.Component.Nav
   alias Scenic.Graph
   import Scenic.Primitives
   import Scenic.Components
