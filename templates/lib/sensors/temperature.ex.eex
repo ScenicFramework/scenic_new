@@ -15,7 +15,7 @@ defmodule <%= @mod %>.Sensor.Temperature do
   @amplitude    1.5
   @frequency    0.001
   @tau          :math.pi() * 2
- 
+
 
   #--------------------------------------------------------
   def start_link(_), do:
@@ -24,7 +24,6 @@ defmodule <%= @mod %>.Sensor.Temperature do
 
   #--------------------------------------------------------
   def init( _ ) do
-
     # register this sensor
     Sensor.register( :temperature, @version, @description )
 

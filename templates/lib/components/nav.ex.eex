@@ -22,7 +22,7 @@ defmodule <%= @mod %>.Component.Nav do
   #----------------------------------------------------------------------------
   def init( current_scene, opts ) do
     styles = opts[:styles] || %{}
-    
+
     # Get the viewport width
     {:ok, %ViewPort.Status{size: {width,_}}} = opts[:viewport]
     |> ViewPort.info()
@@ -44,14 +44,14 @@ defmodule <%= @mod %>.Component.Nav do
 
   #----------------------------------------------------------------------------
   def filter_event( {:value_changed, :nav, scene}, _, %{viewport: vp} = state ) when is_atom(scene) do
-     ViewPort.set_root( vp, {scene, nil} )
+    ViewPort.set_root( vp, {scene, nil} )
     {:stop, state }
   end
 
   #----------------------------------------------------------------------------
   def filter_event( {:value_changed, :nav, scene}, _, %{viewport: vp} = state ) do
-     ViewPort.set_root( vp, scene )
+    ViewPort.set_root( vp, scene )
     {:stop, state }
   end
 
-end 
+end
