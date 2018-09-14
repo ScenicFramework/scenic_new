@@ -17,7 +17,7 @@ defmodule <%= @mod %>.Scene.Primitives do
   @bird_width 100
   @bird_height 128
 
-  @body_offset      80
+  @body_offset 80
 
   @line {{0,0}, {60,60}}
 
