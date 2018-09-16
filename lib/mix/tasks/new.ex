@@ -4,10 +4,6 @@
 #
 
 defmodule Mix.Tasks.Scenic.New do
-  use Mix.Task
-
-  import Mix.Generator
-
   @moduledoc """
   Generates a starter Scenic application.
 
@@ -19,10 +15,11 @@ defmodule Mix.Tasks.Scenic.New do
   mix archive.install hex scenic_new
   ```
 
-  ## Build the Starter App
+  ## Build the Starter Application
 
-
-  First, navigate the command-line to the directory where you want to create your new Scenic app. Then run the following commands:  (change `my_app` to the name of your app...)
+  First, navigate the command-line to the directory where you want to create
+  your new Scenic application. Then run the following commands: (change
+  `my_app` to the name of your application)
 
   ```bash
   mix scenic.new my_app
@@ -30,12 +27,13 @@ defmodule Mix.Tasks.Scenic.New do
   mix do deps.get, scenic.run
   ```
 
-
   ## Running and Debugging
 
-  Once the app and its dependencies are set up, there are two main ways to run it.
+  Once the application and its dependencies are set up, there are two main ways
+  to run it.
 
-  If you want to run your app under IEx so that you can debug it, simply run
+  If you want to run your application under `IEx` so that you can debug it,
+  simply run
 
   ```bash
   iex -S mix
@@ -43,43 +41,53 @@ defmodule Mix.Tasks.Scenic.New do
 
   This works just like any other Elixir application.
 
-  If you want to run your app outside of iex, you should start it like this:
+  If you want to run your application outside of `IEx`, you should start it
+  like this:
 
   ```bash
   mix scenic.run
   ```
 
-  ## The Starter App
+  ## The Starter Application
 
-  The starter app created by the generator above shows the basics of building a Scenic application. It has four scenes, two components, and a simulated sensor.
+  The starter application created by the generator above shows the basics of
+  building a Scenic application. It has four scenes, two components, and a
+  simulated sensor.
 
   Scene | Description
   --- | ---
-  Splash | The Splash scene is configured to run when the app is started in the `config/config.exs` file. It runs a simple animation, then transitions to the Sensor scene. It also shows how intercept basic user input to exit the scene early.
+  Splash | The Splash scene is configured to run when the application is started in the `config/config.exs` file. It runs a simple animation, then transitions to the Sensor scene. It also shows how intercept basic user input to exit the scene early.
   Sensor | The Sensor scene depicts a simulated temperature sensor. The sensor is always running and updates it's data through the `Scenic.SensorPubSub` server.
   Primitives | The Primitives scenes displays an overview of the basic primitive types and some of the styles that can be applied to them.
-  Components | The Components scene shows the basic components that come with Scenic. The crash button will cause a match error that will crash the scene, showing how the supervison tree restarts the scene. It also shows how to receive events from components.
+  Components | The Components scene shows the basic components that come with Scenic. The crash button will cause a match error that will crash the scene, showing how the supervision tree restarts the scene. It also shows how to receive events from components.
 
   Component | Description
   --- | ---
-  Nav | The nav bar at the top of the main scenes shows how to navigate between scenes and how to construct a simple component and pass a parameter to it. Note that it references a clock, creating a nested component. The clock is positioned by dynamically querying the width of the ViewPort
+  Nav | The navigation bar at the top of the main scenes shows how to navigate between scenes and how to construct a simple component and pass a parameter to it. Note that it references a clock, creating a nested component. The clock is positioned by dynamically querying the width of the ViewPort
   Notes | The notes section at the bottom of each scene is very simple and also shows passing in custom data from the parent.
 
-  The simulated temperature sensor doesn't collect any actual data, but does show how you would set up a real sensor and publish data from it into the Scenic.SensorPubSub service.
+  The simulated temperature sensor doesn't collect any actual data, but does
+  show how you would set up a real sensor and publish data from it into the
+  `Scenic.SensorPubSub` service.
 
   ## What to read next
 
-  Next, you should read guides describing the overall Scenic structure. This is in the documentation for Scenic itself
+  Next, you should read guides describing the overall Scenic structure. This is
+  in the documentation for Scenic itself
   """
+  use Mix.Task
 
+  import Mix.Generator
   # import IEx
+
+  @scenic_version Mix.Project.config()[:version]
+  @shortdoc "Creates a new Scenic v#{@scenic_version} application"
 
   @switches [
     app: :string,
     module: :string
   ]
 
-  @scenic_version Mix.Project.config()[:version]
   @parrot_bin File.read!("static/scenic_parrot.png")
   @cyanoramphus_bin File.read!("static/cyanoramphus_zealandicus_1849.jpg")
 
@@ -89,9 +97,10 @@ defmodule Mix.Tasks.Scenic.New do
 
     case argv do
       [] ->
-        Mix.raise("Expected app PATH to be given, please use \"mix scenic.new PATH\"")
+        Mix.Tasks.Help.run(["scenic.new"])
 
       [path | _] ->
+        elixir_version_check!()
         app = opts[:app] || Path.basename(Path.expand(path))
         check_application_name!(app, !opts[:app])
         mod = opts[:module] || Macro.camelize(app)
@@ -172,7 +181,6 @@ defmodule Mix.Tasks.Scenic.New do
         $ iex -S mix
 
     """
-    # |> String.trim_trailing()
     |> Mix.shell().info()
   end
 
@@ -189,33 +197,40 @@ defmodule Mix.Tasks.Scenic.New do
 
   # ============================================================================
   # template files
+  templates = [
+    readme: "templates/README.md.eex",
+    formatter: "templates/formatter.exs",
+    gitignore: "templates/gitignore",
+    mix_exs: "templates/mix.exs.eex",
+    makefile: "templates/Makefile",
+    config: "templates/config/config.exs.eex",
+    app: "templates/lib/app.ex.eex",
+    nav: "templates/lib/components/nav.ex.eex",
+    notes: "templates/lib/components/notes.ex.eex",
+    attribution: "static/attribution.txt",
+    scene_components: "templates/lib/scenes/components.ex.eex",
+    scene_sensor: "templates/lib/scenes/sensor.ex.eex",
+    scene_primitives: "templates/lib/scenes/primitives.ex.eex",
+    scene_transforms: "templates/lib/scenes/transforms.ex.eex",
+    scene_splash: "templates/lib/scenes/splash.ex.eex",
+    sensor_sup: "templates/lib/sensors/supervisor.ex.eex",
+    sensor_temp: "templates/lib/sensors/temperature.ex.eex"
+  ]
 
-  embed_template(:readme, from_file: "templates/README.md.eex")
-  embed_template(:formatter, from_file: "templates/formatter.exs")
-  embed_template(:gitignore, from_file: "templates/gitignore")
-  embed_template(:mix_exs, from_file: "templates/mix.exs.eex")
-  embed_template(:makefile, from_file: "templates/Makefile")
-
-  embed_template(:config, from_file: "templates/config/config.exs.eex")
-
-  embed_template(:app, from_file: "templates/lib/app.ex.eex")
-
-  embed_template(:nav, from_file: "templates/lib/components/nav.ex.eex")
-  embed_template(:notes, from_file: "templates/lib/components/notes.ex.eex")
-
-  embed_template(:attribution, from_file: "static/attribution.txt")
-
-  embed_template(:scene_components, from_file: "templates/lib/scenes/components.ex.eex")
-  embed_template(:scene_sensor, from_file: "templates/lib/scenes/sensor.ex.eex")
-  embed_template(:scene_primitives, from_file: "templates/lib/scenes/primitives.ex.eex")
-  embed_template(:scene_transforms, from_file: "templates/lib/scenes/transforms.ex.eex")
-  embed_template(:scene_splash, from_file: "templates/lib/scenes/splash.ex.eex")
-
-  embed_template(:sensor_sup, from_file: "templates/lib/sensors/supervisor.ex.eex")
-  embed_template(:sensor_temp, from_file: "templates/lib/sensors/temperature.ex.eex")
+  Enum.each(templates, fn {name, content} ->
+    embed_template(name, from_file: content)
+  end)
 
   # ============================================================================
   # validity functions taken from Elixir new task
+  defp elixir_version_check! do
+    unless Version.match?(System.version(), "~> 1.7") do
+      Mix.raise(
+        "Scenic v#{@scenic_version} requires at least Elixir v1.7.\n" <>
+          "You have #{System.version()}. Please update accordingly."
+      )
+    end
+  end
 
   defp check_application_name!(name, inferred?) do
     unless name =~ Regex.recompile!(~r/^[a-z][a-z0-9_]*$/) do
@@ -241,11 +256,18 @@ defmodule Mix.Tasks.Scenic.New do
   end
 
   defp check_mod_name_availability!(name) do
-    name = Module.concat(Elixir, name)
+    [name]
+    |> Module.concat()
+    |> Module.split()
+    |> Enum.reduce([], fn name, acc ->
+      mod = Module.concat([Elixir, name | acc])
 
-    if Code.ensure_loaded?(name) do
-      Mix.raise("Module name #{inspect(name)} is already taken, please choose another name")
-    end
+      if Code.ensure_loaded?(mod) do
+        Mix.raise("Module name #{inspect(mod)} is already taken, please choose another name")
+      else
+        [name | acc]
+      end
+    end)
   end
 
   defp check_directory_existence!(path) do
