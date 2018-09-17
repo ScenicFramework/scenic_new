@@ -61,6 +61,7 @@ defmodule Mix.Tasks.Scenic.NewTest do
     assert_raise Mix.Error, ~r"Application name cannot be scenic", fn ->
       Mix.Tasks.Scenic.New.run(["scenic"])
     end
+
     assert_raise Mix.Error, ~r"Application name cannot be scenic", fn ->
       Mix.Tasks.Scenic.New.run(["folder/scenic"])
     end

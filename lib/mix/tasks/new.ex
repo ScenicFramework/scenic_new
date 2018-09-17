@@ -243,8 +243,9 @@ defmodule Mix.Tasks.Scenic.New do
           end
       )
     end
-    if (String.trim(name) |> String.downcase) == "scenic" do
-      Mix.raise( "Application name cannot be scenic" )
+
+    if String.trim(name) |> String.downcase() == "scenic" do
+      Mix.raise("Application name cannot be scenic")
     end
   end
 
