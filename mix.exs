@@ -21,11 +21,19 @@ defmodule ScenicNew.MixProject do
         maintainers: ["Boyd Multerer"],
         licenses: ["Apache 2"],
         links: %{github: @github},
-        files: ["static", "templates", "config", "test",
-          "mix.exs", ".formatter.exs", ".gitignore",
-          "LICENSE", "README.md", "lib"
+        files: [
+          "static",
+          "templates",
+          "config",
+          "test",
+          "mix.exs",
+          ".formatter.exs",
+          ".gitignore",
+          "LICENSE",
+          "README.md",
+          "lib"
         ]
-      ],
+      ]
     ]
   end
 
@@ -39,7 +47,7 @@ defmodule ScenicNew.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, ">= 0.0.0", only: [:dev, :docs]}
+      {:ex_doc, "~> 0.19", only: [:dev, :docs], runtime: false}
     ]
   end
 
@@ -59,8 +67,7 @@ defmodule ScenicNew.MixProject do
 
   defp description() do
     """
-    ScenicNew - Mix task to generate a starter app
+    ScenicNew - Mix task to generate a starter application
     """
   end
-
 end
