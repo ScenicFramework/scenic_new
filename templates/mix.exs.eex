@@ -6,10 +6,8 @@ defmodule <%= @mod %>.MixProject do
       app: :<%= @app %>,
       version: "0.1.0",
       elixir: "~> 1.7",
+      build_embedded: true,
       start_permanent: Mix.env() == :prod,
-      compilers: [:elixir_make] ++ Mix.compilers(),
-      make_env: %{"MIX_ENV" => to_string(Mix.env())},
-      make_clean: ["clean"],
       deps: deps()
     ]
   end
@@ -25,9 +23,10 @@ defmodule <%= @mod %>.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:elixir_make, "~> 0.4"},
-      {:scenic, "~> 0.8"},
-      {:scenic_driver_glfw, "~> 0.8"},
+      # {:scenic, "~> 0.8"},
+      # {:scenic_driver_glfw, "~> 0.8"},
+      {:scenic, git: "git@github.com:boydm/scenic.git", override: true},
+      {:scenic_driver_glfw, git: "git@github.com:boydm/scenic_driver_glfw.git"},
 
       # These deps are optional and are included as they are often used.
       # If your app doesn't need them, they are safe to remove.

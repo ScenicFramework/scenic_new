@@ -131,7 +131,6 @@ defmodule Mix.Tasks.Scenic.New do
     create_file(".formatter.exs", formatter_template(assigns))
     create_file(".gitignore", gitignore_template(assigns))
     create_file("mix.exs", mix_exs_template(assigns))
-    create_file("Makefile", makefile_template(assigns))
 
     create_directory("config")
     create_file("config/config.exs", config_template(assigns))
@@ -139,10 +138,10 @@ defmodule Mix.Tasks.Scenic.New do
     create_directory("lib")
     create_file("lib/#{app}.ex", app_template(assigns))
 
-    create_directory("static")
-    create_file("static/images/attribution.txt", attribution_template(assigns))
-    create_file("static/images/scenic_parrot.png", @parrot_bin)
-    create_file("static/images/cyanoramphus_zealandicus_1849.jpg", @cyanoramphus_bin)
+    create_directory("priv/static")
+    create_file("priv/static/images/attribution.txt", attribution_template(assigns))
+    create_file("priv/static/images/scenic_parrot.png", @parrot_bin)
+    create_file("priv/static/images/cyanoramphus_zealandicus_1849.jpg", @cyanoramphus_bin)
 
     create_directory("lib/scenes")
     create_file("lib/scenes/components.ex", scene_components_template(assigns))
@@ -202,7 +201,6 @@ defmodule Mix.Tasks.Scenic.New do
     formatter: "templates/formatter.exs",
     gitignore: "templates/gitignore",
     mix_exs: "templates/mix.exs.eex",
-    makefile: "templates/Makefile",
     config: "templates/config/config.exs.eex",
     app: "templates/lib/app.ex.eex",
     nav: "templates/lib/components/nav.ex.eex",
