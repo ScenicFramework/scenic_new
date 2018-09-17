@@ -33,7 +33,13 @@ defmodule ScenicNew.MixProject do
           "README.md",
           "lib"
         ]
-      ]
+      ],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.html": :test,
+        "coveralls.json": :test
+      ],
+      test_coverage: [tool: ExCoveralls]
     ]
   end
 
@@ -47,7 +53,8 @@ defmodule ScenicNew.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.19", only: [:dev, :docs], runtime: false}
+      {:ex_doc, "~> 0.19", only: [:dev, :docs], runtime: false},
+      {:excoveralls, "~> 0.5.7", only: :test}
     ]
   end
 
