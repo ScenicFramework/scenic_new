@@ -1,0 +1,14 @@
+language: elixir
+elixir:
+  - 1.7
+otp_release:
+  - 21.0
+before_script:
+  - mix local.hex --force
+  - mix local.rebar --force
+  - mix deps.get
+  - mix format --check-formatted
+script:
+  - MIX_ENV=test mix do compile --warnings-as-errors, coveralls.json
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
