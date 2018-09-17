@@ -17,10 +17,6 @@ defmodule Mix.Tasks.Scenic.NewTest do
                assert_file("#{@app_name}/README.md")
                assert_file("#{@app_name}/.formatter.exs")
                assert_file("#{@app_name}/.gitignore")
-               assert_file("#{@app_name}/static/images/attribution.txt")
-               assert_file("#{@app_name}/static/images/scenic_parrot.png")
-               assert_file("#{@app_name}/static/images/cyanoramphus_zealandicus_1849.jpg")
-               assert_file("#{@app_name}/Makefile")
 
                assert_file("#{@app_name}/config/config.exs", fn file ->
                  assert file =~ "config :#{@app_name}, :viewport"
@@ -50,9 +46,8 @@ defmodule Mix.Tasks.Scenic.NewTest do
 
                assert_file("#{@app_name}/mix.exs", fn file ->
                  assert file =~ "mod: {#{@module_name}, []}"
-                 assert file =~ "{:elixir_make, \"~> 0.4\"}"
-                 assert file =~ "{:scenic, \"~> 0.8\"}"
-                 assert file =~ "{:scenic_driver_glfw, \"~> 0.8\"}"
+                 assert file =~ "{:scenic, git: \"git@github.com:boydm/scenic.git\", override: true}"
+                 assert file =~ "{:scenic_driver_glfw, git: \"git@github.com:boydm/scenic_driver_glfw.git\"}"
                end)
              end) =~ "Your Scenic project was created successfully."
     end)
