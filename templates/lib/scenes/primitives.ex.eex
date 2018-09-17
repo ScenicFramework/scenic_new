@@ -10,9 +10,9 @@ defmodule <%= @mod %>.Scene.Primitives do
   alias <%= @mod %>.Component.Nav
   alias <%= @mod %>.Component.Notes
 
-  @bird_hash "0DMsqJaAU2OyRdd9Hp3WWJoO3WE"
-  @bird_path :code.priv_dir(:<%= @app %>)
+  @bird_path :code.priv_dir(:zz)
              |> Path.join("/static/images/cyanoramphus_zealandicus_1849.jpg")
+  @bird_hash Scenic.Cache.Hash.file!( @bird_path, :sha )
 
   @bird_width 100
   @bird_height 128
