@@ -58,6 +58,13 @@ defmodule Mix.Tasks.Scenic.NewTest do
   end
 
   test "new with invalid args" do
+    assert_raise Mix.Error, ~r"Application name cannot be scenic", fn ->
+      Mix.Tasks.Scenic.New.run(["scenic"])
+    end
+    assert_raise Mix.Error, ~r"Application name cannot be scenic", fn ->
+      Mix.Tasks.Scenic.New.run(["folder/scenic"])
+    end
+
     assert_raise Mix.Error, ~r"Application name must start with a lowercase ASCII letter,", fn ->
       Mix.Tasks.Scenic.New.run(["007invalid"])
     end
