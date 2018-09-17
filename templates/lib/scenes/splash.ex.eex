@@ -12,7 +12,7 @@ defmodule <%= @mod %>.Scene.Splash do
   alias Scenic.ViewPort
   import Scenic.Primitives, only: [{:rect, 3}, {:update_opts, 2}]
 
-  @parrot_path :code.priv_dir(:zz)
+  @parrot_path :code.priv_dir(:<%= @app %>)
                |> Path.join("/static/images/scenic_parrot.png")
   @parrot_hash Scenic.Cache.Hash.file!( @parrot_path, :sha )
 
