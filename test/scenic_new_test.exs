@@ -17,6 +17,9 @@ defmodule Mix.Tasks.Scenic.NewTest do
                assert_file("#{@app_name}/README.md")
                assert_file("#{@app_name}/.formatter.exs")
                assert_file("#{@app_name}/.gitignore")
+               assert_file("#{@app_name}/priv/static/images/attribution.txt")
+               assert_file("#{@app_name}/priv/static/images/scenic_parrot.png")
+               assert_file("#{@app_name}/priv/static/images/cyanoramphus_zealandicus_1849.jpg")
 
                assert_file("#{@app_name}/config/config.exs", fn file ->
                  assert file =~ "config :#{@app_name}, :viewport"
