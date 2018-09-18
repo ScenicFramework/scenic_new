@@ -36,7 +36,7 @@ defmodule <%= @mod %>.Scene.Splash do
     # calculate the transform that centers the parrot in the viewport
     {:ok, %ViewPort.Status{size: {vp_width, vp_height}}} = ViewPort.info(viewport)
 
-    move = {
+    position = {
       vp_width / 2 - @parrot_width / 2,
       vp_height / 2 - @parrot_height / 2
     }
@@ -46,7 +46,7 @@ defmodule <%= @mod %>.Scene.Splash do
 
     # move the parrot into the right location
     graph =
-      Graph.modify(@graph, :parrot, &update_opts(&1, translate: move))
+      Graph.modify(@graph, :parrot, &update_opts(&1, translate: position))
       |> push_graph()
 
     # start a very simple animation timer
@@ -59,8 +59,6 @@ defmodule <%= @mod %>.Scene.Splash do
       first_scene: first_scene,
       alpha: 0
     }
-
-    push_graph(graph)
 
     {:ok, state}
   end
