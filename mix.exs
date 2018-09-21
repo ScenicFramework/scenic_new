@@ -22,7 +22,9 @@ defmodule ScenicNew.MixProject do
         licenses: ["Apache 2"],
         links: %{github: @github},
         files: [
-          "static",
+          "static/*.txt",
+          "static/*.jpg",
+          "static/*.png",
           "templates",
           "config",
           "test",
@@ -31,7 +33,7 @@ defmodule ScenicNew.MixProject do
           ".gitignore",
           "LICENSE",
           "README.md",
-          "lib"
+          "lib/**/*.ex"
         ]
       ],
       preferred_cli_env: [
