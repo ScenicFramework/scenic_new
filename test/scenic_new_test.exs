@@ -49,12 +49,9 @@ defmodule Mix.Tasks.Scenic.NewTest do
 
                assert_file("#{@app_name}/mix.exs", fn file ->
                  assert file =~ "mod: {#{@module_name}, []}"
-
-                 assert file =~
-                          "{:scenic, git: \"git@github.com:boydm/scenic.git\", override: true}"
-
-                 assert file =~
-                          "{:scenic_driver_glfw, git: \"git@github.com:boydm/scenic_driver_glfw.git\"}"
+                 
+                 assert file =~ "{:scenic, \"~> 0.8\"}"
+                 assert file =~ "{:scenic_driver_glfw, \"~> 0.8\"}"
                end)
              end) =~ "Your Scenic project was created successfully."
     end)
