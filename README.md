@@ -58,6 +58,44 @@ sudo apt-get install pkgconf libglfw3 libglfw3-dev libglew2.0 libglew-dev
 Once these components have been installed, you should be able to build the
 `scenic_driver_glfw` driver.
 
+### Installing on NixOS 18.09
+
+The easiest way to install on NixOS is with a custom shell. Create a file titled `shell.nix` that includes the following: 
+
+```nix
+{ pkgs ? import <nixpkgs> {} }:
+
+with pkgs;
+
+let
+  inherit (lib) optional optionals;
+  elixir = beam.packages.erlangR21.elixir_1_7;
+in
+
+mkShell {
+  buildInputs = [
+    elixir
+    glew glfw
+    git
+    pkgconfig
+    x11
+    xorg.libpthreadstubs
+    xorg.libXcursor
+    xorg.libXdmcp
+    xorg.libXfixes
+    xorg.libXinerama
+    xorg.libXrandr
+    xorg.xrandr
+  ];
+}
+```
+
+Then use `nix-shell` to build and run the shell as your development environment:
+
+```bash
+nix-shell shell.nix
+```
+
 ## Install `scenic.new`
 
 ```bash
