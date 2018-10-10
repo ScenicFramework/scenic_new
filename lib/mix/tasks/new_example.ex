@@ -3,17 +3,11 @@
 #  Copyright © 2018 Kry10 Industries. All rights reserved.
 #
 
-defmodule Mix.Tasks.Scenic.New do
+defmodule Mix.Tasks.Scenic.New.Example do
   @moduledoc """
   Generates a starter Scenic application.
 
-  This is the easiest way to set up an empty new Scenic project.
-
-  If you would like a more full-featured example, please use:
-
-  ```bash
-  mix scenic.new.example
-  ```
+  This is the easiest way to set up a new Scenic project.
 
   ## Install `scenic.new`
 
@@ -126,7 +120,7 @@ defmodule Mix.Tasks.Scenic.New do
       app: app,
       mod: mod,
       elixir_version: get_version(System.version()),
-      scenic_version: Common.scenic_version
+      scenic_version: @scenic_version
     ]
 
     create_file(".formatter.exs", Common.formatter(assigns))
@@ -138,13 +132,28 @@ defmodule Mix.Tasks.Scenic.New do
     create_file("config/config.exs", config_template(assigns))
 
     create_directory("lib")
-    create_directory("lib/components")
     create_file("lib/#{app}.ex", app_template(assigns))
 
-    create_directory("lib/scenes")
-    create_file("lib/scenes/home.ex", scene_home_template(assigns))
-
     create_directory("priv/static")
+    create_file("priv/static/images/attribution.txt", Common.attribution(assigns))
+    create_file("priv/static/images/scenic_parrot.png", Common.parrot)
+    create_file("priv/static/images/cyanoramphus_zealandicus_1849.jpg", Common.cyanoramphus)
+
+    create_directory("lib/scenes")
+    create_file("lib/scenes/components.ex", scene_components_template(assigns))
+    create_file("lib/scenes/sensor.ex", scene_sensor_template(assigns))
+    create_file("lib/scenes/primitives.ex", scene_primitives_template(assigns))
+    create_file("lib/scenes/transforms.ex", scene_transforms_template(assigns))
+    create_file("lib/scenes/splash.ex", scene_splash_template(assigns))
+
+    create_directory("lib/components")
+    create_file("lib/components/nav.ex", nav_template(assigns))
+    create_file("lib/components/notes.ex", notes_template(assigns))
+
+    create_directory("lib/sensors")
+    create_file("lib/sensors/supervisor.ex", sensor_sup_template(assigns))
+    create_file("lib/sensors/temperature.ex", sensor_temp_template(assigns))
+
     """
 
     Your Scenic project was created successfully.
@@ -182,11 +191,19 @@ defmodule Mix.Tasks.Scenic.New do
   templates = [
     # formatter: "templates/formatter.exs",
     # gitignore: "templates/gitignore",
-    readme: "templates/new/README.md.eex",
-    mix_exs: "templates/new/mix.exs.eex",
-    config: "templates/new/config/config.exs.eex",
-    app: "templates/new/lib/app.ex.eex",
-    scene_home: "templates/new/lib/scenes/home.ex.eex",
+    readme: "templates/new_example/README.md.eex",
+    mix_exs: "templates/new_example/mix.exs.eex",
+    config: "templates/new_example/config/config.exs.eex",
+    app: "templates/new_example/lib/app.ex.eex",
+    nav: "templates/new_example/lib/components/nav.ex.eex",
+    notes: "templates/new_example/lib/components/notes.ex.eex",
+    scene_components: "templates/new_example/lib/scenes/components.ex.eex",
+    scene_sensor: "templates/new_example/lib/scenes/sensor.ex.eex",
+    scene_primitives: "templates/new_example/lib/scenes/primitives.ex.eex",
+    scene_transforms: "templates/new_example/lib/scenes/transforms.ex.eex",
+    scene_splash: "templates/new_example/lib/scenes/splash.ex.eex",
+    sensor_sup: "templates/new_example/lib/sensors/supervisor.ex.eex",
+    sensor_temp: "templates/new_example/lib/sensors/temperature.ex.eex"
   ]
 
   Enum.each(templates, fn {name, content} ->
