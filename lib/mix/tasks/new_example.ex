@@ -80,7 +80,7 @@ defmodule Mix.Tasks.Scenic.New.Example do
   import Mix.Generator
   alias ScenicNew.Common
 
-  @shortdoc "Creates a new Scenic v#{Common.scenic_version} application"
+  @shortdoc "Creates a new Scenic v#{Common.scenic_version()} application"
 
   @switches [
     app: :string,
@@ -120,7 +120,7 @@ defmodule Mix.Tasks.Scenic.New.Example do
       app: app,
       mod: mod,
       elixir_version: get_version(System.version()),
-      scenic_version: @scenic_version
+      scenic_version: Common.scenic_version()
     ]
 
     create_file(".formatter.exs", Common.formatter(assigns))
@@ -136,8 +136,8 @@ defmodule Mix.Tasks.Scenic.New.Example do
 
     create_directory("priv/static")
     create_file("priv/static/images/attribution.txt", Common.attribution(assigns))
-    create_file("priv/static/images/scenic_parrot.png", Common.parrot)
-    create_file("priv/static/images/cyanoramphus_zealandicus_1849.jpg", Common.cyanoramphus)
+    create_file("priv/static/images/scenic_parrot.png", Common.parrot())
+    create_file("priv/static/images/cyanoramphus_zealandicus_1849.jpg", Common.cyanoramphus())
 
     create_directory("lib/scenes")
     create_file("lib/scenes/components.ex", scene_components_template(assigns))

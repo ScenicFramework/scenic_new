@@ -20,8 +20,9 @@ defmodule ScenicNew.Common do
   templates = [
     formatter: "templates/formatter.exs",
     gitignore: "templates/gitignore",
-    attribution: "templates/static/attribution.txt",
+    attribution: "templates/static/attribution.txt"
   ]
+
   Enum.each(templates, fn {name, content} ->
     embed_template(name, from_file: content)
   end)
@@ -37,7 +38,6 @@ defmodule ScenicNew.Common do
   def formatter(assigns), do: formatter_template(assigns)
   def gitignore(assigns), do: gitignore_template(assigns)
   def attribution(assigns), do: attribution_template(assigns)
-
 
   # ============================================================================
   # validity functions taken from Elixir new task
@@ -99,5 +99,4 @@ defmodule ScenicNew.Common do
       Mix.raise("Please select another directory for installation")
     end
   end
-
 end

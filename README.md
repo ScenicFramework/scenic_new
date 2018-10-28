@@ -85,7 +85,7 @@ cd scenic_new
 MIX_ENV=prod mix do archive.build, archive.install
 ```
 
-## Build the Starter Application
+## Build the Basic Application
 
 First, navigate the command-line to the directory where you want to create your
 new Scenic application. Then run the following commands: (change `my_app` to
@@ -97,7 +97,53 @@ cd my_app
 mix do deps.get, scenic.run
 ```
 
-## Running and Debugging
+This will create a bare-bones application
+
+
+## Build the Example Application
+
+First, navigate the command-line to the directory where you want to create your
+new Scenic application. Then run the following commands: (change `my_app` to
+the name of your application)
+
+```bash
+mix scenic.new.example my_app
+cd my_app
+mix do deps.get, scenic.run
+```
+
+## Build the Basic Nerves Application
+
+First, navigate the command-line to the directory where you want to create your
+new Scenic application. Then run the following commands: (change `my_app` to
+the name of your application)
+
+```bash
+mix scenic.new.nerves my_app
+cd my_app
+mix do deps.get, scenic.run
+```
+
+Then navigate into the new app directory. Once there you can build the app.
+
+To buid run on the "host", which is your dev machine do this:
+
+```bash
+export MIX_TARGET=host
+mix deps.get
+mix scenic.run
+```
+
+To buid run on a Raspberry Pi 3 computer, do this:
+
+```bash
+export MIX_TARGET=rpi3
+mix deps.get
+mix nerves.release.init
+mix firmware.burn
+```
+
+## Running and Debugging on Your Dev Machine
 
 Once the application and its dependencies are set up, there are two main ways
 to run it.
@@ -118,7 +164,7 @@ this:
 mix scenic.run
 ```
 
-## The Starter Application
+## The Example Application
 
 The starter application created by the generator above shows the basics of
 building a Scenic application. It has four scenes, two components, and a

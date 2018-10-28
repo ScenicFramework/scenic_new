@@ -3,17 +3,11 @@
 #  Copyright © 2018 Kry10 Industries. All rights reserved.
 #
 
-defmodule Mix.Tasks.Scenic.New do
+defmodule Mix.Tasks.Scenic.New.Nerves do
   @moduledoc """
   Generates a starter Scenic application.
 
-  This is the easiest way to set up an empty new Scenic project.
-
-  If you would like a more full-featured example, please use:
-
-  ```bash
-  mix scenic.new.example
-  ```
+  This is the easiest way to set up a new Scenic project.
 
   ## Install `scenic.new`
 
@@ -86,7 +80,7 @@ defmodule Mix.Tasks.Scenic.New do
   import Mix.Generator
   alias ScenicNew.Common
 
-  @shortdoc "Creates a new Scenic v#{Common.scenic_version()} application"
+  @shortdoc "Creates a new Scenic v#{Common.scenic_version()} Nerves application"
 
   @switches [
     app: :string,
@@ -136,15 +130,34 @@ defmodule Mix.Tasks.Scenic.New do
 
     create_directory("config")
     create_file("config/config.exs", config_template(assigns))
+    create_file("config/config.host.exs", config_host_template(assigns))
+    create_file("config/config.rpi3.exs", config_rpi3_template(assigns))
 
     create_directory("lib")
-    create_directory("lib/components")
     create_file("lib/#{app}.ex", app_template(assigns))
 
-    create_directory("lib/scenes")
-    create_file("lib/scenes/home.ex", scene_home_template(assigns))
-
     create_directory("priv/static")
+    # create_file("priv/static/images/attribution.txt", Common.attribution(assigns))
+    # create_file("priv/static/images/scenic_parrot.png", Common.parrot)
+    # create_file("priv/static/images/cyanoramphus_zealandicus_1849.jpg", Common.cyanoramphus)
+
+    create_directory("lib/scenes")
+    create_file("lib/scenes/crosshair.ex", scene_crosshair_template(assigns))
+    create_file("lib/scenes/sys_info.ex", scene_sys_info_template(assigns))
+
+    create_directory("lib/components")
+
+    create_directory("lib/sensors")
+
+    create_directory("rel")
+    create_directory("rel/plugins")
+    create_file("rel/vm.args", rel_vm_template(assigns))
+    create_file("rel/plugins/.gitignore", rel_plugins_gitignore_template(assigns))
+
+    create_directory("rootfs_overlay")
+    create_directory("rootfs_overlay/etc")
+    create_file("rootfs_overlay/etc/erlinit.config", overlay_erlinit_template(assigns))
+    create_file("rootfs_overlay/etc/iex.exs", overlay_iex_template(assigns))
 
     """
 
@@ -183,11 +196,18 @@ defmodule Mix.Tasks.Scenic.New do
   templates = [
     # formatter: "templates/formatter.exs",
     # gitignore: "templates/gitignore",
-    readme: "templates/new/README.md.eex",
-    mix_exs: "templates/new/mix.exs.eex",
-    config: "templates/new/config/config.exs.eex",
-    app: "templates/new/lib/app.ex.eex",
-    scene_home: "templates/new/lib/scenes/home.ex.eex"
+    readme: "templates/new_nerves/README.md.eex",
+    mix_exs: "templates/new_nerves/mix.exs.eex",
+    config: "templates/new_nerves/config/config.exs.eex",
+    config_host: "templates/new_nerves/config/config.host.exs.eex",
+    config_rpi3: "templates/new_nerves/config/config.rpi3.exs.eex",
+    app: "templates/new_nerves/lib/app.ex.eex",
+    scene_crosshair: "templates/new_nerves/lib/scenes/crosshair.ex.eex",
+    scene_sys_info: "templates/new_nerves/lib/scenes/sys_info.ex.eex",
+    rel_vm: "templates/new_nerves/rel/vm.args",
+    rel_plugins_gitignore: "templates/new_nerves/rel/plugins/.gitignore",
+    overlay_erlinit: "templates/new_nerves/rootfs_overlay/etc/erlinit.config",
+    overlay_iex: "templates/new_nerves/rootfs_overlay/etc/iex.exs"
   ]
 
   Enum.each(templates, fn {name, content} ->
