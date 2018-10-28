@@ -205,7 +205,7 @@ defmodule Mix.Tasks.Scenic.New.Nerves do
     scene_crosshair: "templates/new_nerves/lib/scenes/crosshair.ex.eex",
     scene_sys_info: "templates/new_nerves/lib/scenes/sys_info.ex.eex",
     rel_vm: "templates/new_nerves/rel/vm.args",
-    rel_plugins_gitignore: "templates/new_nerves/rel/plugins/.gitignore",
+    rel_plugins_gitignore: "templates/new_nerves/rel/plugins/gitignore",
     overlay_erlinit: "templates/new_nerves/rootfs_overlay/etc/erlinit.config",
     overlay_iex: "templates/new_nerves/rootfs_overlay/etc/iex.exs"
   ]
