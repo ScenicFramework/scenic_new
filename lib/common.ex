@@ -19,7 +19,7 @@ defmodule ScenicNew.Common do
   # template files
   templates = [
     formatter: "templates/formatter.exs",
-    gitignore: "templates/gitignore",
+    gitignore: "templates/.gitignore",
     attribution: "templates/static/attribution.txt"
   ]
 
