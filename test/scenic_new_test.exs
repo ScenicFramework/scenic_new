@@ -9,10 +9,10 @@ defmodule Mix.Tasks.Scenic.NewTest do
   @app_name "scenic_demo"
   @module_name "ScenicDemo"
 
-  test "new with defaults" do
+  test "new.example with defaults" do
     in_tmp("new with defaults", fn ->
       assert capture_io(fn ->
-               Mix.Tasks.Scenic.New.run([@app_name])
+               Mix.Tasks.Scenic.New.Example.run([@app_name])
 
                assert_file("#{@app_name}/README.md")
                assert_file("#{@app_name}/.formatter.exs")
@@ -50,8 +50,8 @@ defmodule Mix.Tasks.Scenic.NewTest do
                assert_file("#{@app_name}/mix.exs", fn file ->
                  assert file =~ "mod: {#{@module_name}, []}"
 
-                 assert file =~ "{:scenic, \"~> 0.8\"}"
-                 assert file =~ "{:scenic_driver_glfw, \"~> 0.8\"}"
+                 assert file =~ "{:scenic, \"~> 0.9\"}"
+                 assert file =~ "{:scenic_driver_glfw, \"~> 0.9\"}"
                end)
              end) =~ "Your Scenic project was created successfully."
     end)
