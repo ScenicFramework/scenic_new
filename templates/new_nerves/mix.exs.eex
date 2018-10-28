@@ -41,7 +41,7 @@ defmodule <%= @mod %>.MixProject do
       {:nerves, "~> 1.3", runtime: false},
       {:shoehorn, "~> 0.4"},
       {:ring_logger, "~> 0.5"},
-      {:scenic, git: "git@github.com:boydm/scenic.git", override: true},
+      {:scenic, "~> 0.9"},
       {:scenic_sensor, "~> 0.7"}
     ] ++ deps(@target)
   end
@@ -49,15 +49,15 @@ defmodule <%= @mod %>.MixProject do
   # Specify target specific dependencies
   defp deps("host") do
     [
-      {:scenic_driver_glfw, git: "git@github.com:boydm/scenic_driver_glfw.git"}
+      {:scenic_driver_glfw, "~> 0.9"}
     ]
   end
 
   defp deps(target) do
     [
       {:nerves_runtime, "~> 0.6"},
-      {:scenic_driver_nerves_rpi, git: "git@github.com:boydm/scenic_driver_nerves_rpi.git"},
-      {:scenic_driver_nerves_touch, git: "git@github.com:boydm/scenic_driver_nerves_touch.git"}
+      {:scenic_driver_nerves_rpi, "~> 0.9"},
+      {:scenic_driver_nerves_touch, "~> 0.9"}
     ] ++ system(target)
   end
 
