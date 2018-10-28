@@ -18,16 +18,18 @@ defmodule <%= @mod %>.Application do
   def children("host") do
     import Supervisor.Spec, warn: false
     main_viewport_config = Application.get_env(:<%= @app %>, :viewport)
+
     [
-      supervisor(Scenic, [viewports: [main_viewport_config]]),
+      supervisor(Scenic, viewports: [main_viewport_config])
     ]
   end
 
   def children(_target) do
     import Supervisor.Spec, warn: false
     main_viewport_config = Application.get_env(:<%= @app %>, :viewport)
+
     [
-      supervisor(Scenic, [viewports: [main_viewport_config]]),
+      supervisor(Scenic, viewports: [main_viewport_config])
     ]
   end
 end

@@ -1,15 +1,15 @@
 use Mix.Config
 
 config :<%= @app %>, :viewport, %{
-      name: :main_viewport,
-      #default_scene: {<%= @mod %>.Scene.Crosshair, nil},
-      default_scene: {<%= @mod %>.Scene.SysInfo, nil},
-      size: {800, 480},
-      opts: [scale: 1.0],
-      drivers: [
-        %{
-          module: Scenic.Driver.Glfw,
-          opts: [title: "HOST :<%= @app %>"]
-        },
-      ]
+  name: :main_viewport,
+  # default_scene: {<%= @mod %>.Scene.Crosshair, nil},
+  default_scene: {<%= @mod %>.Scene.SysInfo, nil},
+  size: {800, 480},
+  opts: [scale: 1.0],
+  drivers: [
+    %{
+      module: Scenic.Driver.Glfw,
+      opts: [title: "MIX_TARGET=host, app = :<%= @app %>"]
     }
+  ]
+}
