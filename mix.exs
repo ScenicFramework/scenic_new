@@ -23,7 +23,7 @@ defmodule ScenicNew.MixProject do
         links: %{github: @github},
         files: [
           "templates/**/*.jpg",
-          "templates/**/.gitignore",
+          "templates/**/gitignore",
           "templates/**/*.exs",
           "templates/**/*.config",
           "templates/**/*.args",
