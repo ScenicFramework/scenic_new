@@ -167,7 +167,9 @@ mix do deps.get, scenic.run
 
 This assumes you are already familiar with the basics of [Nerves](https://nerves-project.org/) applications.
 
-First, navigate the command-line to the directory where you want to create your
+Note: You will first need to install the standard Nerves build tools for this to work. You can [find instructions here](https://hexdocs.pm/nerves/getting-started.html).
+
+Navigate the command-line to the directory where you want to create your
 new Scenic application. Then run the following commands: (change `my_app` to
 the name of your application)
 
