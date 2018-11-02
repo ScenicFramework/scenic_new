@@ -56,7 +56,7 @@ defmodule <%= @mod %>.MixProject do
   defp deps(target) do
     [
       {:nerves_runtime, "~> 0.6"},
-      {:scenic_driver_nerves_rpi, git: "git@github.com:boydm/scenic_driver_nerves_rpi.git", branch: "v0.9.0"},
+      {:scenic_driver_nerves_rpi, "~> 0.9"},
       {:scenic_driver_nerves_touch, "~> 0.9"}
     ] ++ system(target)
   end
