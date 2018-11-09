@@ -58,4 +58,10 @@ defmodule <%= @mod %>.Component.Nav do
     ViewPort.set_root(vp, scene)
     {:stop, state}
   end
+
+  def handle_call(:reload_current_scene, _, state) do
+    pid = Process.whereis(:scenic)
+    Process.exit(pid, :kill)
+    {:reply, nil, state}
+  end
 end
