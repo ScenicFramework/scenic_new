@@ -1,7 +1,7 @@
 # ScenicNew
 
-The `scenic.new` mix task, which generates out a starter application for you.
-This is the easiest way to set up a new Scenic project.
+The `scenic.new` mix task, which generates a starter application for
+you. This is the easiest way to set up a new Scenic project.
 
 ## Erlang/Elixir versions
 
@@ -73,7 +73,7 @@ Once these components have been installed, you should be able to build the
 
 ### Installing on NixOS 18.09
 
-The easiest way to install on NixOS is with a custom shell. Create a file titled `shell.nix` that includes the following: 
+The easiest way to install on NixOS is with a custom shell. Create a file titled `shell.nix` that includes the following:
 
 ```nix
 { pkgs ? import <nixpkgs> {} }:
@@ -181,7 +181,7 @@ mix do deps.get, scenic.run
 
 Then navigate into the new app directory. Once there you can build the app.
 
-To buid run on the "host", which is your dev machine do this:
+To run on the "host", which is your dev machine do this:
 
 ```bash
 export MIX_TARGET=host
@@ -189,7 +189,7 @@ mix deps.get
 mix scenic.run
 ```
 
-To buid run on a Raspberry Pi 3 computer, do this:
+To run on a Raspberry Pi 3 computer, do this:
 
 ```bash
 export MIX_TARGET=rpi3
@@ -243,5 +243,6 @@ how you would set up a real sensor and publish data from it into the
 
 ## What to read next
 
-Next, you should read guides describing the overall Scenic structure. This is
-in the documentation for Scenic itself
+Next, you should read the guides describing the overall Scenic
+structure. This is in the documentation for [Scenic
+itself](https://github.com/boydm/scenic_new).
