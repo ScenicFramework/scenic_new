@@ -1,5 +1,6 @@
 defmodule <%= @mod %>.Scene.Home do
   use Scenic.Scene
+  require Logger
 
   alias Scenic.Graph
 
@@ -16,6 +17,10 @@ defmodule <%= @mod %>.Scene.Home do
 
   @graph Graph.build(font: :roboto, font_size: 24)
   |> text(@note, translate: {20, 60})
+  # Transparent rectangle so that we receive cursor input (A scene is needed to
+  # capture cursor input)
+  # https://hexdocs.pm/scenic/Scenic.ViewPort.html#module-input
+  |> rect({700, 600})
 
   # ============================================================================
   # setup
@@ -24,5 +29,10 @@ defmodule <%= @mod %>.Scene.Home do
   def init(_, _) do
     push_graph( @graph )
     {:ok, @graph}
+  end
+
+  def handle_input(event, _context, state) do
+    Logger.info "Received event: #{inspect(event)}"
+    {:noreply, state}
   end
 end
