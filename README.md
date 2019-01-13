@@ -58,6 +58,17 @@ sudo apt-get install pkgconf libglfw3 libglfw3-dev libglew2.0 libglew-dev
 Once these components have been installed, you should be able to build the
 `scenic_driver_glfw` driver.
 
+### Installing on Arch Linux
+
+`glew` and `glfw-x11` are available in [Extra](https://www.archlinux.org/packages/extra/x86_64/glew/) and [Community](https://www.archlinux.org/packages/community/x86_64/glfw/), respectively. Ensure that these are enabled in your `pacman.conf`, then run:
+
+```bash
+sudo pacman -S pkgconf glew glfw-x11
+```
+
+Once these components have been installed, you should be able to build the
+`scenic_driver_glfw` driver.
+
 ### Installing on FreeBSD
 
 The easiest way to install on FreeBSD is to use `pkg`. Just run the following,
