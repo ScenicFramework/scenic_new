@@ -34,7 +34,7 @@ defmodule Mix.Tasks.Scenic.NewExampleTest do
                assert_file("#{@app_name}/lib/#{@app_name}.ex", fn file ->
                  assert file =~ "defmodule #{@module_name} do"
                  assert file =~ "Application.get_env(:#{@app_name}, :viewport)"
-                 assert file =~ "supervisor(#{@module_name}.Sensor.Supervisor, [])"
+                 assert file =~ "#{@module_name}.Sensor.Supervisor"
                end)
 
                assert_file("#{@app_name}/lib/scenes/components.ex")
