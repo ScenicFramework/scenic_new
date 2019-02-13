@@ -16,20 +16,18 @@ defmodule <%= @mod %>.Application do
 
   # List all child processes to be supervised
   def children("host") do
-    import Supervisor.Spec, warn: false
     main_viewport_config = Application.get_env(:<%= @app %>, :viewport)
 
     [
-      supervisor(Scenic, viewports: [main_viewport_config])
+      {Scenic, viewports: [main_viewport_config]}
     ]
   end
 
   def children(_target) do
-    import Supervisor.Spec, warn: false
     main_viewport_config = Application.get_env(:<%= @app %>, :viewport)
 
     [
-      supervisor(Scenic, viewports: [main_viewport_config])
+      {Scenic, viewports: [main_viewport_config]}
     ]
   end
 end
