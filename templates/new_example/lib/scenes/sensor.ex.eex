@@ -89,7 +89,7 @@ defmodule <%= @mod %>.Scene.Sensor do
     # fahrenheit
     temperature =
       (9 / 5 * (kelvin - 273) + 32)
-      # temperature = kelvin - 273                      # celcius
+      # temperature = kelvin - 273                      # celsius
       |> :erlang.float_to_binary(decimals: 1)
 
     graph = graph
