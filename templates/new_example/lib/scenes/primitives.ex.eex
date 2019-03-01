@@ -3,6 +3,8 @@ defmodule <%= @mod %>.Scene.Primitives do
   Sample scene.
   """
 
+
+
   use Scenic.Scene
   alias Scenic.Graph
   import Scenic.Primitives
@@ -26,90 +28,95 @@ defmodule <%= @mod %>.Scene.Primitives do
     It also shows a sampling of the styles you can apply to them.
   """
 
+@lines [
+    line_spec(@line, stroke: {4, :red}),
+    line_spec(@line, stroke: {20, :green}, cap: :butt, t: {60, 0}),
+    line_spec(@line, stroke: {20, :yellow}, cap: :round, t: {120, 0}),
+  ]
+
+  @triangle_circle_ellipse [
+    triangle_spec({{0, 60}, {50, 0}, {50, 60}}, fill: :khaki, stroke: {4, :green}),
+    circle_spec(30, fill: :green, stroke: {6, :yellow}, t: {110, 30}),
+    ellipse_spec({30, 40}, rotate: 0.5, fill: :green, stroke: {4, :gray}, t: {200, 30}),
+  ]
+
+  @quads [
+    rect_spec(
+      {50, 60},
+      fill: :khaki,
+      stroke: {4, :green}
+    ),
+
+    rrect_spec(
+      {50, 60, 6},
+      fill: :green,
+      stroke: {6, :yellow},
+      t: {85, 0}
+    ),
+
+    quad_spec(
+      {{0, 100}, {160, 0}, {300, 110}, {200, 260}},
+      id: :quad,
+      fill: {:linear, {0, 0, 400, 400, :yellow, :purple}},
+      stroke: {10, :khaki},
+      translate: {160, 0},
+      scale: 0.3,
+      pin: {0, 0}
+    ),
+
+    sector_spec(
+      {100, -0.3, -0.8},
+      stroke: {3, :grey},
+      fill: {:radial, {0, 0, 20, 160, {:yellow, 128}, {:purple, 128}}},
+      translate: {270, 70}
+    ),
+    arc_spec(
+      {100, -0.1, -0.8},
+      stroke: {6, :orange},
+      translate: {320, 70}
+    )
+  ]
+
+  @bird [
+    rect_spec(
+      {@bird_width, @bird_height},
+      fill: {:image, @bird_hash},
+      t: {15, 230}
+    )
+  ]
+
+  @text [
+    text_spec("Hello", translate: {0, 40}),
+    text_spec("World", translate: {90, 40}, fill: :yellow),
+    text_spec("Blur", translate: {0, 80}, font_blur: 2),
+    text_spec("Shadow", translate: {82, 82}, font_blur: 2, fill: :light_grey),
+    text_spec("Shadow", translate: {80, 80}),
+  ]
+
+  @twisty_path path_spec(
+    [
+      :begin,
+      {:move_to, 0, 0},
+      {:bezier_to, 0, 20, 0, 50, 40, 50},
+      {:bezier_to, 60, 50, 60, 20, 80, 20},
+      {:bezier_to, 100, 20, 110, 0, 120, 0},
+      {:bezier_to, 140, 0, 160, 30, 160, 50}
+    ],
+    stroke: {2, :red},
+    translate: {355, 230},
+    rotate: 0.5
+  )
+
   @graph Graph.build(font: :roboto, font_size: 24)
-         |> group(
-           fn g ->
-             g
-             |> text("Various primitives and styles", translate: {15, 20})
-
-             # lines
-             |> group(
-               fn g ->
-                 g
-                 |> line(@line, stroke: {4, :red})
-                 |> line(@line, stroke: {20, :green}, cap: :butt, t: {60, 0})
-                 |> line(@line, stroke: {20, :yellow}, cap: :round, t: {120, 0})
-               end,
-               t: {290, 50}
-             )
-
-             # row
-             |> group(
-               fn g ->
-                 g
-                 |> triangle({{0, 60}, {50, 0}, {50, 60}}, fill: :khaki, stroke: {4, :green})
-                 |> circle(30, fill: :green, stroke: {6, :yellow}, t: {110, 30})
-                 |> ellipse({30, 40}, rotate: 0.5, fill: :green, stroke: {4, :gray}, t: {200, 30})
-               end,
-               t: {15, 50}
-             )
-
-             # row
-             |> group(
-               fn g ->
-                 g
-                 |> rect({50, 60}, fill: :khaki, stroke: {4, :green})
-                 |> rrect({50, 60, 6}, fill: :green, stroke: {6, :yellow}, t: {85, 0})
-                 |> quad({{0, 100}, {160, 0}, {300, 110}, {200, 260}},
-                   id: :quad,
-                   fill: {:linear, {0, 0, 400, 400, :yellow, :purple}},
-                   stroke: {10, :khaki},
-                   translate: {160, 0},
-                   scale: 0.3,
-                   pin: {0, 0}
-                 )
-                 |> sector({100, -0.3, -0.8},
-                   stroke: {3, :grey},
-                   fill: {:radial, {0, 0, 20, 160, {:yellow, 128}, {:purple, 128}}},
-                   translate: {270, 70}
-                 )
-                 |> arc({100, -0.1, -0.8}, stroke: {6, :orange}, translate: {320, 70})
-               end,
-               t: {15, 130}
-             )
-
-             # bird
-             |> rect({@bird_width, @bird_height}, fill: {:image, @bird_hash}, t: {15, 230})
-
-             # text
-             |> group(
-               fn g ->
-                 g
-                 |> text("Hello", translate: {0, 40})
-                 |> text("World", translate: {90, 40}, fill: :yellow)
-                 |> text("Blur", translate: {0, 80}, font_blur: 2)
-                 |> text("Shadow", translate: {82, 82}, font_blur: 2, fill: :light_grey)
-                 |> text("Shadow", translate: {80, 80})
-               end,
-               font_size: 40,
-               t: {130, 240}
-             )
-
-             # twisty path
-             |> path(
-               [
-                 :begin,
-                 {:move_to, 0, 0},
-                 {:bezier_to, 0, 20, 0, 50, 40, 50},
-                 {:bezier_to, 60, 50, 60, 20, 80, 20},
-                 {:bezier_to, 100, 20, 110, 0, 120, 0},
-                 {:bezier_to, 140, 0, 160, 30, 160, 50}
-               ],
-               stroke: {2, :red},
-               translate: {355, 230},
-               rotate: 0.5
-             )
-           end,
+         |> add_specs_to_graph([
+             text_spec("Various primitives and styles", translate: {15, 20}),
+             group_spec(@lines, t: {290, 50}),
+             group_spec(@triangle_circle_ellipse, t: {15, 50}),
+             group_spec(@quads, t: {15, 130}),
+             @bird,
+             group_spec(@text, font_size: 40, t: {130, 240}),
+             @twisty_path,
+           ],
            translate: {15, @body_offset}
          )
 

@@ -26,3 +26,6 @@ scenic_new-*.tar
 
 # ignore the archives directory. That is it's own repo
 archives/
+
+# vscode
+/.elixir_ls
