@@ -26,7 +26,7 @@ defmodule <%= @mod %>.MixProject do
       # will switch to 0.10 in preparation for release
       # {:scenic, "~> 0.9"},
       {:scenic, git: "https://github.com/boydm/scenic.git", override: true},
-      {:scenic_driver_glfw, "~> 0.9", targets: :host},
+      {:scenic_driver_glfw, "~> 0.9", targets: :host}
     ]
   end
 end
