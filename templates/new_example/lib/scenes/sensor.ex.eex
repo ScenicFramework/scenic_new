@@ -92,10 +92,11 @@ defmodule <%= @mod %>.Scene.Sensor do
       # temperature = kelvin - 273                      # celsius
       |> :erlang.float_to_binary(decimals: 1)
 
-    graph = graph
-    # center the temperature on the viewport
-    |> Graph.modify(:temperature, &text(&1, temperature <> @degrees))
-    |> push_graph()
+    graph =
+      graph
+      # center the temperature on the viewport
+      |> Graph.modify(:temperature, &text(&1, temperature <> @degrees))
+      |> push_graph()
 
     {:noreply, graph}
   end

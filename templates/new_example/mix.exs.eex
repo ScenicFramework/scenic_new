@@ -22,7 +22,7 @@ defmodule <%= @mod %>.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    [ 
+    [
       # will switch to 0.10 in preparation for release
       # {:scenic, "~> 0.9"},
       {:scenic, git: "https://github.com/boydm/scenic.git", override: true},

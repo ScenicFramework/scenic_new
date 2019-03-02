@@ -64,7 +64,7 @@ defmodule <%= @mod %>.Scene.Components do
                    t: {0, 140}
                  )
                  |> checkbox({"Check Box", true}, id: :check_box, t: {200, 140})
-                 |> toggle( false, id: :toggle, t: {340, 135})
+                 |> toggle(false, id: :toggle, t: {340, 135})
                  |> text_field("", id: :text, width: 240, hint: "Type here...", t: {200, 160})
                  |> text_field("",
                    id: :password,
