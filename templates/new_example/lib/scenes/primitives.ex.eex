@@ -77,13 +77,11 @@ defmodule <%= @mod %>.Scene.Primitives do
     )
   ]
 
-  @bird [
-    rect_spec(
+  @bird rect_spec(
       {@bird_width, @bird_height},
       fill: {:image, @bird_hash},
       t: {15, 230}
     )
-  ]
 
   @text [
     text_spec("Hello", translate: {0, 40}),
