@@ -45,11 +45,10 @@ defmodule <%= @mod %>.Scene.Primitives do
 
   @body_offset 80
 
-
-
-  @line {{0, 0}, {60, 60}}  # this is not a primitive: it's just the
-                            # a parameter that's common to the three
-                            # `line_spec`s that follow
+  # this is not a primitive: it's just the
+  @line {{0, 0}, {60, 60}}
+  # a parameter that's common to the three
+  # `line_spec`s that follow
 
   ##
   # Remember that what gets rendered is a display graph. It's defined
@@ -160,7 +159,6 @@ defmodule <%= @mod %>.Scene.Primitives do
          # Nav and Notes are added last so that they draw on top
          |> Nav.add_to_graph(__MODULE__)
          |> Notes.add_to_graph(@notes)
-
 
   ##
   # And, finally, here's the code that executes at runtime. All it does

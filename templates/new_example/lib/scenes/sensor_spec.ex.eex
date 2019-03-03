@@ -29,49 +29,49 @@ defmodule <%= @mod %>.Scene.SensorSpec do
 
   @buttons [
     button_spec("Calibrate",
-                id: :button_1,
-                height: 46,
-                theme: :primary),
-
+      id: :button_1,
+      height: 46,
+      theme: :primary
+    ),
     button_spec("Maintenance",
-                id: :button_2,
-                height: 46,
-                theme: :secondary,
-                translate: {0, 60}),
-
+      id: :button_2,
+      height: 46,
+      theme: :secondary,
+      translate: {0, 60}
+    ),
     button_spec("Settings",
-                id: :button_3,
-                height: 46,
-                theme: :secondary),
+      id: :button_3,
+      height: 46,
+      theme: :secondary
+    )
   ]
 
   @temperature_display text_spec("",
-                                 id: :temperature,
-                                 text_align: :center,
-                                 font_size: @font_size)
+                         id: :temperature,
+                         text_align: :center,
+                         font_size: @font_size
+                       )
 
-
-  @graph  Graph.build(font: :roboto, font_size: 16, theme: :dark)
-          |> add_specs_to_graph(
-             [
-               @temperature_display,
-               group_spec(@buttons,
-                          id: :button_group,
-                          button_font_size: 24),
-             ],
-             translate: {0, @body_offset}
-           )
-           # NavDrop and Notes are added last so that they draw on top
-           |> Nav.add_to_graph(__MODULE__)
-           |> Notes.add_to_graph(@notes)
-
+  @graph Graph.build(font: :roboto, font_size: 16, theme: :dark)
+         |> add_specs_to_graph(
+           [
+             @temperature_display,
+             group_spec(@buttons,
+               id: :button_group,
+               button_font_size: 24
+             )
+           ],
+           translate: {0, @body_offset}
+         )
+         # NavDrop and Notes are added last so that they draw on top
+         |> Nav.add_to_graph(__MODULE__)
+         |> Notes.add_to_graph(@notes)
 
   # ============================================================================
   # setup
 
   # --------------------------------------------------------
   def init(_, opts) do
-
     # Align the buttons and the temperature display. This has to be done at runtime
     # as we won't know the viewport dimensions until then.
 
@@ -80,11 +80,14 @@ defmodule <%= @mod %>.Scene.SensorSpec do
 
     graph =
       @graph
-      |> Graph.modify(:temperature,  &update_opts(&1, translate: {vp_width / 2, @font_size}))
+      |> Graph.modify(:temperature, &update_opts(&1, translate: {vp_width / 2, @font_size}))
       |> Graph.modify(:button_group, &update_opts(&1, translate: {col, @font_size + 60}))
-      |> Graph.modify(:button_1,     &update_opts(&1, width: col*4))
-      |> Graph.modify(:button_2,     &update_opts(&1, width: col*2 - 6))
-      |> Graph.modify(:button_3,     &update_opts(&1, width: col*2 - 6, translate: {col * 2 + 6, 60}))
+      |> Graph.modify(:button_1, &update_opts(&1, width: col * 4))
+      |> Graph.modify(:button_2, &update_opts(&1, width: col * 2 - 6))
+      |> Graph.modify(
+        :button_3,
+        &update_opts(&1, width: col * 2 - 6, translate: {col * 2 + 6, 60})
+      )
       |> push_graph()
 
     # subscribe to the simulated temperature sensor

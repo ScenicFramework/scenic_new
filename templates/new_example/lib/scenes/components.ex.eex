@@ -23,7 +23,7 @@ defmodule <%= @mod %>.Scene.Components do
     text_spec("Various components", translate: {15, 20}),
     text_spec("Event received:", translate: {15, 60}, id: :event),
     # this button will cause the scene to crash.
-    button_spec("Crash", id: :btn_crash, theme: :danger, t: {370, 0}),
+    button_spec("Crash", id: :btn_crash, theme: :danger, t: {370, 0})
   ]
 
   ##
@@ -43,20 +43,20 @@ defmodule <%= @mod %>.Scene.Components do
       width: 100,
       t: {270, 40},
       theme: :secondary
-    ),
+    )
   ]
 
   @slider slider_spec({{0, 100}, 0}, id: :num_slider, t: {0, 95})
 
   @radio_group radio_group_spec(
-    [
-      {"Radio A", :radio_a},
-      {"Radio B", :radio_b, true},
-      {"Radio C", :radio_c, false}
-    ],
-    id: :radio_group,
-    t: {0, 140}
-  )
+                 [
+                   {"Radio A", :radio_a},
+                   {"Radio B", :radio_b, true},
+                   {"Radio C", :radio_c, false}
+                 ],
+                 id: :radio_group,
+                 t: {0, 140}
+               )
 
   @checkbox checkbox_spec({"Check Box", true}, id: :check_box, t: {200, 140})
 
@@ -65,21 +65,21 @@ defmodule <%= @mod %>.Scene.Components do
   @text_field text_field_spec("", id: :text, width: 240, hint: "Type here...", t: {200, 160})
 
   @password_field text_field_spec("",
-    id: :password,
-    width: 240,
-    hint: "Password",
-    type: :password,
-    t: {200, 200}
-  )
+                    id: :password,
+                    width: 240,
+                    hint: "Password",
+                    type: :password,
+                    t: {200, 200}
+                  )
 
   @dropdown dropdown_spec(
-    {
-      [{"Choice 1", :choice_1}, {"Choice 2", :choice_2}, {"Choice 3", :choice_3}],
-      :choice_1
-    },
-    id: :dropdown,
-    translate: {0, 202}
-  )
+              {
+                [{"Choice 1", :choice_1}, {"Choice 2", :choice_2}, {"Choice 3", :choice_3}],
+                :choice_1
+              },
+              id: :dropdown,
+              translate: {0, 202}
+            )
 
   ##
   # Put them all together
@@ -92,17 +92,18 @@ defmodule <%= @mod %>.Scene.Components do
     @toggle,
     @text_field,
     @password_field,
-    @dropdown,
+    @dropdown
   ]
 
   ##
   # And build the final graph
   @graph Graph.build(font: :roboto, font_size: 24, theme: :dark)
-         |> add_specs_to_graph([
-              @header,
-              group_spec(@components, t: {15, 74}),
-            ],
-            translate: {0, @body_offset + 20}
+         |> add_specs_to_graph(
+           [
+             @header,
+             group_spec(@components, t: {15, 74})
+           ],
+           translate: {0, @body_offset + 20}
          )
 
          # Nav and Notes are added last so that they draw on top
