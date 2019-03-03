@@ -32,10 +32,11 @@ defmodule <%= @mod %>.Component.Nav do
       |> text("Scene:", translate: {14, 35}, align: :right)
       |> dropdown(
         {[
-           {"Sensor", <%= @mod %>.Scene.Sensor},
-           {"Primitives", <%= @mod %>.Scene.Primitives},
-           {"Components", <%= @mod %>.Scene.Components},
-           {"Transforms", <%= @mod %>.Scene.Transforms}
+           {"Sensor",                <%= @mod %>.Scene.Sensor},
+           {"Sensor (spec version)", <%= @mod %>.Scene.SensorSpec},
+           {"Primitives",            <%= @mod %>.Scene.Primitives},
+           {"Components",            <%= @mod %>.Scene.Components},
+           {"Transforms",            <%= @mod %>.Scene.Transforms}
          ], current_scene},
         id: :nav,
         translate: {70, 15}

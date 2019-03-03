@@ -39,6 +39,7 @@ defmodule Mix.Tasks.Scenic.NewExampleTest do
 
                assert_file("#{@app_name}/lib/scenes/components.ex")
                assert_file("#{@app_name}/lib/scenes/sensor.ex")
+               assert_file("#{@app_name}/lib/scenes/sensor_spec.ex")
                assert_file("#{@app_name}/lib/scenes/primitives.ex")
                assert_file("#{@app_name}/lib/scenes/transforms.ex")
                assert_file("#{@app_name}/lib/scenes/splash.ex")
