@@ -10,6 +10,32 @@ defmodule <%= @mod %>.Scene.Primitives do
   alias <%= @mod %>.Component.Nav
   alias <%= @mod %>.Component.Notes
 
+  @notes """
+    \"Primitives\" shows the various primitives available in Scenic.
+    It also shows a sampling of the styles you can apply to them.
+  """
+
+  ##
+  # In this example we specify all the compoonents statically using
+  # module attributes. When we say
+  #
+  #       @lines [
+  #        line_spec(@line, stroke: {4, :red}),
+  #        line_spec(@line, stroke: {20, :green}, cap: :butt, t: {60, 0}),
+  #        line_spec(@line, stroke: {20, :yellow}, cap: :round, t: {120, 0})
+  #      ]
+  #
+  # We're not yet drawing anything. Instead we'd creating
+  # _specifications_ for things that we will be adding to
+  # the display graph when the code runs.
+  #
+  # This use of module attributes to create the things we'll be
+  # displaying later is a common scenic idiom.
+  ##
+
+  ###
+  # Load up the bird image
+
   @bird_path :code.priv_dir(:<%= @app %>)
              |> Path.join("/static/images/cyanoramphus_zealandicus_1849.jpg")
   @bird_hash Scenic.Cache.Hash.file!(@bird_path, :sha)
@@ -19,18 +45,26 @@ defmodule <%= @mod %>.Scene.Primitives do
 
   @body_offset 80
 
+  # this is not a primitive: it's just the
   @line {{0, 0}, {60, 60}}
+  # a parameter that's common to the three
+  # `line_spec`s that follow
 
-  @notes """
-    \"Primitives\" shows the various primitives available in Scenic.
-    It also shows a sampling of the styles you can apply to them.
-  """
+  ##
+  # Remember that what gets rendered is a display graph. It's defined
+  # recursively, so each of its nodes can be either a display graph, a
+  # list of primitives, or a primitive itself. So, when we create a list
+  # of lines here, the result can simply be added to the graph as a
+  # single node.
 
   @lines [
     line_spec(@line, stroke: {4, :red}),
     line_spec(@line, stroke: {20, :green}, cap: :butt, t: {60, 0}),
     line_spec(@line, stroke: {20, :yellow}, cap: :round, t: {120, 0})
   ]
+
+  ##
+  # Same for other shapes
 
   @triangle_circle_ellipse [
     triangle_spec({{0, 60}, {50, 0}, {50, 60}}, fill: :khaki, stroke: {4, :green}),
@@ -100,6 +134,14 @@ defmodule <%= @mod %>.Scene.Primitives do
                  rotate: 0.5
                )
 
+  ##
+  # Now it's time to build the display graph. Again, this is
+  # static, whih means it's done at compile time.
+  #
+  # We first create an empty graph (with some font attributes)
+  # and then add to it all the specs we created above. Still
+  # nothing gets drawn (as the code isn't actually running yet)
+
   @graph Graph.build(font: :roboto, font_size: 24)
          |> add_specs_to_graph(
            [
@@ -117,6 +159,11 @@ defmodule <%= @mod %>.Scene.Primitives do
          # Nav and Notes are added last so that they draw on top
          |> Nav.add_to_graph(__MODULE__)
          |> Notes.add_to_graph(@notes)
+
+  ##
+  # And, finally, here's the code that executes at runtime. All it does
+  # is load up the bird image, and push the previously contructed
+  # graph into the scene.
 
   def init(_, _opts) do
     # load the parrot texture into the cache

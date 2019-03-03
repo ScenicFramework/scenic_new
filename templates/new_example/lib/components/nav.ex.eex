@@ -33,6 +33,7 @@ defmodule <%= @mod %>.Component.Nav do
       |> dropdown(
         {[
            {"Sensor", <%= @mod %>.Scene.Sensor},
+           {"Sensor (spec)", <%= @mod %>.Scene.SensorSpec},
            {"Primitives", <%= @mod %>.Scene.Primitives},
            {"Components", <%= @mod %>.Scene.Components},
            {"Transforms", <%= @mod %>.Scene.Transforms}

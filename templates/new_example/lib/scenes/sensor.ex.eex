@@ -21,6 +21,12 @@ defmodule <%= @mod %>.Scene.Sensor do
     The buttons are placeholders showing custom alignment.
   """
 
+  @moduledoc """
+  This version of `Sensor` illustrates using spec functions to
+  construct the display graph. Compare this with `Sensor` which uses
+  anonymous functions.
+  """
+
   # ============================================================================
   # setup
 

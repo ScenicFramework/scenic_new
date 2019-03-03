@@ -54,17 +54,18 @@ defmodule Mix.Tasks.Scenic.New.Example do
   building a Scenic application. It has four scenes, two components, and a
   simulated sensor.
 
-  Scene | Description
-  --- | ---
-  Splash | The Splash scene is configured to run when the application is started in the `config/config.exs` file. It runs a simple animation, then transitions to the Sensor scene. It also shows how intercept basic user input to exit the scene early.
-  Sensor | The Sensor scene depicts a simulated temperature sensor. The sensor is always running and updates it's data through the `Scenic.SensorPubSub` server.
-  Primitives | The Primitives scenes displays an overview of the basic primitive types and some of the styles that can be applied to them.
-  Components | The Components scene shows the basic components that come with Scenic. The crash button will cause a match error that will crash the scene, showing how the supervision tree restarts the scene. It also shows how to receive events from components.
+  Scene       | Description
+  ---------   | -----------
+  Splash      | The Splash scene is configured to run when the application is started in the `config/config.exs` file. It runs a simple animation, then transitions to the Sensor scene. It also shows how intercept basic user input to exit the scene early.
+  Sensor      | The Sensor scene depicts a simulated temperature sensor. The sensor is always running and updates it's data through the `Scenic.SensorPubSub` server.
+  Sensor spec | The Sensor scene implemendted using specs
+  Primitives  | The Primitives scenes displays an overview of the basic primitive types and some of the styles that can be applied to them.
+  Components  | The Components scene shows the basic components that come with Scenic. The crash button will cause a match error that will crash the scene, showing how the supervision tree restarts the scene. It also shows how to receive events from components.
 
-  Component | Description
-  --- | ---
-  Nav | The navigation bar at the top of the main scenes shows how to navigate between scenes and how to construct a simple component and pass a parameter to it. Note that it references a clock, creating a nested component. The clock is positioned by dynamically querying the width of the ViewPort
-  Notes | The notes section at the bottom of each scene is very simple and also shows passing in custom data from the parent.
+  Component   | Description
+  ---------   | -----------
+  Nav         | The navigation bar at the top of the main scenes shows how to navigate between scenes and how to construct a simple component and pass a parameter to it. Note that it references a clock, creating a nested component. The clock is positioned by dynamically querying the width of the ViewPort
+  Notes       | The notes section at the bottom of each scene is very simple and also shows passing in custom data from the parent.
 
   The simulated temperature sensor doesn't collect any actual data, but does
   show how you would set up a real sensor and publish data from it into the
@@ -142,6 +143,7 @@ defmodule Mix.Tasks.Scenic.New.Example do
     create_directory("lib/scenes")
     create_file("lib/scenes/components.ex", scene_components_template(assigns))
     create_file("lib/scenes/sensor.ex", scene_sensor_template(assigns))
+    create_file("lib/scenes/sensor_spec.ex", scene_sensor_spec_template(assigns))
     create_file("lib/scenes/primitives.ex", scene_primitives_template(assigns))
     create_file("lib/scenes/transforms.ex", scene_transforms_template(assigns))
     create_file("lib/scenes/splash.ex", scene_splash_template(assigns))
@@ -199,6 +201,7 @@ defmodule Mix.Tasks.Scenic.New.Example do
     notes: "templates/new_example/lib/components/notes.ex.eex",
     scene_components: "templates/new_example/lib/scenes/components.ex.eex",
     scene_sensor: "templates/new_example/lib/scenes/sensor.ex.eex",
+    scene_sensor_spec: "templates/new_example/lib/scenes/sensor_spec.ex.eex",
     scene_primitives: "templates/new_example/lib/scenes/primitives.ex.eex",
     scene_transforms: "templates/new_example/lib/scenes/transforms.ex.eex",
     scene_splash: "templates/new_example/lib/scenes/splash.ex.eex",
