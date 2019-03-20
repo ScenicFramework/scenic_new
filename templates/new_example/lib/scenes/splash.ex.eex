@@ -42,7 +42,7 @@ defmodule <%= @mod %>.Scene.Splash do
     }
 
     # load the parrot texture into the cache
-    Scenic.Cache.File.load(@parrot_path, @parrot_hash)
+    Scenic.Cache.Static.Texture.load(@parrot_path, @parrot_hash)
 
     # move the parrot into the right location
     graph =

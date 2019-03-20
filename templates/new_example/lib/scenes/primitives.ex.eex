@@ -167,7 +167,7 @@ defmodule <%= @mod %>.Scene.Primitives do
 
   def init(_, _opts) do
     # load the parrot texture into the cache
-    Scenic.Cache.File.load(@bird_path, @bird_hash)
+    Scenic.Cache.Static.Texture.load(@bird_path, @bird_hash)
 
     push_graph(@graph)
 

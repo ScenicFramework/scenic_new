@@ -26,7 +26,8 @@ defmodule <%= @mod %>.MixProject do
       # will switch to 0.10 in preparation for release
       # {:scenic, "~> 0.9"},
       {:scenic, git: "https://github.com/boydm/scenic.git", override: true},
-      {:scenic_driver_glfw, "~> 0.9", targets: :host},
+      # {:scenic_driver_glfw, "~> 0.9", targets: :host},
+      {:scenic_driver_glfw, git: "https://github.com/boydm/scenic_driver_glfw.git", targets: :host},
 
       # These deps are optional and are included as they are often used.
       # If your app doesn't need them, they are safe to remove.
