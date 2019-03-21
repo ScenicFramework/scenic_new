@@ -21,7 +21,7 @@ defmodule <%= @mod %>.Scene.Components do
 
   @header [
     text_spec("Various components", translate: {15, 20}),
-    text_spec("Event received:", translate: {15, 60}, id: :event),
+    text_spec("Event received:", translate: {15, 65}, id: :event),
     # this button will cause the scene to crash.
     button_spec("Crash", id: :btn_crash, theme: :danger, t: {370, 0})
   ]
@@ -31,22 +31,22 @@ defmodule <%= @mod %>.Scene.Components do
 
   @buttons [
     button_spec("Primary", id: :btn_primary, theme: :primary),
-    button_spec("Success", id: :btn_success, t: {90, 0}, theme: :success),
-    button_spec("Info", id: :btn_info, t: {180, 0}, theme: :info),
-    button_spec("Light", id: :btn_light, t: {270, 0}, theme: :light),
-    button_spec("Warning", id: :btn_warning, t: {360, 0}, theme: :warning),
-    button_spec("Dark", id: :btn_dark, t: {0, 40}, theme: :dark),
-    button_spec("Text", id: :btn_text, t: {90, 40}, theme: :text),
-    button_spec("Danger", id: :btn_danger, theme: :danger, t: {180, 40}),
+    button_spec("Success", id: :btn_success, t: {100, 0}, theme: :success),
+    button_spec("Info", id: :btn_info, t: {206, 0}, theme: :info),
+    button_spec("Light", id: :btn_light, t: {278, 0}, theme: :light),
+    button_spec("Warning", id: :btn_warning, t: {358, 0}, theme: :warning),
+    button_spec("Dark", id: :btn_dark, t: {0, 44}, theme: :dark),
+    button_spec("Text", id: :btn_text, t: {78, 44}, theme: :text),
+    button_spec("Danger", id: :btn_danger, theme: :danger, t: {155, 44}),
     button_spec("Secondary",
       id: :btn_secondary,
       width: 100,
-      t: {270, 40},
+      t: {252, 44},
       theme: :secondary
     )
   ]
 
-  @slider slider_spec({{0, 100}, 0}, id: :num_slider, t: {0, 95})
+  @slider slider_spec({{0, 100}, 0}, id: :num_slider, t: {0, 100})
 
   @radio_group radio_group_spec(
                  [
