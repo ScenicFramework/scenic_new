@@ -81,12 +81,11 @@ defmodule <%= @mod %>.Scene.Sensor do
       # NavDrop and Notes are added last so that they draw on top
       |> Nav.add_to_graph(__MODULE__)
       |> Notes.add_to_graph(@notes)
-      |> push_graph()
 
     # subscribe to the simulated temperature sensor
     Sensor.subscribe(:temperature)
 
-    {:ok, graph}
+    {:ok, graph, push: graph}
   end
 
   # --------------------------------------------------------
@@ -98,12 +97,9 @@ defmodule <%= @mod %>.Scene.Sensor do
       # temperature = kelvin - 273                      # celsius
       |> :erlang.float_to_binary(decimals: 1)
 
-    graph =
-      graph
-      # center the temperature on the viewport
-      |> Graph.modify(:temperature, &text(&1, temperature <> @degrees))
-      |> push_graph()
+    # center the temperature on the viewport
+    graph = Graph.modify(graph, :temperature, &text(&1, temperature <> @degrees))
 
-    {:noreply, graph}
+    {:noreply, graph, push: graph}
   end
 end

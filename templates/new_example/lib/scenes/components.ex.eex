@@ -98,6 +98,7 @@ defmodule <%= @mod %>.Scene.Components do
   ##
   # And build the final graph
   @graph Graph.build(font: :roboto, font_size: 24, theme: :dark)
+         |> Notes.add_to_graph(@notes)
          |> add_specs_to_graph(
            [
              @header,
@@ -108,15 +109,13 @@ defmodule <%= @mod %>.Scene.Components do
 
          # Nav and Notes are added last so that they draw on top
          |> Nav.add_to_graph(__MODULE__)
-         |> Notes.add_to_graph(@notes)
 
   @event_str "Event received: "
 
   # ============================================================================
 
   def init(_, _opts) do
-    push_graph(@graph)
-    {:ok, @graph}
+    {:ok, @graph, push: @graph}
   end
 
   # force the scene to crash
@@ -127,11 +126,7 @@ defmodule <%= @mod %>.Scene.Components do
 
   # display the received message
   def filter_event(event, _, graph) do
-    graph =
-      graph
-      |> Graph.modify(:event, &text(&1, @event_str <> inspect(event)))
-      |> push_graph()
-
-    {:continue, event, graph}
+    graph = Graph.modify(graph, :event, &text(&1, @event_str <> inspect(event)))
+    {:cont, event, graph, push: graph}
   end
 end
