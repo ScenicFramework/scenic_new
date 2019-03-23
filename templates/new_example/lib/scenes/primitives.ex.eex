@@ -38,7 +38,7 @@ defmodule <%= @mod %>.Scene.Primitives do
 
   @bird_path :code.priv_dir(:<%= @app %>)
              |> Path.join("/static/images/cyanoramphus_zealandicus_1849.jpg")
-  @bird_hash Scenic.Cache.Hash.file!(@bird_path, :sha)
+  @bird_hash Scenic.Cache.Support.Hash.file!(@bird_path, :sha)
 
   @bird_width 100
   @bird_height 128
@@ -168,9 +168,6 @@ defmodule <%= @mod %>.Scene.Primitives do
   def init(_, _opts) do
     # load the parrot texture into the cache
     Scenic.Cache.Static.Texture.load(@bird_path, @bird_hash)
-
-    push_graph(@graph)
-
-    {:ok, @graph}
+    {:ok, :any_state_you_want, push: @graph}
   end
 end

@@ -42,21 +42,20 @@ defmodule <%= @mod %>.Component.Nav do
         translate: {70, 15}
       )
       |> digital_clock(text_align: :right, translate: {width - 20, 35})
-      |> push_graph()
 
-    {:ok, %{graph: graph, viewport: opts[:viewport]}}
+    {:ok, %{graph: graph, viewport: opts[:viewport]}, push: graph}
   end
 
   # ----------------------------------------------------------------------------
   def filter_event({:value_changed, :nav, scene}, _, %{viewport: vp} = state)
       when is_atom(scene) do
     ViewPort.set_root(vp, {scene, nil})
-    {:stop, state}
+    {:halt, state}
   end
 
   # ----------------------------------------------------------------------------
   def filter_event({:value_changed, :nav, scene}, _, %{viewport: vp} = state) do
     ViewPort.set_root(vp, scene)
-    {:stop, state}
+    {:halt, state}
   end
 end

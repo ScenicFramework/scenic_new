@@ -73,14 +73,13 @@ defmodule <%= @mod %>.Scene.SysInfo do
       @graph
       |> Graph.modify(:vp_info, &text(&1, vp_info))
       |> Graph.modify(:device_list, &update_opts(&1, hidden: @target == "host"))
-      |> push_graph()
 
     unless @target == "host" do
       # subscribe to the simulated temperature sensor
       Process.send_after(self(), :update_devices, 100)
     end
 
-    {:ok, graph}
+    {:ok, graph, push: graph}
   end
 
   unless @target == "host" do
@@ -97,12 +96,9 @@ defmodule <%= @mod %>.Scene.SysInfo do
         end)
 
       # update the graph
-      graph =
-        graph
-        |> Graph.modify(:devices, &text(&1, devices))
-        |> push_graph()
+      graph = Graph.modify(graph, :devices, &text(&1, devices))
 
-      {:noreply, graph}
+      {:noreply, graph, push: graph}
     end
   end
 end

@@ -49,11 +49,10 @@ defmodule <%= @mod %>.Scene.Crosshair do
           }"
         )
       end)
-      |> push_graph()
 
     ViewPort.capture_input(context, [:cursor_button, :cursor_pos])
 
-    {:noreply, graph}
+    {:noreply, graph, push: graph}
   end
 
   # --------------------------------------------------------
@@ -75,11 +74,10 @@ defmodule <%= @mod %>.Scene.Crosshair do
           }"
         )
       end)
-      |> push_graph()
 
     ViewPort.release_input(context, [:cursor_button, :cursor_pos])
 
-    {:noreply, graph}
+    {:noreply, graph, push: graph}
   end
 
   # --------------------------------------------------------
@@ -102,9 +100,8 @@ defmodule <%= @mod %>.Scene.Crosshair do
           }"
         )
       end)
-      |> push_graph()
 
-    {:noreply, graph}
+    {:noreply, graph, push: graph}
   end
 
   def handle_input(_msg, _, graph) do

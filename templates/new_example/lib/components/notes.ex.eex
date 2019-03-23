@@ -25,8 +25,7 @@ defmodule <%= @mod %>.Component.Notes do
       Graph.build(font_size: @font_size, translate: {0, vp_height - @height})
       |> rect({vp_width, @height}, fill: {48, 48, 48})
       |> text(notes, translate: {@indent, @font_size * 2})
-      |> push_graph()
 
-    {:ok, %{graph: graph, viewport: opts[:viewport]}}
+    {:ok, %{graph: graph, viewport: opts[:viewport]}, push: graph}
   end
 end

@@ -88,12 +88,11 @@ defmodule <%= @mod %>.Scene.SensorSpec do
         :button_3,
         &update_opts(&1, width: col * 2 - 6, translate: {col * 2 + 6, 60})
       )
-      |> push_graph()
 
     # subscribe to the simulated temperature sensor
     Sensor.subscribe(:temperature)
 
-    {:ok, graph}
+    {:ok, graph, push: graph}
   end
 
   # --------------------------------------------------------
@@ -105,12 +104,9 @@ defmodule <%= @mod %>.Scene.SensorSpec do
       # temperature = kelvin - 273                      # celsius
       |> :erlang.float_to_binary(decimals: 1)
 
-    graph =
-      graph
-      # center the temperature on the viewport
-      |> Graph.modify(:temperature, &text(&1, temperature <> @degrees))
-      |> push_graph()
+    # center the temperature on the viewport
+    graph = Graph.modify(graph, :temperature, &text(&1, temperature <> @degrees))
 
-    {:noreply, graph}
+    {:noreply, graph, push: graph}
   end
 end
