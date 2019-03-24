@@ -13,9 +13,10 @@ defmodule <%= @mod %>.Scene.SysInfo do
   """
 
   @iex_note """
-  Please note: because Scenic draws over
-  the entire screen in Nerves, IEx has
-  been routed to the UART pins.
+  Please note: because Scenic
+  draws over the entire screen
+  in Nerves, IEx has been routed
+  to the UART pins.
   """
 
   @graph Graph.build(font_size: 22, font: :roboto_mono)
