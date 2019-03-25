@@ -23,10 +23,8 @@ defmodule <%= @mod %>.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # will switch to 0.10 in preparation for release
-      # {:scenic, "~> 0.9"},
-      {:scenic, git: "https://github.com/boydm/scenic.git", override: true},
-      {:scenic_driver_glfw, git: "https://github.com/boydm/scenic_driver_glfw.git", override: true},
+      {:scenic, "~> 0.10"},
+      {:scenic_driver_glfw, "~> 0.10"},
     ]
   end
 end
