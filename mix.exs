@@ -32,7 +32,7 @@ defmodule ScenicNew.MixProject do
           "templates/**/*.png",
           "templates/**/*.eex",
           "config",
-          "test",
+          # "test",
           "mix.exs",
           ".formatter.exs",
           ".gitignore",
