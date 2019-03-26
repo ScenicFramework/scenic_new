@@ -51,9 +51,9 @@ defmodule Mix.Tasks.Scenic.New.NervesTest do
                assert_file("#{@app_name}/lib/scenes/sys_info.ex")
 
                assert_file("#{@app_name}/mix.exs", fn file ->
-                 assert file =~ "{:scenic, \"~> 0.9\"}"
-                 assert file =~ "{:scenic_driver_glfw, \"~> 0.9\"}"
-                 assert file =~ "{:scenic_driver_nerves_touch, \"~> 0.9\"}"
+                 assert file =~ "{:scenic, \"~> 0.10\"}"
+                 assert file =~ "{:scenic_driver_glfw, \"~> 0.10\"}"
+                 assert file =~ "{:scenic_driver_nerves_touch, \"~> 0.10\"}"
                end)
              end) =~ "Your Scenic project was created successfully."
     end)
