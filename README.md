@@ -256,4 +256,4 @@ how you would set up a real sensor and publish data from it into the
 
 Next, you should read the guides describing the overall Scenic
 structure. This is in the documentation for [Scenic
-itself](https://github.com/boydm/scenic_new).
+itself](https://github.com/boydm/scenic).
