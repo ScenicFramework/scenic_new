@@ -52,7 +52,7 @@ defmodule Mix.Tasks.Scenic.NewExampleTest do
                  assert file =~ "mod: {#{@module_name}, []}"
 
                  assert file =~ "{:scenic, \"~> 0.10\"}"
-                 assert file =~ "{:scenic_driver_glfw, \"~> 0.10\"}"
+                 assert file =~ "{:scenic_driver_glfw, \"~> 0.10\", targets: :host}"
                end)
              end) =~ "Your Scenic project was created successfully."
     end)
