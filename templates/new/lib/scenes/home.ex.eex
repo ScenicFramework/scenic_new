@@ -32,7 +32,7 @@ defmodule <%= @mod %>.Scene.Home do
     glfw_ver = Application.spec(:scenic, :vsn) |> to_string()
 
     graph =
-      Graph.build(font: :roboto, font_size: @size)
+      Graph.build(font: :roboto, font_size: @text_size)
       |> add_specs_to_graph([
         text_spec("scenic: v" <> scenic_ver, translate: {20, 40}),
         text_spec("glfw: v" <> glfw_ver, translate: {20, 40 + @text_size}),
