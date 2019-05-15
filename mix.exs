@@ -1,7 +1,7 @@
 defmodule ScenicNew.MixProject do
   use Mix.Project
 
-  @version "0.10.1"
+  @version "0.10.2"
   @github "https://github.com/boydm/scenic_new"
 
   def project do
