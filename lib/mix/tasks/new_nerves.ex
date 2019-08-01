@@ -130,8 +130,9 @@ defmodule Mix.Tasks.Scenic.New.Nerves do
 
     create_directory("config")
     create_file("config/config.exs", config_template(assigns))
-    create_file("config/config.host.exs", config_host_template(assigns))
-    create_file("config/config.rpi3.exs", config_rpi3_template(assigns))
+    create_file("config/host.exs", config_host_template(assigns))
+    create_file("config/rpi3.exs", config_rpi3_template(assigns))
+    create_file("config/target.exs", config_target_template(assigns))
 
     create_directory("lib")
     create_file("lib/#{app}.ex", app_template(assigns))
@@ -150,9 +151,8 @@ defmodule Mix.Tasks.Scenic.New.Nerves do
     create_directory("lib/sensors")
 
     create_directory("rel")
-    create_directory("rel/plugins")
-    create_file("rel/vm.args", rel_vm_template(assigns))
-    create_file("rel/plugins/.gitignore", rel_plugins_gitignore_template(assigns))
+
+    create_file("rel/vm.args.eex", rel_vm_template(assigns))
 
     create_directory("rootfs_overlay")
     create_directory("rootfs_overlay/etc")
@@ -199,13 +199,13 @@ defmodule Mix.Tasks.Scenic.New.Nerves do
     readme: "templates/new_nerves/README.md.eex",
     mix_exs: "templates/new_nerves/mix.exs.eex",
     config: "templates/new_nerves/config/config.exs.eex",
-    config_host: "templates/new_nerves/config/config.host.exs.eex",
-    config_rpi3: "templates/new_nerves/config/config.rpi3.exs.eex",
+    config_host: "templates/new_nerves/config/host.exs.eex",
+    config_rpi3: "templates/new_nerves/config/rpi3.exs.eex",
+    config_target: "templates/new_nerves/config/target.exs.eex",
     app: "templates/new_nerves/lib/app.ex.eex",
     scene_crosshair: "templates/new_nerves/lib/scenes/crosshair.ex.eex",
     scene_sys_info: "templates/new_nerves/lib/scenes/sys_info.ex.eex",
-    rel_vm: "templates/new_nerves/rel/vm.args",
-    rel_plugins_gitignore: "templates/new_nerves/rel/plugins/gitignore",
+    rel_vm: "templates/new_nerves/rel/vm.args.eex.eex",
     overlay_erlinit: "templates/new_nerves/rootfs_overlay/etc/erlinit.config",
     overlay_iex: "templates/new_nerves/rootfs_overlay/etc/iex.exs"
   ]

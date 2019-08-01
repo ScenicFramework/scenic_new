@@ -5,7 +5,7 @@
 ##  for read only filesystem.
 
 # -name hello@0.0.0.0
--setcookie qadpbtubehm4fpguovqhstmllusr5xfmhfquuek5untas73td45p3hyrlffd2l5v
+-setcookie \<\%= @release.options[:cookie] \%\>
 
 ## Use Ctrl-C to interrupt the current shell rather than invoking the emulator's
 ## break handler and possibly exiting the VM.

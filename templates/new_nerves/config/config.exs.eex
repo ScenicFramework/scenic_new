@@ -2,13 +2,17 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
+config :<%= @app %>, target: Mix.target()
+
 # Customize non-Elixir parts of the firmware.  See
 # https://hexdocs.pm/nerves/advanced-configuration.html for details.
+
 config :nerves, :firmware, rootfs_overlay: "rootfs_overlay"
 
 # Use shoehorn to start the main application. See the shoehorn
 # docs for separating out critical OTP applications such as those
 # involved with firmware updates.
+
 config :shoehorn,
   init: [:nerves_runtime],
   app: Mix.Project.config()[:app]
@@ -17,4 +21,4 @@ config :shoehorn,
 # of this file so it overrides the configuration defined above.
 # Uncomment to use target specific configurations
 
-import_config "config.#{Mix.Project.config()[:target]}.exs"
+import_config "#{Mix.target()}.exs"
