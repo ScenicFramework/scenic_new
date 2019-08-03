@@ -14,9 +14,9 @@ defmodule <%= @mod %>.MixProject do
       start_permanent: Mix.env() == :prod,
       build_embedded: true,
       aliases: [loadconfig: [&bootstrap/1]],
+      deps: deps(),
       releases: [{@app, release()}],
-      preferred_cli_target: [run: :host, test: :host],
-      deps: deps()
+      preferred_cli_target: [run: :host, test: :host]
     ]
   end
 
