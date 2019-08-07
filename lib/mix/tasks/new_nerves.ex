@@ -166,16 +166,18 @@ defmodule Mix.Tasks.Scenic.New.Nerves do
     Next steps for getting started:
 
         $ cd #{path}
+        $ export MIX_TARGET=rpi3
         $ mix deps.get
 
-    You can start your app with:
+    Insert a MicroSD card:
 
-        $ mix scenic.run
+        $ mix firmware.burn
 
-    You can also run it interactively like this:
+    Then insert the MicroSD card into the Raspberry Pi. You can update
+    the firmware over Ethernet in subsequent builds by running:
 
-        $ iex -S mix
-
+        $ mix firmware.gen.script
+        $ ./upload.sh
     """
     |> Mix.shell().info()
   end
