@@ -26,7 +26,6 @@ defmodule ScenicNew.MixProject do
           "templates/**/gitignore",
           "templates/**/*.exs",
           "templates/**/*.config",
-          "templates/**/*.args",
           "templates/**/*.txt",
           "templates/**/*.jpg",
           "templates/**/*.png",
