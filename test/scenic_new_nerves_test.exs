@@ -22,7 +22,7 @@ defmodule Mix.Tasks.Scenic.New.NervesTest do
                  assert file =~ "config :nerves, :firmware, rootfs_overlay: \"rootfs_overlay\""
                end)
 
-               assert_file("#{@app_name}/config/config.host.exs", fn file ->
+               assert_file("#{@app_name}/config/host.exs", fn file ->
                  assert file =~ "config :#{@app_name}, :viewport"
                  assert file =~ "size: {800, 480}"
                  assert file =~ "opts: [scale: 1.0]"
@@ -32,7 +32,7 @@ defmodule Mix.Tasks.Scenic.New.NervesTest do
                  assert file =~ "title: \"MIX_TARGET=host, app = :#{@app_name}\""
                end)
 
-               assert_file("#{@app_name}/config/config.rpi3.exs", fn file ->
+               assert_file("#{@app_name}/config/rpi3.exs", fn file ->
                  assert file =~ "config :#{@app_name}, :viewport"
                  assert file =~ "size: {800, 480}"
                  assert file =~ "opts: [scale: 1.0]"
@@ -52,8 +52,10 @@ defmodule Mix.Tasks.Scenic.New.NervesTest do
 
                assert_file("#{@app_name}/mix.exs", fn file ->
                  assert file =~ "{:scenic, \"~> 0.10\"}"
-                 assert file =~ "{:scenic_driver_glfw, \"~> 0.10\"}"
-                 assert file =~ "{:scenic_driver_nerves_touch, \"~> 0.10\"}"
+                 assert file =~ "{:scenic_driver_glfw, \"~> 0.10\", targets: :host}"
+
+                 assert file =~
+                          "{:scenic_driver_nerves_touch, \"~> 0.10\", targets: @all_targets}"
                end)
              end) =~ "Your Scenic project was created successfully."
     end)
