@@ -69,6 +69,18 @@ sudo pacman -S pkgconf glew glfw-x11
 Once these components have been installed, you should be able to build the
 `scenic_driver_glfw` driver.
 
+### Installing on Fedora
+
+The easiest way to install on Fedora is to use `dnf`. Just run the following,
+to install development toolchain, and build/runtime graphics libraries:
+
+```bash
+sudo dnf install pkgconf glew-devel glfw-devel
+```
+
+Once these components have been installed, you should be able to build the
+`scenic_driver_glfw` driver.
+
 ### Installing on FreeBSD
 
 The easiest way to install on FreeBSD is to use `pkg`. Just run the following,
