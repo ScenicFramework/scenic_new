@@ -29,7 +29,7 @@ defmodule <%= @mod %>.Scene.Home do
 
     # show the version of scenic and the glfw driver
     scenic_ver = Application.spec(:scenic, :vsn) |> to_string()
-    glfw_ver = Application.spec(:scenic, :vsn) |> to_string()
+    glfw_ver = Application.spec(:scenic_driver_glfw, :vsn) |> to_string()
 
     graph =
       Graph.build(font: :roboto, font_size: @text_size)
