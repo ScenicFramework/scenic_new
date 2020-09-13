@@ -16,7 +16,7 @@ defmodule <%= @mod %>.MixProject do
   def application do
     [
       mod: {<%= @mod %>, []},
-      extra_applications: []
+      extra_applications: [:crypto]
     ]
   end
 
