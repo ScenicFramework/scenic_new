@@ -132,6 +132,21 @@ Then use `nix-shell` to build and run the shell as your development environment:
 nix-shell shell.nix
 ```
 
+### Installing on Windows
+
+First, make sure to have installed Visual Studio with its "Desktop development with C++" package.
+
+Next, you need to download the Windows binaries for [GLFW](https://www.glfw.org/download.html) and [GLEW](http://glew.sourceforge.net/index.html) manually.
+
+Locate your Visual Studio installation directory. Two folders will be required for the next steps:
+
+* The **Include** folder: `{Visual Studio Path}\VC\Tools\MSVC\{version number}\include`
+* The **Lib** folder: `{Visual Studio Path}\VC\Tools\MSVC\{version number}\lib\amd64` (possibly `x64` for some installs?)
+
+Open the GLFW package you downloaded. Extract the contents of the packaged `include` folder to your Visual Studio **Include** folder. Next to the `include` folder, you'll also find several `lib-vc20xx` folders. Select the closest match to your Visual Studio version and extract the contents to your **Lib** folder.
+
+Lastly, install the GLEW package. Find the packaged `include` folder and extract its contents to your **Include** folder as well. You should now have two new folders in your **Include** folder: `GL` and `GLFW`. Now navigate to `lib\Release\x64` in the GLEW package. Copy all `*.lib` files to your **Lib** folder. Finally, navigate to `bin\Release\amd64` and copy `glew32.dll` to your `Windows\system32` folder.
+
 ## Install `scenic.new`
 
 ```bash
