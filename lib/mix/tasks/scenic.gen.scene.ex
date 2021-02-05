@@ -18,13 +18,13 @@ defmodule Mix.Tasks.Scenic.Gen.Scene do
     module: :string
   ]
 
+  @task "scenic.gen.scene"
   # --------------------------------------------------------
   @doc false
   def run(argv) do
     if Mix.Project.umbrella?() do
-      Mix.raise(
-        "mix scenic.gen.component must be invoked from within your scenic application root directory."
-      )
+      message = "mix #{@task} must be invoked from within your scenic application root directory."
+      Mix.raise(message)
     end
 
     {opts, argv} = OptionParser.parse!(argv, strict: @switches)
