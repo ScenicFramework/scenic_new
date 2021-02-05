@@ -22,6 +22,10 @@ defmodule Mix.Tasks.Scenic.Gen.Component do
   # --------------------------------------------------------
   @doc false
   def run(argv) do
+    if Mix.Project.umbrella?() do
+      Mix.raise "mix scenic.gen.component must be invoked from within your scenic application root directory."
+    end
+
     {opts, argv} = OptionParser.parse!(argv, strict: @switches)
 
     case argv do
@@ -43,10 +47,6 @@ defmodule Mix.Tasks.Scenic.Gen.Component do
 
   # --------------------------------------------------------
   defp generate(component_filename, component_module) do
-    if Mix.Project.umbrella?() do
-      Mix.raise "mix scenic.gen.component must be invoked from within your scenic application root directory."
-    end
-
     assigns = [
       app_module_name: Common.base_module(), #TOD: Figure out the right module name.
       component_module_name: component_module
