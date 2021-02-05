@@ -6,18 +6,18 @@ defmodule <%= @app_module_name %>.Components.<%= @component_module_name %> do
     @graph Graph.build()
     |> text("", text_align: :center, translate: {100, 200}, id: :text)
 
-    # TODO: Explanation of info/1 callback here.
+    @impl Scenic.Component
     def info( data ), do: """
     #{IO.ANSI.red()}#{__MODULE__} data must be a bitstring
     #{IO.ANSI.yellow()}Received: #{inspect(data)}
     #{IO.ANSI.default_color()}
     """
 
-    # TODO: Explanation of verify/1 callback here.
+    @impl Scenic.Component
     def verify( text ) when is_bitstring(text), do: {:ok, text}
     def verify( _ ), do: :invalid_data
 
-    # TODO: Explanation of init/2 callback here.
+    @impl Scenic.Component
     def init( text, opts ) do
         # modify the already built graph
         graph = @graph
@@ -32,6 +32,6 @@ defmodule <%= @app_module_name %>.Components.<%= @component_module_name %> do
         {:ok, state, push: graph}
     end
 
-    # TODO Explanation of event handlers here.
+    @impl Scenic.Component
     def handle_input(_event, _context, state), do: {:noreply, state}
 end

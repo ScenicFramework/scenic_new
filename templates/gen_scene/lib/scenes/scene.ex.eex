@@ -10,10 +10,7 @@ defmodule <%= @app_module_name %>.Scene.<%= @scene_module_name %> do
 
   @text_size 24
 
-  # ============================================================================
-  # setup
-
-  # --------------------------------------------------------
+  @impl Scenic.Scene
   def init(_, opts) do
     # get the width and height of the viewport. This is to demonstrate creating
     # a transparent full-screen rectangle to catch user input
@@ -35,6 +32,7 @@ defmodule <%= @app_module_name %>.Scene.<%= @scene_module_name %> do
     {:ok, graph, push: graph}
   end
 
+  @impl Scenic.Scene
   def handle_input(event, _context, state) do
     Logger.info("Received event: #{inspect(event)}")
     {:noreply, state}
