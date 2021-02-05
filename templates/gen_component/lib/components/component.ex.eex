@@ -17,7 +17,6 @@ defmodule <%= @app_module_name %>.Components.<%= @component_module_name %> do
     def verify( text ) when is_bitstring(text), do: {:ok, text}
     def verify( _ ), do: :invalid_data
 
-    @impl Scenic.Component
     def init( text, opts ) do
         # modify the already built graph
         graph = @graph
@@ -32,6 +31,5 @@ defmodule <%= @app_module_name %>.Components.<%= @component_module_name %> do
         {:ok, state, push: graph}
     end
 
-    @impl Scenic.Component
     def handle_input(_event, _context, state), do: {:noreply, state}
 end
