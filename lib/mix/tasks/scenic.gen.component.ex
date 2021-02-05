@@ -32,16 +32,16 @@ defmodule Mix.Tasks.Scenic.Gen.Component do
       [] ->
         Mix.Tasks.Help.run(["scenic.gen.component"])
 
-      [component_name | _] ->
+      [component_module_name | _] ->
 
         Common.elixir_version_check!()
-        app = opts[:app] || Path.basename(Path.expand(component_name))
-        Common.check_application_name!(app, !opts[:app])
-        mod = opts[:module] || Macro.camelize(app)
-        Common.check_mod_name_validity!(mod)
-        Common.check_mod_name_availability!(mod)
+        file_name = opts[:module] || Macro.underscore(component_module_name)
+        mod_name = opts[:app] || component_module_name
 
-        generate(app, mod)
+        Common.check_mod_name_validity!(mod_name)
+        Common.check_mod_name_availability!(mod_name)
+
+        generate(file_name, mod_name)
     end
   end
 
