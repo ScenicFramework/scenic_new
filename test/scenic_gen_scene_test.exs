@@ -15,7 +15,6 @@ defmodule Mix.Tasks.Scenic.Gen.SceneTest do
 
   test "gen.scene" do
     Application.put_env(String.to_atom(@app_name), :namespace, String.to_atom(@module_name))
-    IO.inspect(Application.get_all_env(String.to_atom(@app_name)), label: "APP ENV")
     in_tmp("new with defaults", fn ->
       func = fn ->
         Mix.Tasks.Scenic.New.run([@app_name])
