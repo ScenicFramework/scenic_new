@@ -42,23 +42,23 @@ defmodule Mix.Tasks.Scenic.Gen.Scene do
   end
 
   # --------------------------------------------------------
-  defp generate(component_filename, component_module) do
+  defp generate(scene_filename, scene_module) do
     if Mix.Project.umbrella?() do
       Mix.raise "mix scenic.gen.scene must be invoked from within your scenic application root directory."
     end
 
     assigns = [
       app_module_name: Common.base_module(), #TOD: Figure out the right module name.
-      scene_module_name: component_module
+      scene_module_name: scene_module
     ]
 
-    component_path = "lib/scenes/#{component_filename}.ex"
+    scene_path = "lib/scenes/#{scene_filename}.ex"
 
     create_directory("lib/scenes")
-    create_file(component_path, scene_new_template(assigns))
+    create_file(scene_path, scene_new_template(assigns))
 
     """
-    Created component #{component_filename}.
+    Created scene #{scene_path}.
     """
     |> Mix.shell().info()
   end
