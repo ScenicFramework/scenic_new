@@ -4,7 +4,7 @@
 #
 
 # A module to hold terms that represent the static file assets.
-# better to do this once than load them repeatedly into the 
+# better to do this once than load them repeatedly into the
 # different "new" types.
 
 defmodule ScenicNew.Common do
@@ -97,6 +97,16 @@ defmodule ScenicNew.Common do
 
     if File.dir?(path) and not Mix.shell().yes?(msg) do
       Mix.raise("Please select another directory for installation")
+    end
+  end
+
+
+  def base_module, do: app_base(otp_app())
+  defp otp_app, do: Mix.Project.config() |> Keyword.fetch!(:app)
+  defp app_base(app) do
+    case Application.get_env(app, :namespace, app) do
+      ^app -> app |> to_string() |> Macro.camelize()
+      mod  -> mod |> inspect()
     end
   end
 end

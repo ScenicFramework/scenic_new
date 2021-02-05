@@ -18,6 +18,7 @@ defmodule Mix.Tasks.Scenic.Gen.Scene do
     module: :string
   ]
 
+
   # --------------------------------------------------------
   @doc false
   def run(argv) do
@@ -42,14 +43,16 @@ defmodule Mix.Tasks.Scenic.Gen.Scene do
 
   # --------------------------------------------------------
   defp generate(component_filename, component_module) do
+    if Mix.Project.umbrella?() do
+      Mix.raise "mix scenic.gen.scene must be invoked from within your scenic application root directory."
+    end
 
     assigns = [
-      app_module_name: component_module, #TOD: Figure out the right module name.
+      app_module_name: Common.base_module(), #TOD: Figure out the right module name.
       scene_module_name: component_module
     ]
 
     component_path = "lib/scenes/#{component_filename}.ex"
-    #IO.puts("Generating at #{component_filename} #{component_module} #{component_path}")
 
     create_directory("lib/scenes")
     create_file(component_path, scene_new_template(assigns))
