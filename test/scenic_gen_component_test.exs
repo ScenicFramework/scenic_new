@@ -15,16 +15,16 @@ defmodule Mix.Tasks.Scenic.Gen.ComponentTest do
   test "gen.scene" do
     Application.put_env(String.to_atom(@app_name), :namespace, String.to_atom(@module_name))
 
+    func = fn ->
+      Mix.Tasks.Scenic.New.run([@app_name])
+      Mix.Tasks.Scenic.Gen.Component.run([@component_module_name])
+
+      assert_file("lib/components/#{@component_name}.ex", fn file ->
+        assert file =~ "defmodule #{@module_name}.Components.#{@component_module_name} do"
+      end)
+    end
+
     in_tmp("new with defaults", fn ->
-      func = fn ->
-        Mix.Tasks.Scenic.New.run([@app_name])
-        Mix.Tasks.Scenic.Gen.Component.run([@component_module_name])
-
-        assert_file("lib/components/#{@component_name}.ex", fn file ->
-          assert file =~ "defmodule #{@module_name}.Components.#{@component_module_name} do"
-        end)
-      end
-
       assert capture_io(func) =~ "Created component #{@component_module_name}."
     end)
   end
