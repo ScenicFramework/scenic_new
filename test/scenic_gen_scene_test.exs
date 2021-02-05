@@ -14,18 +14,19 @@ defmodule Mix.Tasks.Scenic.Gen.SceneTest do
   @module_name "ScenicDemo"
 
   test "gen.scene" do
+    Application.put_env(String.to_atom(@app_name), :namespace, String.to_atom(@module_name))
+    IO.inspect(Application.get_all_env(String.to_atom(@app_name)), label: "APP ENV")
     in_tmp("new with defaults", fn ->
       func = fn ->
         Mix.Tasks.Scenic.New.run([@app_name])
-        Application.put_env(String.to_atom(@app_name), :namespace, String.to_atom(@module_name))
-        Mix.Tasks.Scenic.Gen.Scene.run([@scene_name])
+        Mix.Tasks.Scenic.Gen.Scene.run([@scene_module_name])
 
         assert_file("lib/scenes/#{@scene_name}.ex", fn file ->
-          assert file =~ "defmodule #{@module_name}.Component.#{@scene_module_name} do"
+          assert file =~ "defmodule #{@module_name}.Scene.#{@scene_module_name} do"
         end)
       end
 
-      assert capture_io(func) =~ "Created component #{@scene_module_name}."
+      assert capture_io(func) =~ "Created scene #{@scene_module_name}."
     end)
   end
 
