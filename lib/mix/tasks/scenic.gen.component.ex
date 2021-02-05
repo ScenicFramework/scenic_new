@@ -18,12 +18,13 @@ defmodule Mix.Tasks.Scenic.Gen.Component do
     module: :string
   ]
 
-
   # --------------------------------------------------------
   @doc false
   def run(argv) do
     if Mix.Project.umbrella?() do
-      Mix.raise "mix scenic.gen.component must be invoked from within your scenic application root directory."
+      Mix.raise(
+        "mix scenic.gen.component must be invoked from within your scenic application root directory."
+      )
     end
 
     {opts, argv} = OptionParser.parse!(argv, strict: @switches)
@@ -33,7 +34,6 @@ defmodule Mix.Tasks.Scenic.Gen.Component do
         Mix.Tasks.Help.run(["scenic.gen.component"])
 
       [component_module_name | _] ->
-
         Common.elixir_version_check!()
         file_name = opts[:module] || Macro.underscore(component_module_name)
         mod_name = opts[:app] || component_module_name
@@ -48,7 +48,8 @@ defmodule Mix.Tasks.Scenic.Gen.Component do
   # --------------------------------------------------------
   defp generate(component_filename, component_module) do
     assigns = [
-      app_module_name: Common.base_module(), #TOD: Figure out the right module name.
+      # TOD: Figure out the right module name.
+      app_module_name: Common.base_module(),
       component_module_name: component_module
     ]
 

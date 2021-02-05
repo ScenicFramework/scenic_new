@@ -100,13 +100,13 @@ defmodule ScenicNew.Common do
     end
   end
 
-
   def base_module, do: app_base(otp_app())
   defp otp_app, do: Mix.Project.config() |> Keyword.fetch!(:app)
+
   defp app_base(app) do
     case Application.get_env(app, :namespace, app) do
       ^app -> app |> to_string() |> Macro.camelize()
-      mod  -> mod |> inspect()
+      mod -> mod |> inspect()
     end
   end
 end

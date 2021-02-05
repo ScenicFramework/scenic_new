@@ -4,7 +4,6 @@ defmodule Mix.Tasks.Scenic.Gen.ComponentTest do
   use ExUnit.Case, async: false
   @moduletag :gen_component
 
-
   import ScenicNew.MixHelper
   import ExUnit.CaptureIO
 
@@ -15,6 +14,7 @@ defmodule Mix.Tasks.Scenic.Gen.ComponentTest do
 
   test "gen.scene" do
     Application.put_env(String.to_atom(@app_name), :namespace, String.to_atom(@module_name))
+
     in_tmp("new with defaults", fn ->
       func = fn ->
         Mix.Tasks.Scenic.New.run([@app_name])
