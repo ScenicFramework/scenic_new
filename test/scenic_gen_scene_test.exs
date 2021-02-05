@@ -14,15 +14,16 @@ defmodule Mix.Tasks.Scenic.Gen.SceneTest do
   @module_name "ScenicDemo"
 
   test "gen.scene" do
-     in_tmp("new with defaults", fn ->
+    in_tmp("new with defaults", fn ->
        assert capture_io(fn ->
-      Mix.Tasks.Scenic.Gen.Scene.run([@scene_name])
+        Mix.Tasks.Scenic.New.run([@app_name])
+        Mix.Tasks.Scenic.Gen.Scene.run([@scene_name])
 
-      assert_file("lib/scenes/#{@scene_name}.ex", fn file ->
-        assert file =~ "defmodule #{@scene_module_name} do"
-      end)
-    end) =~ "Created component #{@scene_module_name}."
-  end)
+        assert_file("lib/scenes/#{@scene_name}.ex", fn file ->
+          assert file =~ "defmodule #{@module_name}.Component.#{@scene_module_name} do"
+        end)
+      end) =~ "Created component #{@scene_module_name}."
+    end)
   end
 
   # test "new with invalid args" do
