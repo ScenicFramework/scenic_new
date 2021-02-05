@@ -59,10 +59,7 @@ defmodule Mix.Tasks.Scenic.Gen.Component do
     create_directory("lib/components")
     create_file(component_path, component_new_template(assigns))
 
-    """
-    Created component #{component_filename}.
-    """
-    |> Mix.shell().info()
+    Mix.shell().info("Created component #{component_filename}.")
   end
 
   # ============================================================================
