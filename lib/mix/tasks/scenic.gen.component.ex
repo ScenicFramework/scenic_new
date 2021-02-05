@@ -48,7 +48,6 @@ defmodule Mix.Tasks.Scenic.Gen.Component do
   # --------------------------------------------------------
   defp generate(component_filename, component_module) do
     assigns = [
-      # TOD: Figure out the right module name.
       app_module_name: Common.base_module(),
       component_module_name: component_module
     ]
