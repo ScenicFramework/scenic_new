@@ -40,12 +40,11 @@ defmodule Mix.Tasks.Scenic.Gen.Scene do
   end
 
   # --------------------------------------------------------
-  defp generate(scene_filename, scene_module) do
+  defp generate(scene_filename, scene_module, full_module) do
     scene_path = "lib/scenes/#{scene_filename}.ex"
     create_directory("lib/scenes")
-    create_file(scene_path, scene_new_template(scene_module: inspect(scene_module)))
-    scene_name = scene_module |> Module.split() |> Enum.reverse() |> hd()
-    Mix.shell().info("Created scene #{scene_name}.")
+    create_file(scene_path, scene_new_template(scene_module: full_module))
+    Mix.shell().info("Created scene #{scene_module}.")
   end
 
   # ============================================================================
