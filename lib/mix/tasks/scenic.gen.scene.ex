@@ -13,10 +13,7 @@ defmodule Mix.Tasks.Scenic.Gen.Scene do
   import Mix.Generator
   alias ScenicNew.Common
 
-  @switches [
-    app: :string,
-    module: :string
-  ]
+  @switches [app: :string, module: :string]
 
   @task "scenic.gen.scene"
   # --------------------------------------------------------
