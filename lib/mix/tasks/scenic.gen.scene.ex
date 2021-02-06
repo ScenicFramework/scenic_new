@@ -32,12 +32,10 @@ defmodule Mix.Tasks.Scenic.Gen.Scene do
 
       [scene_module | _] ->
         Common.elixir_version_check!()
-        file_name = Macro.underscore(opts[:module] || scene_module)
-        module = Module.concat([opts[:app] || Common.base_module(), "Scene", scene_module])
-
-        Common.check_mod_name_validity!(module)
-        Common.check_mod_name_availability!(module)
-        generate(file_name, module)
+        file_name = Macro.underscore(scene_module)
+        app_module = opts[:app] || Common.base_module()
+        full_module = Module.concat([app_module, "Scene", scene_module])
+        generate(file_name, scene_module, full_module)
     end
   end
 
