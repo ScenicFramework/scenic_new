@@ -34,6 +34,7 @@ defmodule Mix.Tasks.Scenic.Gen.Scene do
         Common.elixir_version_check!()
         file_name = Macro.underscore(opts[:module] || scene_module)
         module = Module.concat([opts[:app] || Common.base_module(), "Scene", scene_module])
+
         Common.check_mod_name_validity!(module)
         Common.check_mod_name_availability!(module)
         generate(file_name, module)
@@ -44,8 +45,9 @@ defmodule Mix.Tasks.Scenic.Gen.Scene do
   defp generate(scene_filename, scene_module) do
     scene_path = "lib/scenes/#{scene_filename}.ex"
     create_directory("lib/scenes")
-    create_file(scene_path, scene_new_template(scene_module: scene_module))
-    Mix.shell().info("Created scene #{scene_module}.")
+    create_file(scene_path, scene_new_template(scene_module: inspect(scene_module)))
+    scene_name = scene_module |> Module.split() |> Enum.reverse() |> hd()
+    Mix.shell().info("Created scene #{scene_name}.")
   end
 
   # ============================================================================

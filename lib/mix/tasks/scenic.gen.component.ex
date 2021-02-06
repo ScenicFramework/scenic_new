@@ -44,8 +44,9 @@ defmodule Mix.Tasks.Scenic.Gen.Component do
   defp generate(component_filename, component_module) do
     component_path = "lib/components/#{component_filename}.ex"
     create_directory("lib/components")
-    create_file(component_path, component_new_template(component_module: component_module))
-    Mix.shell().info("Created component #{component_module}.")
+    create_file(component_path, component_new_template(component_module: inspect(component_module)))
+    component_name = component_module |> Module.split() |> Enum.reverse() |> hd()
+    Mix.shell().info("Created component #{component_name}.")
   end
 
   # ============================================================================
