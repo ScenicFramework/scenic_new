@@ -17,6 +17,7 @@ defmodule <%= @component_module %> do
     def verify( text ) when is_bitstring(text), do: {:ok, text}
     def verify( _ ), do: :invalid_data
 
+    @impl Scenic.Scene
     def init( text, opts ) do
         # modify the already built graph
         graph = @graph
