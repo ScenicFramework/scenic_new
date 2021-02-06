@@ -42,17 +42,10 @@ defmodule Mix.Tasks.Scenic.Gen.Component do
 
   # --------------------------------------------------------
   defp generate(component_filename, component_module) do
-    assigns = [
-      app_module_name: Common.base_module(),
-      component_module_name: component_module
-    ]
-
     component_path = "lib/components/#{component_filename}.ex"
-
     create_directory("lib/components")
-    create_file(component_path, component_new_template(assigns))
-
-    Mix.shell().info("Created component #{component_filename}.")
+    create_file(component_path, component_new_template(component_module: component_module))
+    Mix.shell().info("Created component #{component_module}.")
   end
 
   # ============================================================================
