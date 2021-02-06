@@ -1,4 +1,4 @@
-defmodule <%= @component_module %> do  
+defmodule <%= inspect(@component_module) %> do  
     require Logger  
     use Scenic.Component
     import Scenic.Primitives, only: [{:text, 3}, {:update_opts, 2}]
