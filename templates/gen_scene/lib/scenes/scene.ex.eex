@@ -1,4 +1,4 @@
-defmodule <%= @scene_module %> do
+defmodule <%= inspect(@scene_module) %> do
   use Scenic.Scene
   require Logger
 
