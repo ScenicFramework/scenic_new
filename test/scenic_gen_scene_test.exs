@@ -7,23 +7,23 @@ defmodule Mix.Tasks.Scenic.Gen.SceneTest do
   import ScenicNew.MixHelper
   import ExUnit.CaptureIO
 
-  @scene_name "test_scene"
-  @scene_module_name "TestScene"
+  @app_module "ScenicNew"
   @app_name "scenic_new"
-  @module_name "ScenicNew"
+  @scene_module "TestScene"
+  @scene_name "test_scene"
 
   test "gen.scene" do
     func = fn ->
       Mix.Tasks.Scenic.New.run([@app_name])
-      Mix.Tasks.Scenic.Gen.Scene.run([@scene_module_name])
+      Mix.Tasks.Scenic.Gen.Scene.run([@scene_module])
 
       assert_file("lib/scenes/#{@scene_name}.ex", fn file ->
-        assert file =~ "defmodule #{@module_name}.Scene.#{@scene_module_name} do"
+        assert file =~ "defmodule #{@app_module}.Scene.#{@scene_module} do"
       end)
     end
 
     in_tmp("new with defaults", fn ->
-      assert capture_io(func) =~ "Created scene #{@scene_module_name}."
+      assert capture_io(func) =~ "Created scene #{@scene_module}."
     end)
   end
 
