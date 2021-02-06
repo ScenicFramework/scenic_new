@@ -33,14 +33,13 @@ defmodule Mix.Tasks.Scenic.Gen.Scene do
       [] ->
         Mix.Tasks.Help.run(["scenic.gen.scene"])
 
-      [scene_module_name | _] ->
+      [scene_module | _] ->
         Common.elixir_version_check!()
-        file_name = opts[:module] || Macro.underscore(scene_module_name)
-        mod_name = opts[:app] || scene_module_name
-        Common.check_mod_name_validity!(mod_name)
-        Common.check_mod_name_availability!(mod_name)
-
-        generate(file_name, mod_name)
+        file_name = Macro.underscore(opts[:module] || scene_module)
+        module = Module.concat([opts[:app] || Common.base_module(), "Scene", scene_module])
+        Common.check_mod_name_validity!(module)
+        Common.check_mod_name_availability!(module)
+        generate(file_name, module)
     end
   end
 
