@@ -5,7 +5,7 @@ defmodule Mix.Tasks.Scenic.Gen.Component do
   Generates Scene boilerplate for a new component.
 
   ```bash
-  mix scenic.gen.component component_name
+  mix scenic.gen.component ComponentName
   ```
   """
   use Mix.Task
