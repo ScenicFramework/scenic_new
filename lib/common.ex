@@ -77,13 +77,6 @@ defmodule ScenicNew.Common do
     end
   end
 
-  def check_mod_name_validity!(name) when is_atom(name) do
-    unless Atom.to_string(name) =~ Regex.recompile!(~r/^[A-Z]\w*(\.[A-Z]\w*)*$/) do
-      Mix.raise(
-        "Module name must be a valid Elixir alias (for example: Foo.Bar), got: #{inspect(name)}"
-      )
-    end
-  end
 
   def check_mod_name_availability!(name) do
     [name]
