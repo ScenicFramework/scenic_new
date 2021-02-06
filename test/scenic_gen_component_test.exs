@@ -9,18 +9,16 @@ defmodule Mix.Tasks.Scenic.Gen.ComponentTest do
 
   @component_name "test_component"
   @component_module_name "TestComponent"
-  @app_name "scenic_demo"
-  @module_name "ScenicDemo"
+  @app_name "scenic_new"
+  @module_name "ScenicNew"
 
   test "gen.scene" do
-    Application.put_env(String.to_atom(@app_name), :namespace, String.to_atom(@module_name))
-
     func = fn ->
       Mix.Tasks.Scenic.New.run([@app_name])
       Mix.Tasks.Scenic.Gen.Component.run([@component_module_name])
 
       assert_file("lib/components/#{@component_name}.ex", fn file ->
-        assert file =~ "defmodule #{@module_name}.Components.#{@component_module_name} do"
+        assert file =~ "defmodule #{@module_name}.Component.#{@component_module_name} do"
       end)
     end
 
