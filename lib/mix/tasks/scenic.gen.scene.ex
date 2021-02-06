@@ -42,20 +42,10 @@ defmodule Mix.Tasks.Scenic.Gen.Scene do
 
   # --------------------------------------------------------
   defp generate(scene_filename, scene_module) do
-    assigns = [
-      app_module_name: Common.base_module(),
-      scene_module_name: scene_module
-    ]
-
     scene_path = "lib/scenes/#{scene_filename}.ex"
-
     create_directory("lib/scenes")
-    create_file(scene_path, scene_new_template(assigns))
-
-    """
-    Created scene #{scene_path}.
-    """
-    |> Mix.shell().info()
+    create_file(scene_path, scene_new_template(scene_module: scene_module))
+    Mix.shell().info("Created scene #{scene_module}.")
   end
 
   # ============================================================================
