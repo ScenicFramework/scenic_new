@@ -9,12 +9,10 @@ defmodule Mix.Tasks.Scenic.Gen.SceneTest do
 
   @scene_name "test_scene"
   @scene_module_name "TestScene"
-  @app_name "scenic_demo"
-  @module_name "ScenicDemo"
+  @app_name "scenic_new"
+  @module_name "ScenicNew"
 
   test "gen.scene" do
-    Application.put_env(String.to_atom(@app_name), :namespace, String.to_atom(@module_name))
-
     func = fn ->
       Mix.Tasks.Scenic.New.run([@app_name])
       Mix.Tasks.Scenic.Gen.Scene.run([@scene_module_name])
