@@ -77,7 +77,6 @@ defmodule ScenicNew.Common do
     end
   end
 
-
   def check_mod_name_availability!(name) do
     [name]
     |> Module.concat()
