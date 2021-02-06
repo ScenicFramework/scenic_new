@@ -6,7 +6,6 @@ defmodule <%= @app_module_name %>.Scene.<%= @scene_module_name %> do
   alias Scenic.ViewPort
 
   import Scenic.Primitives
-  # import Scenic.Components
 
   @text_size 24
 
