@@ -32,5 +32,6 @@ defmodule <%= @component_module %> do
         {:ok, state, push: graph}
     end
 
+    @impl Scenic.Scene
     def handle_input(_event, _context, state), do: {:noreply, state}
 end
