@@ -5,7 +5,7 @@ defmodule Mix.Tasks.Scenic.Gen.Scene do
   Generates Scene boilerplate for a new scene.
 
   ```bash
-  mix scenic.gen.scene scene_name
+  mix scenic.gen.scene SceneName
   ```
   """
   use Mix.Task
