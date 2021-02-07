@@ -4,7 +4,7 @@ defmodule ScenicNew.MixHelper do
   import ExUnit.Assertions
 
   def tmp_path do
-    Path.expand("../../tmp", __DIR__)
+    Path.expand("../tmp", __DIR__)
   end
 
   defp random_string(len) do
@@ -19,7 +19,8 @@ defmodule ScenicNew.MixHelper do
       File.mkdir_p!(path)
       File.cd!(path, function)
     after
-      File.rm_rf!(path)
+      path |> Path.dirname() |> File.rm_rf!()
+      tmp_path() |> File.rm_rf!()
     end
   end
 

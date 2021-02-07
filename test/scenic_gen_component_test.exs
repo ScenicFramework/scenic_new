@@ -7,58 +7,47 @@ defmodule Mix.Tasks.Scenic.Gen.ComponentTest do
   import ScenicNew.MixHelper
   import ExUnit.CaptureIO
 
-  @app_module "ScenicNew"
-  @app_name "scenic_new"
   @component_module "TestComponent"
   @component_name "test_component"
 
-  test "gen.scene" do
-    func = fn ->
-      Mix.Tasks.Scenic.New.run([@app_name])
-      Mix.Tasks.Scenic.Gen.Component.run([@component_module])
-
-      assert_file("lib/components/#{@component_name}.ex", fn file ->
-        assert file =~ "defmodule #{@app_module}.Component.#{@component_module} do"
-      end)
-    end
-
-    in_tmp("new with defaults", fn ->
-      assert capture_io(func) =~ "Created component #{@component_module}."
+  test "gen.component" do
+    in_project("new with defaults", "my_app", fn _mix_project ->
+      output = capture_io(fn -> Mix.Tasks.Scenic.Gen.Component.run([@component_module]) end)
+      module_definition = "defmodule MyApp.Component.#{@component_module} do"
+      assert_file("lib/components/#{@component_name}.ex", module_definition)
+      assert output =~ "Created component #{@component_module}."
     end)
   end
 
-  # test "new with invalid args" do
-  #   assert_raise Mix.Error, ~r"Application name must start with a lowercase ASCII letter,", fn ->
-  #     Mix.Tasks.Scenic.Gen.Scene.run(["007invalid"])
-  #   end
+  test "gen.component inside umbrella" do
+    in_project("umbrella", "my_umbrella", ["--umbrella"], Mix.Tasks.New, fn _mix_project ->
+      func = fn -> Mix.Tasks.Scenic.Gen.Component.run([]) end
+      assert_raise Mix.Error, func
+    end)
+  end
 
-  #   assert_raise Mix.Error, ~r"Application name must start with a lowercase ASCII letter, ", fn ->
-  #     Mix.Tasks.Scenic.Gen.Scene.run(["valid", "--app", "007invalid"])
-  #   end
+  test "gen.component with app" do
+    in_project("new with app", "my_app", ["--module", "My.App"], fn _mix_project ->
+      args = [@component_module, "--app", "My.App"]
+      output = capture_io(fn -> Mix.Tasks.Scenic.Gen.Component.run(args) end)
+      assert output =~ "Created component #{@component_module}."
+      module_definition = "defmodule My.App.Component.#{@component_module} do"
+      assert_file("lib/components/#{@component_name}.ex", module_definition)
+    end)
+  end
 
-  #   assert_raise Mix.Error, ~r"Module name must be a valid Elixir alias", fn ->
-  #     Mix.Tasks.Scenic.Gen.Scene.run(["valid", "--module", "not.valid"])
-  #   end
+  test "gen.component without args displays help" do
+    in_project("help", "help", fn _mix_project ->
+      output1 = capture_io(fn -> Mix.Tasks.Scenic.Gen.Component.run([]) end)
+      output2 = capture_io(fn -> Mix.Tasks.Help.run(["scenic.gen.component"]) end)
+      assert output1 == output2
+    end)
+  end
 
-  #   assert_raise Mix.Error, ~r"Module name \w+ is already taken", fn ->
-  #     Mix.Tasks.Scenic.Gen.Scene.run(["string"])
-  #   end
-
-  #   assert_raise Mix.Error, ~r"Module name \w+ is already taken", fn ->
-  #     Mix.Tasks.Scenic.Gen.Scene.run(["string", "chars"])
-  #   end
-
-  #   assert_raise Mix.Error, ~r"Module name \w+ is already taken", fn ->
-  #     Mix.Tasks.Scenic.Gen.Scene.run(["valid", "--app", "mix"])
-  #   end
-
-  #   assert_raise Mix.Error, ~r"Module name \w+ is already taken", fn ->
-  #     Mix.Tasks.Scenic.Gen.Scene.run(["valid", "--module", "String"])
-  #   end
-  # end
-
-  # test "new without args" do
-  #   assert capture_io(fn -> Mix.Tasks.Scenic.Gen.Scene.run([]) end) =~
-  #   "Generates Scene boilerplate for a new scene."
-  # end
+  defp in_project(tmp_dir, app_name, extra_args \\ [], task \\ Mix.Tasks.Scenic.New, project_func) do
+    in_tmp(tmp_dir, fn ->
+      capture_io(fn -> task.run([app_name | extra_args]) end)
+      app_name |> String.to_atom() |> Mix.Project.in_project(app_name, project_func)
+    end)
+  end
 end
