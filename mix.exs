@@ -60,7 +60,8 @@ defmodule ScenicNew.MixProject do
   defp deps do
     [
       {:ex_doc, "~> 0.19", only: [:dev, :docs], runtime: false},
-      {:excoveralls, "~> 0.5.7", only: :test}
+      {:excoveralls, "~> 0.5.7", only: :test},
+      {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false}
     ]
   end
 
