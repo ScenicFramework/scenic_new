@@ -3,37 +3,44 @@ defmodule <%= inspect(@scene_module) %> do
   require Logger
 
   alias Scenic.Graph
-  alias Scenic.ViewPort
 
   import Scenic.Primitives
 
   @text_size 24
 
+  @note """
+  This is an example scene generated with
+
+  `mix scenic.gen.scene`
+  """
+
   @impl Scenic.Scene
-  def init(_, opts) do
+  def init(scene, _args, _opts) do
     # get the width and height of the viewport. This is to demonstrate creating
     # a transparent full-screen rectangle to catch user input
-    {:ok, %ViewPort.Status{size: {width, height}}} = ViewPort.info(opts[:viewport])
+    %Scenic.ViewPort{size: {width, height}} = scene.viewport
 
-    # show the version of scenic and the glfw driver
+    # show the version of scenic and the local driver
     scenic_ver = Application.spec(:scenic, :vsn) |> to_string()
-    glfw_ver = Application.spec(:scenic_driver_glfw, :vsn) |> to_string()
+    driver_local_version = Application.spec(:scenic_driver_local, :vsn) |> to_string()
 
     graph =
       Graph.build(font: :roboto, font_size: @text_size)
       |> add_specs_to_graph([
+        rect_spec({width, height}, fill: :clear, input: [:cursor_button, :cursor_pos]),
         text_spec("scenic: v" <> scenic_ver, translate: {20, 40}),
-        text_spec("glfw: v" <> glfw_ver, translate: {20, 40 + @text_size}),
-        text_spec(@note, translate: {20, 120}),
-        rect_spec({width, height})
+        text_spec("local_driver: v" <> driver_local_version, translate: {20, 40 + @text_size}),
+        text_spec(@note, translate: {20, 120})
       ])
 
-    {:ok, graph, push: graph}
+    scene = push_graph(scene, graph)
+
+    {:ok, scene}
   end
 
   @impl Scenic.Scene
-  def handle_input(event, _context, state) do
+  def handle_input(event, _context, scene) do
     Logger.info("Received event: #{inspect(event)}")
-    {:noreply, state}
+    {:noreply, scene}
   end
 end

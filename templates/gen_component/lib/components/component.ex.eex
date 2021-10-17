@@ -1,37 +1,48 @@
 defmodule <%= @component_module %> do
-    require Logger  
-    use Scenic.Component
-    import Scenic.Primitives, only: [{:text, 3}, {:update_opts, 2}]
+  require Logger
+  use Scenic.Component
+  import Scenic.Primitives
+  alias Scenic.Graph
 
-    @graph Graph.build()
-    |> text("", text_align: :center, translate: {100, 200}, id: :text)
+  # You can add it to your scene with:
+  #
+  # graph
+  # |> MyApp.Component.#{component_module}.add_to_graph(
+  #   "My Component",
+  #   translate: {100, 100}
+  # )
 
-    @impl Scenic.Component
-    def info( data ), do: """
-    #{IO.ANSI.red()}#{__MODULE__} data must be a bitstring
-    #{IO.ANSI.yellow()}Received: #{inspect(data)}
-    #{IO.ANSI.default_color()}
-    """
+  @graph Graph.build()
+         |> text("", text_align: :center, translate: {100, 200}, id: :text)
 
-    @impl Scenic.Component
-    def verify( text ) when is_bitstring(text), do: {:ok, text}
-    def verify( _ ), do: :invalid_data
+  @impl Scenic.Component
+  def validate(text) when is_bitstring(text), do: {:ok, text}
 
-    @impl Scenic.Scene
-    def init( text, opts ) do
-        # modify the already built graph
-        graph = @graph
-        |> Graph.modify(:_root_, &update_opts(&1, styles: opts[:styles]) )
-        |> Graph.modify(:text, &text(&1, text) )
+  def validate(data) do
+    {:error,
+     """
+     #{IO.ANSI.red()}#{__MODULE__} data must be a bitstring
+     #{IO.ANSI.yellow()}Received: #{inspect(data)}
+     #{IO.ANSI.default_color()}
+     """}
+  end
 
-        state = %{
-        graph: graph,
-        text: text
-        }
+  @impl Scenic.Scene
+  def init(scene, text, opts) do
+    # modify the already built graph
+    graph =
+      @graph
+      |> Graph.modify(:_root_, &update_opts(&1, styles: opts[:styles]))
+      |> Graph.modify(:text, &text(&1, text))
 
-        {:ok, state, push: graph}
-    end
+    scene =
+      scene
+      |> assign(text: text)
+      |> push_graph(graph)
 
-    @impl Scenic.Scene
-    def handle_input(_event, _context, state), do: {:noreply, state}
+    {:ok, scene}
+  end
+
+  @impl Scenic.Scene
+  def handle_input(_event, _context, scene), do: {:noreply, scene}
 end

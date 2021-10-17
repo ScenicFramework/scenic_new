@@ -140,6 +140,7 @@ defmodule Mix.Tasks.Scenic.New do
     create_directory("lib")
     create_directory("lib/components")
     create_file("lib/#{app}.ex", app_template(assigns))
+    create_file("lib/assets.ex", assets_template(assigns))
 
     create_directory("lib/scenes")
     create_file("lib/scenes/home.ex", scene_home_template(assigns))
@@ -187,6 +188,7 @@ defmodule Mix.Tasks.Scenic.New do
     mix_exs: "templates/new/mix.exs.eex",
     config: "templates/new/config/config.exs.eex",
     app: "templates/new/lib/app.ex.eex",
+    assets: "templates/new/lib/assets.ex.eex",
     scene_home: "templates/new/lib/scenes/home.ex.eex"
   ]
 

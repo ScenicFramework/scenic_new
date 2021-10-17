@@ -6,7 +6,7 @@ defmodule <%= @mod %>.MixProject do
       app: :<%= @app %>,
       version: "0.1.0",
       elixir: "~> 1.7",
-      build_embedded: true,
+      build_embedded: false,
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -23,8 +23,8 @@ defmodule <%= @mod %>.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:scenic, "~> 0.10"},
-      {:scenic_driver_glfw, "~> 0.10", targets: :host},
+      {:scenic, github: "boydm/scenic", branch: "v0.11"},
+      {:scenic_driver_local, github: "ScenicFramework/scenic_driver_local"}
     ]
   end
 end

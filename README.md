@@ -5,8 +5,8 @@ you. This is the easiest way to set up a new Scenic project.
 
 ## Erlang/Elixir versions
 
-Please note, it currently needs OTP 21 and Elixir 1.7. If you have trouble
-compiling, please check that you are running those versions first.
+Please note, it currently needs at least OTP 21 and Elixir 1.7. If you have
+trouble compiling, please check that you are running those versions first.
 
 ## Install Prerequisites
 
@@ -14,7 +14,7 @@ The design of Scenic goes to great lengths to minimize its dependencies to just
 the minimum. Namely, it needs Erlang/Elixir and OpenGL.
 
 Rendering your application into a window on your local computer (MacOS, Ubuntu
-and others) is done by the `scenic_driver_glfw` driver. It uses the GLFW and
+and others) is done by the `scenic_driver_local` driver. It uses the GLFW and
 GLEW libraries to connect to OpenGL.
 
 The instructions below assume you have already installed Elixir/Erlang. If you
@@ -32,7 +32,7 @@ brew install glfw3 glew pkg-config
 ```
 
 Once these components have been installed, you should be able to build the
-`scenic_driver_glfw` driver.
+`scenic_driver_local` driver.
 
 ### Installing on Ubuntu 16
 
@@ -44,7 +44,7 @@ sudo apt-get install pkgconf libglfw3 libglfw3-dev libglew1.13 libglew-dev
 ```
 
 Once these components have been installed, you should be able to build the
-`scenic_driver_glfw` driver.
+`scenic_driver_local` driver.
 
 ### Installing on Ubuntu 18
 
@@ -56,7 +56,7 @@ sudo apt-get install pkgconf libglfw3 libglfw3-dev libglew2.0 libglew-dev
 ```
 
 Once these components have been installed, you should be able to build the
-`scenic_driver_glfw` driver.
+`scenic_driver_local` driver.
 
 ### Installing on Arch Linux
 
@@ -67,7 +67,7 @@ sudo pacman -S pkgconf glew glfw-x11
 ```
 
 Once these components have been installed, you should be able to build the
-`scenic_driver_glfw` driver.
+`scenic_driver_local` driver.
 
 ### Installing on Fedora
 
@@ -79,7 +79,7 @@ sudo dnf install pkgconf glew-devel glfw-devel
 ```
 
 Once these components have been installed, you should be able to build the
-`scenic_driver_glfw` driver.
+`scenic_driver_local` driver.
 
 ### Installing on FreeBSD
 
@@ -92,7 +92,7 @@ sudo pkg install devel/gmake devel/pkgconf devel/elixir-hex devel/rebar3 \
 ```
 
 Once these components have been installed, you should be able to build the
-`scenic_driver_glfw` driver.
+`scenic_driver_local` driver.
 
 ### Installing on NixOS 18.09
 
