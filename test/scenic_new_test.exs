@@ -37,10 +37,8 @@ defmodule Mix.Tasks.Scenic.NewTest do
                assert_file("#{@app_name}/mix.exs", fn file ->
                  assert file =~ "mod: {#{@module_name}, []}"
 
-                 # assert file =~ "{:scenic, \"~> 0.10\"}"
-                 assert file =~ "{:scenic, github: \"boydm/scenic\", branch: \"v0.11\"}"
+                 assert file =~ "{:scenic, \"~> 0.11.0-beta.0\"}"
 
-                 # assert file =~ "{:scenic_driver_local, \"~> 0.1\"}"
                  assert file =~ "{:scenic_driver_local, github: \"ScenicFramework/scenic_driver_local\"}"
                end)
              end) =~ "Your Scenic project was created successfully."
