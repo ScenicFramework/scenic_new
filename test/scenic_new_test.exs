@@ -20,9 +20,9 @@ defmodule Mix.Tasks.Scenic.NewTest do
 
                assert_file("#{@app_name}/config/config.exs", fn file ->
                  assert file =~ "config :#{@app_name}, :viewport"
-                 assert file =~ "size: {700, 600}"
+                 assert file =~ "size: {800, 600}"
 
-                 assert file =~ "default_scene: {#{@module_name}.Scene.Home, nil}"
+                 assert file =~ "default_scene: #{@module_name}.Scene.Home"
 
                  assert file =~ ", title: \"#{@app_name}\""
                end)
@@ -37,8 +37,8 @@ defmodule Mix.Tasks.Scenic.NewTest do
                assert_file("#{@app_name}/mix.exs", fn file ->
                  assert file =~ "mod: {#{@module_name}, []}"
 
-                 assert file =~ "{:scenic, \"~> 0.10\"}"
-                 assert file =~ "{:scenic_driver_glfw, \"~> 0.10\", targets: :host}"
+                 assert file =~ "{:scenic, \"~> 0.11.0-beta.0\"}"
+                 assert file =~ "{:scenic_driver_local, \"~> 0.11.0-beta.0\", targets: :host}"
                end)
              end) =~ "Your Scenic project was created successfully."
     end)
