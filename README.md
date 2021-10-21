@@ -14,7 +14,7 @@ The design of Scenic goes to great lengths to minimize its dependencies to just
 the minimum. Namely, it needs Erlang/Elixir and OpenGL.
 
 Rendering your application into a window on your local computer (MacOS, Ubuntu
-and others) is done by the `scenic_driver_glfw` driver. It uses the GLFW and
+and others) is done by the `scenic_driver_local` driver. It uses the GLFW and
 GLEW libraries to connect to OpenGL.
 
 The instructions below assume you have already installed Elixir/Erlang. If you
@@ -32,7 +32,7 @@ brew install glfw3 glew pkg-config
 ```
 
 Once these components have been installed, you should be able to build the
-`scenic_driver_glfw` driver.
+`scenic_driver_local` driver.
 
 ### Installing on Ubuntu 16
 
@@ -44,7 +44,7 @@ sudo apt-get install pkgconf libglfw3 libglfw3-dev libglew1.13 libglew-dev
 ```
 
 Once these components have been installed, you should be able to build the
-`scenic_driver_glfw` driver.
+`scenic_driver_local` driver.
 
 ### Installing on Ubuntu 18
 
@@ -56,7 +56,7 @@ sudo apt-get install pkgconf libglfw3 libglfw3-dev libglew2.0 libglew-dev
 ```
 
 Once these components have been installed, you should be able to build the
-`scenic_driver_glfw` driver.
+`scenic_driver_local` driver.
 
 ### Installing on Arch Linux
 
@@ -67,7 +67,7 @@ sudo pacman -S pkgconf glew glfw-x11
 ```
 
 Once these components have been installed, you should be able to build the
-`scenic_driver_glfw` driver.
+`scenic_driver_local` driver.
 
 ### Installing on Fedora
 
@@ -79,7 +79,7 @@ sudo dnf install pkgconf glew-devel glfw-devel
 ```
 
 Once these components have been installed, you should be able to build the
-`scenic_driver_glfw` driver.
+`scenic_driver_local` driver.
 
 ### Installing on FreeBSD
 
@@ -92,7 +92,7 @@ sudo pkg install devel/gmake devel/pkgconf devel/elixir-hex devel/rebar3 \
 ```
 
 Once these components have been installed, you should be able to build the
-`scenic_driver_glfw` driver.
+`scenic_driver_local` driver.
 
 ### Installing on NixOS 18.09
 
@@ -201,61 +201,14 @@ cd my_app
 mix do deps.get, scenic.run
 ```
 
-## Build the Basic [Nerves](https://nerves-project.org/) Application
+## Build a Basic [Nerves](https://nerves-project.org/) Application
 
-This assumes you are already familiar with the basics of [Nerves](https://nerves-project.org/) applications.
+This section is being re-written.
 
-Note: You will first need to install the standard Nerves build tools for this to work. You can [find instructions here](https://hexdocs.pm/nerves/getting-started.html).
+The general direction is that you should use nerves.new to create a new project.
 
-Navigate the command-line to the directory where you want to create your
-new Scenic application. Then run the following commands: (change `my_app` to
-the name of your application)
+Then there will be steps to add scenic to it.
 
-```bash
-mix scenic.new.nerves my_app
-cd my_app
-mix do deps.get, scenic.run
-```
-
-Then navigate into the new app directory. Once there you can build the app.
-
-To run on the "host", which is your dev machine do this:
-
-```bash
-export MIX_TARGET=host
-mix deps.get
-mix scenic.run
-```
-
-To run on a Raspberry Pi 3 computer, do this:
-
-```bash
-export MIX_TARGET=rpi3
-mix deps.get
-mix nerves.release.init
-mix firmware.burn
-```
-
-## Running and Debugging on Your Dev Machine
-
-Once the application and its dependencies are set up, there are two main ways
-to run it.
-
-If you want to run your application under `IEx` so that you can debug it,
-simply run
-
-```bash
-iex -S mix
-```
-
-This works just like any other Elixir application.
-
-If you want to run your application outside of `IEx`, you should start it like
-this:
-
-```bash
-mix scenic.run
-```
 
 ## The Example Application
 
