@@ -44,7 +44,20 @@ defmodule Mix.Tasks.Scenic.Gen.Component do
     component_path = "lib/components/#{component_filename}.ex"
     create_directory("lib/components")
     create_file(component_path, component_new_template(component_module: inspect(full_module)))
-    Mix.shell().info("Created component #{component_module}.")
+
+    Mix.shell().info("""
+    Created component #{component_module}.
+
+    You can add it to your scene with:
+
+    graph
+    |> MyApp.Component.#{component_module}.add_to_graph(
+      "My Component",
+      translate: {100, 100}
+    )
+
+    Note: ensure that push_graph is called after the component is added to the graph.
+    """)
   end
 
   # ============================================================================

@@ -24,7 +24,7 @@ defmodule Mix.Tasks.Scenic.NewTest do
 
                  assert file =~ "default_scene: {#{@module_name}.Scene.Home, nil}"
 
-                 assert file =~ ", title: \"#{@app_name}\""
+                 assert file =~ "title: \"#{@app_name}\""
                end)
 
                assert_file("#{@app_name}/lib/#{@app_name}.ex", fn file ->
@@ -37,8 +37,11 @@ defmodule Mix.Tasks.Scenic.NewTest do
                assert_file("#{@app_name}/mix.exs", fn file ->
                  assert file =~ "mod: {#{@module_name}, []}"
 
-                 assert file =~ "{:scenic, \"~> 0.10\"}"
-                 assert file =~ "{:scenic_driver_glfw, \"~> 0.10\", targets: :host}"
+                 # assert file =~ "{:scenic, \"~> 0.10\"}"
+                 assert file =~ "{:scenic, github: \"boydm/scenic\", branch: \"v0.11\"}"
+
+                 # assert file =~ "{:scenic_driver_local, \"~> 0.1\"}"
+                 assert file =~ "{:scenic_driver_local, github: \"ScenicFramework/scenic_driver_local\"}"
                end)
              end) =~ "Your Scenic project was created successfully."
     end)

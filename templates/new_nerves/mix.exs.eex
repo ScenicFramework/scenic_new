@@ -47,7 +47,7 @@ defmodule <%= @mod %>.MixProject do
       {:scenic_sensor, "~> 0.7"},
 
       # Dependencies for only the :host
-      {:scenic_driver_glfw, "~> 0.10", targets: :host},
+      {:scenic_driver_local, "~> 0.1", targets: :host},
 
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.9", targets: @all_targets},

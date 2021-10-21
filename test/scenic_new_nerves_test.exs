@@ -52,7 +52,7 @@ defmodule Mix.Tasks.Scenic.New.NervesTest do
 
                assert_file("#{@app_name}/mix.exs", fn file ->
                  assert file =~ "{:scenic, \"~> 0.10\"}"
-                 assert file =~ "{:scenic_driver_glfw, \"~> 0.10\", targets: :host}"
+                 assert file =~ "{:scenic_driver_local, \"~> 0.1\", targets: :host}"
 
                  assert file =~
                           "{:scenic_driver_nerves_touch, \"~> 0.10\", targets: @all_targets}"

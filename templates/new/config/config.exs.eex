@@ -3,18 +3,23 @@
 use Mix.Config
 
 # Configure the main viewport for the Scenic application
-config :<%= @app %>, :viewport, %{
+config :<%= @app %>, :viewport,
   name: :main_viewport,
   size: {700, 600},
   default_scene: {<%= @mod %>.Scene.Home, nil},
   drivers: [
-    %{
-      module: Scenic.Driver.Glfw,
-      name: :glfw,
-      opts: [resizeable: false, title: "<%= @app %>"]
-    }
+    [
+      module: Scenic.Driver.Local,
+      name: :local,
+      window: [
+        title: "<%= @app %>",
+        resizeable: true
+      ],
+      on_close: :stop_system
+    ]
   ]
-}
+
+config :scenic, :assets, module: <%= @mod %>.Assets
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment

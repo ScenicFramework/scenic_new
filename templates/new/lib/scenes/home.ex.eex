@@ -3,17 +3,16 @@ defmodule <%= @mod %>.Scene.Home do
   require Logger
 
   alias Scenic.Graph
-  alias Scenic.ViewPort
 
   import Scenic.Primitives
   # import Scenic.Components
 
   @note """
-    This is a very simple starter application.
+  This is a very simple starter application.
 
-    If you want a more full-on example, please start from:
+  If you want a more full-on example, please start from:
 
-    mix scenic.new.example
+  mix scenic.new.example
   """
 
   @text_size 24
@@ -22,25 +21,30 @@ defmodule <%= @mod %>.Scene.Home do
   # setup
 
   # --------------------------------------------------------
-  def init(_, opts) do
+  def init(scene, _opts, _scenic_opts) do
     # get the width and height of the viewport. This is to demonstrate creating
     # a transparent full-screen rectangle to catch user input
-    {:ok, %ViewPort.Status{size: {width, height}}} = ViewPort.info(opts[:viewport])
+    %Scenic.ViewPort{size: {width, height}} = scene.viewport
 
-    # show the version of scenic and the glfw driver
+    # This is required if you want to detect when the user presses a key on their keyboard
+    Scenic.Scene.capture_input(scene, [:key])
+
+    # These variables will be used to show the version of scenic and the local driver
     scenic_ver = Application.spec(:scenic, :vsn) |> to_string()
-    glfw_ver = Application.spec(:scenic_driver_glfw, :vsn) |> to_string()
+    driver_local_version = Application.spec(:scenic_driver_local, :vsn) |> to_string()
 
     graph =
       Graph.build(font: :roboto, font_size: @text_size)
       |> add_specs_to_graph([
+        rect_spec({width, height}, fill: :clear, input: [:cursor_button, :cursor_pos]),
         text_spec("scenic: v" <> scenic_ver, translate: {20, 40}),
-        text_spec("glfw: v" <> glfw_ver, translate: {20, 40 + @text_size}),
-        text_spec(@note, translate: {20, 120}),
-        rect_spec({width, height})
+        text_spec("local_driver: v" <> driver_local_version, translate: {20, 40 + @text_size}),
+        text_spec(@note, translate: {20, 120})
       ])
 
-    {:ok, graph, push: graph}
+    scene = push_graph(scene, graph)
+
+    {:ok, scene}
   end
 
   def handle_input(event, _context, state) do
