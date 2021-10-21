@@ -134,11 +134,12 @@ defmodule Mix.Tasks.Scenic.New.Example do
 
     create_directory("lib")
     create_file("lib/#{app}.ex", app_template(assigns))
+    create_file("lib/assets.ex", assets_template(assigns))
 
-    create_directory("priv/static")
-    create_file("priv/static/images/attribution.txt", Common.attribution(assigns))
-    create_file("priv/static/images/scenic_parrot.png", Common.parrot())
-    create_file("priv/static/images/cyanoramphus_zealandicus_1849.jpg", Common.cyanoramphus())
+    create_directory("assets")
+    create_file("assets/images/attribution.txt", Common.attribution(assigns))
+    create_file("assets/images/fairy_grove.jpg", Common.fairy_grove())
+    create_file("assets/images/cyanoramphus_zealandicus_1849.jpg", Common.cyanoramphus())
 
     create_directory("lib/scenes")
     create_file("lib/scenes/components.ex", scene_components_template(assigns))
@@ -146,7 +147,9 @@ defmodule Mix.Tasks.Scenic.New.Example do
     create_file("lib/scenes/sensor_spec.ex", scene_sensor_spec_template(assigns))
     create_file("lib/scenes/primitives.ex", scene_primitives_template(assigns))
     create_file("lib/scenes/transforms.ex", scene_transforms_template(assigns))
-    create_file("lib/scenes/splash.ex", scene_splash_template(assigns))
+    create_file("lib/scenes/sprites.ex", scene_sprites_template(assigns))
+    create_file("lib/scenes/fills.ex", scene_fills_template(assigns))
+    create_file("lib/scenes/strokes.ex", scene_strokes_template(assigns))
 
     create_directory("lib/components")
     create_file("lib/components/nav.ex", nav_template(assigns))
@@ -197,6 +200,7 @@ defmodule Mix.Tasks.Scenic.New.Example do
     mix_exs: "templates/new_example/mix.exs.eex",
     config: "templates/new_example/config/config.exs.eex",
     app: "templates/new_example/lib/app.ex.eex",
+    assets: "templates/new_example/lib/assets.ex.eex",
     nav: "templates/new_example/lib/components/nav.ex.eex",
     notes: "templates/new_example/lib/components/notes.ex.eex",
     scene_components: "templates/new_example/lib/scenes/components.ex.eex",
@@ -204,7 +208,9 @@ defmodule Mix.Tasks.Scenic.New.Example do
     scene_sensor_spec: "templates/new_example/lib/scenes/sensor_spec.ex.eex",
     scene_primitives: "templates/new_example/lib/scenes/primitives.ex.eex",
     scene_transforms: "templates/new_example/lib/scenes/transforms.ex.eex",
-    scene_splash: "templates/new_example/lib/scenes/splash.ex.eex",
+    scene_sprites: "templates/new_example/lib/scenes/sprites.ex.eex",
+    scene_fills: "templates/new_example/lib/scenes/fills.ex.eex",
+    scene_strokes: "templates/new_example/lib/scenes/strokes.ex.eex",
     sensor_sup: "templates/new_example/lib/sensors/supervisor.ex.eex",
     sensor_temp: "templates/new_example/lib/sensors/temperature.ex.eex"
   ]

@@ -2,19 +2,27 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
+
+# connect the app's asset module to Scenic
+config :scenic, :assets,
+  module: <%= @mod %>.Assets
+
+
 # Configure the main viewport for the Scenic application
-config :<%= @app %>, :viewport, %{
+config :<%= @app %>, :viewport, [
   name: :main_viewport,
-  size: {700, 600},
-  default_scene: {<%= @mod %>.Scene.Home, nil},
+  size: {800, 600},
+  theme: :dark,
+  default_scene: <%= @mod %>.Scene.Home,
   drivers: [
-    %{
-      module: Scenic.Driver.Glfw,
-      name: :glfw,
-      opts: [resizeable: false, title: "<%= @app %>"]
-    }
+    [
+      module: Scenic.Driver.Local,
+      name: :local,
+      window: [resizeable: false, title: "<%= @app %>"],
+      on_close: :stop_system
+    ]
   ]
-}
+]
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
