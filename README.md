@@ -3,6 +3,24 @@
 The `scenic.new` mix task, which generates a starter application for
 you. This is the easiest way to set up a new Scenic project.
 
+
+### Installing scenic.new
+
+`scenic.new` is intended to be used as an installed elixir package. To install
+the v0.11 beta, run the following command in your terminal.
+
+```
+mix archive.install hex scenic_new 0.11.0-beta.0
+```
+
+Then you can create the example applications.
+
+```
+mix scenic.new simple
+mix scenic.new.example demo
+```
+
+
 ## Erlang/Elixir versions
 
 Please note, it currently needs OTP 21 and Elixir 1.7. If you have trouble
