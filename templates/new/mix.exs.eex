@@ -23,7 +23,7 @@ defmodule <%= @mod %>.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:scenic, github: "boydm/scenic", branch: "v0.11"},
+      {:scenic, "~> 0.11.0-beta.0"},
       {:scenic_driver_local, github: "ScenicFramework/scenic_driver_local"}
     ]
   end
