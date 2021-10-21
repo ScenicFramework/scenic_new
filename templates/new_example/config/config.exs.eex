@@ -9,9 +9,9 @@ config :<%= @app %>, :viewport, %{
   default_scene: {<%= @mod %>.Scene.Splash, <%= @mod %>.Scene.Sensor},
   drivers: [
     %{
-      module: Scenic.Driver.Glfw,
-      name: :glfw,
-      opts: [resizeable: false, title: "<%= @app %>"]
+      module: Scenic.Driver.Local,
+      name: :local,
+      window: [resizeable: false, title: "<%= @app %>"]
     }
   ]
 }
