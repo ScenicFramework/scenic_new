@@ -16,7 +16,7 @@ defmodule <%= @mod %>.Scene.Primitives do
   """
 
   ##
-  # In this example we specify all the compoonents statically using
+  # In this example we specify all the components statically using
   # module attributes. When we say
   #
   #       @lines [
@@ -32,13 +32,6 @@ defmodule <%= @mod %>.Scene.Primitives do
   # This use of module attributes to create the things we'll be
   # displaying later is a common scenic idiom.
   ##
-
-  ###
-  # Load up the bird image
-
-  @bird_path :code.priv_dir(:<%= @app %>)
-             |> Path.join("/static/images/cyanoramphus_zealandicus_1849.jpg")
-  @bird_hash Scenic.Cache.Support.Hash.file!(@bird_path, :sha)
 
   @bird_width 100
   @bird_height 128
@@ -68,8 +61,8 @@ defmodule <%= @mod %>.Scene.Primitives do
 
   @triangle_circle_ellipse [
     triangle_spec({{0, 60}, {50, 0}, {50, 60}}, fill: :khaki, stroke: {4, :green}),
-    circle_spec(30, fill: :green, stroke: {6, :yellow}, t: {110, 30}),
-    ellipse_spec({30, 40}, rotate: 0.5, fill: :green, stroke: {4, :gray}, t: {200, 30})
+    circle_spec(30, fill: :red, stroke: {6, :yellow}, t: {110, 30}),
+    ellipse_spec({30, 40}, fill: :green, stroke: {4, :gray}, t: {200, 30})
   ]
 
   @quads [
@@ -87,37 +80,37 @@ defmodule <%= @mod %>.Scene.Primitives do
     quad_spec(
       {{0, 100}, {160, 0}, {300, 110}, {200, 260}},
       id: :quad,
-      fill: {:linear, {0, 0, 400, 400, :yellow, :purple}},
+      fill: {:image, :parrot},
       stroke: {10, :khaki},
-      translate: {160, 0},
-      scale: 0.3,
-      pin: {0, 0}
+      translate: {400, 0},
+      # pin: {0, 0}
+      rotate: -0.3
     ),
     sector_spec(
-      {100, -0.3, -0.8},
+      {100, 0.5},
       stroke: {3, :grey},
       fill: {:radial, {0, 0, 20, 160, {:yellow, 128}, {:purple, 128}}},
-      translate: {270, 70}
+      translate: {250, 20}
     ),
     arc_spec(
-      {100, -0.1, -0.8},
+      {120, -0.5},
       stroke: {6, :orange},
-      translate: {320, 70}
+      translate: {270, 70}
     )
   ]
 
-  @bird rect_spec(
-          {@bird_width, @bird_height},
-          fill: {:image, @bird_hash},
-          t: {15, 230}
-        )
+  @bird [
+    rect_spec(
+      {@bird_width, @bird_height},
+      fill: {:image, :parrot},
+      stroke: {4, :green},
+      t: {15, 230}
+    )
+  ]
 
   @text [
-    text_spec("Hello", translate: {0, 40}),
-    text_spec("World", translate: {90, 40}, fill: :yellow),
-    text_spec("Blur", translate: {0, 80}, font_blur: 2),
-    text_spec("Shadow", translate: {82, 82}, font_blur: 2, fill: :light_grey),
-    text_spec("Shadow", translate: {80, 80})
+    text_spec("Hello", translate: {0, 40}, font: :roboto, font_size: 50),
+    text_spec("World", translate: {00, 80}, fill: :purple, font: :roboto_mono)
   ]
 
   @twisty_path path_spec(
@@ -130,8 +123,7 @@ defmodule <%= @mod %>.Scene.Primitives do
                    {:bezier_to, 140, 0, 160, 30, 160, 50}
                  ],
                  stroke: {2, :red},
-                 translate: {355, 230},
-                 rotate: 0.5
+                 translate: {500, 40}
                )
 
   ##
@@ -150,7 +142,8 @@ defmodule <%= @mod %>.Scene.Primitives do
              group_spec(@triangle_circle_ellipse, t: {15, 50}),
              group_spec(@quads, t: {15, 130}),
              @bird,
-             group_spec(@text, font_size: 40, t: {130, 240}),
+             group_spec(@text, font_size: 30, t: {130, 240}),
+             # @cycler,
              @twisty_path
            ],
            translate: {15, @body_offset}
@@ -162,12 +155,13 @@ defmodule <%= @mod %>.Scene.Primitives do
 
   ##
   # And, finally, here's the code that executes at runtime. All it does
-  # is load up the bird image, and push the previously contructed
+  # is load up the bird image, and push the previously constructed
   # graph into the scene.
 
-  def init(_, _opts) do
-    # load the parrot texture into the cache
-    Scenic.Cache.Static.Texture.load(@bird_path, @bird_hash)
-    {:ok, :any_state_you_want, push: @graph}
+  @doc false
+  @impl Scenic.Scene
+  def init(scene, _param, _opts) do
+    {:ok, push_graph(scene, @graph)}
   end
+
 end

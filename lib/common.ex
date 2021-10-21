@@ -12,15 +12,15 @@ defmodule ScenicNew.Common do
 
   @scenic_version Mix.Project.config()[:version]
 
-  @parrot_bin File.read!("templates/static/scenic_parrot.png")
-  @cyanoramphus_bin File.read!("templates/static/cyanoramphus_zealandicus_1849.jpg")
+  @fairy_grove_bin File.read!("templates/assets/images/fairy_grove.jpg")
+  @cyanoramphus_bin File.read!("templates/assets/images/cyanoramphus_zealandicus_1849.jpg")
 
   # ============================================================================
   # template files
   templates = [
     formatter: "templates/formatter.exs",
     gitignore: "templates/gitignore",
-    attribution: "templates/static/attribution.txt"
+    attribution: "templates/assets/images/attribution.txt"
   ]
 
   Enum.each(templates, fn {name, content} ->
@@ -32,8 +32,8 @@ defmodule ScenicNew.Common do
 
   def scenic_version(), do: @scenic_version
 
-  def parrot(), do: @parrot_bin
   def cyanoramphus(), do: @cyanoramphus_bin
+  def fairy_grove(), do: @fairy_grove_bin
 
   def formatter(assigns), do: formatter_template(assigns)
   def gitignore(assigns), do: gitignore_template(assigns)

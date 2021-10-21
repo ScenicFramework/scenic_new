@@ -1,21 +1,17 @@
 # a simple supervisor that starts up the Scenic.SensorPubSub server
 # and any set of other sensor processes
 
-defmodule <%= @mod %>.Sensor.Supervisor do
+defmodule <%= @mod %>.Sensors.Supervisor do
   use Supervisor
-
-  alias <%= @mod %>.Sensor.Temperature
 
   def start_link(_) do
     Supervisor.start_link(__MODULE__, :ok)
   end
 
   def init(:ok) do
-    children = [
-      Scenic.Sensor,
-      Temperature
+    [
+      <%= @mod %>.Sensors.Temperature
     ]
-
-    Supervisor.init(children, strategy: :one_for_one)
+    |> Supervisor.init( strategy: :one_for_one )
   end
 end
