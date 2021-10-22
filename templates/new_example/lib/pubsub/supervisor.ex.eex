@@ -1,7 +1,7 @@
 # a simple supervisor that starts up the Scenic.SensorPubSub server
 # and any set of other sensor processes
 
-defmodule <%= @mod %>.Sensors.Supervisor do
+defmodule <%= @mod %>.PubSub.Supervisor do
   use Supervisor
 
   def start_link(_) do
@@ -10,7 +10,8 @@ defmodule <%= @mod %>.Sensors.Supervisor do
 
   def init(:ok) do
     [
-      <%= @mod %>.Sensors.Temperature
+      # add your data publishers here
+      <%= @mod %>.PubSub.Temperature
     ]
     |> Supervisor.init( strategy: :one_for_one )
   end

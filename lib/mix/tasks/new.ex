@@ -134,16 +134,27 @@ defmodule Mix.Tasks.Scenic.New do
     create_file("README.md", readme_template(assigns))
     create_file("mix.exs", mix_exs_template(assigns))
 
+    create_directory("assets")
+    create_file("assets/readme.txt", Common.assets_readme(assigns))
+
     create_directory("config")
     create_file("config/config.exs", config_template(assigns))
 
     create_directory("lib")
+
     create_directory("lib/components")
+    create_file("lib/components/readme.txt", Common.comp_readme(assigns))
+
     create_file("lib/#{app}.ex", app_template(assigns))
     create_file("lib/assets.ex", assets_template(assigns))
 
     create_directory("lib/scenes")
     create_file("lib/scenes/home.ex", scene_home_template(assigns))
+    create_file("lib/scenes/readme.txt", Common.scene_readme(assigns))
+
+    create_directory("lib/pubsub")
+    create_file("lib/pubsub/supervisor.ex", pubsub_sup_template(assigns))
+    create_file("lib/pubsub/readme.txt", Common.pubsub_readme(assigns))
 
     create_directory("assets")
 
@@ -189,7 +200,8 @@ defmodule Mix.Tasks.Scenic.New do
     config: "templates/new/config/config.exs.eex",
     app: "templates/new/lib/app.ex.eex",
     assets: "templates/new/lib/assets.ex.eex",
-    scene_home: "templates/new/lib/scenes/home.ex.eex"
+    scene_home: "templates/new/lib/scenes/home.ex.eex",
+    pubsub_sup: "templates/new/lib/pubsub/supervisor.ex.eex",
   ]
 
   Enum.each(templates, fn {name, content} ->

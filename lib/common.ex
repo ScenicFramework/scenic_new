@@ -20,7 +20,11 @@ defmodule ScenicNew.Common do
   templates = [
     formatter: "templates/formatter.exs",
     gitignore: "templates/gitignore",
-    attribution: "templates/assets/images/attribution.txt"
+    attribution: "templates/assets/images/attribution.txt",
+    comp_readme: "templates/common/comp_readme.txt",
+    pubsub_readme: "templates/common/pubsub_readme.txt",
+    assets_readme: "templates/common/assets_readme.txt",
+    scene_readme: "templates/common/scene_readme.txt",
   ]
 
   Enum.each(templates, fn {name, content} ->
@@ -38,6 +42,11 @@ defmodule ScenicNew.Common do
   def formatter(assigns), do: formatter_template(assigns)
   def gitignore(assigns), do: gitignore_template(assigns)
   def attribution(assigns), do: attribution_template(assigns)
+
+  def comp_readme(assigns), do: comp_readme_template(assigns)
+  def pubsub_readme(assigns), do: pubsub_readme_template(assigns)
+  def assets_readme(assigns), do: assets_readme_template(assigns)
+  def scene_readme(assigns), do: scene_readme_template(assigns)
 
   # ============================================================================
   # validity functions taken from Elixir new task
