@@ -10,7 +10,7 @@ defmodule <%= @mod %> do
     # start the application with the viewport
     children = [
       {Scenic, [main_viewport_config]},
-      <%= @mod %>.Sensors.Supervisor
+      <%= @mod %>.PubSub.Supervisor
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one)

@@ -221,11 +221,18 @@ mix do deps.get, scenic.run
 
 ## Build a Basic [Nerves](https://nerves-project.org/) Application
 
-This section is being re-written.
+To add Scenic to a Nerves project, you should first set up Nerves and create a new
+Nerves project using the nerves generator.
 
-The general direction is that you should use nerves.new to create a new project.
+See the Nerves [Getting Started](https://hexdocs.pm/nerves/getting-started.html) documentation.
 
-Then there will be steps to add scenic to it.
+After creating a new Nerves app, run the following command from within the app's directory.
+
+```bash
+mix scenic.setup
+```
+
+Then follow the next-step instructions that get printed out in the terminal window.
 
 
 ## The Example Application

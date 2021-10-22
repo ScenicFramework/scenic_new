@@ -1,7 +1,7 @@
 # Example sensor using scenic_pubsub
 # this is a SIMULATED temperature sensor
 
-defmodule <%= @mod %>.Sensors.Temperature do
+defmodule <%= @mod %>.PubSub.Temperature do
   use GenServer
 
   alias Scenic.PubSub

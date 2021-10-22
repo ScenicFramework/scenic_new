@@ -140,6 +140,7 @@ defmodule Mix.Tasks.Scenic.New.Example do
     create_file("assets/images/attribution.txt", Common.attribution(assigns))
     create_file("assets/images/fairy_grove.jpg", Common.fairy_grove())
     create_file("assets/images/cyanoramphus_zealandicus_1849.jpg", Common.cyanoramphus())
+    create_file("assets/readme.txt", Common.assets_readme(assigns))
 
     create_directory("lib/scenes")
     create_file("lib/scenes/components.ex", scene_components_template(assigns))
@@ -150,14 +151,17 @@ defmodule Mix.Tasks.Scenic.New.Example do
     create_file("lib/scenes/sprites.ex", scene_sprites_template(assigns))
     create_file("lib/scenes/fills.ex", scene_fills_template(assigns))
     create_file("lib/scenes/strokes.ex", scene_strokes_template(assigns))
+    create_file("lib/scenes/readme.txt", Common.scene_readme(assigns))
 
     create_directory("lib/components")
     create_file("lib/components/nav.ex", nav_template(assigns))
     create_file("lib/components/notes.ex", notes_template(assigns))
+    create_file("lib/components/readme.txt", Common.comp_readme(assigns))
 
-    create_directory("lib/sensors")
-    create_file("lib/sensors/supervisor.ex", sensor_sup_template(assigns))
-    create_file("lib/sensors/temperature.ex", sensor_temp_template(assigns))
+    create_directory("lib/pubsub")
+    create_file("lib/pubsub/supervisor.ex", pubsub_sup_template(assigns))
+    create_file("lib/pubsub/temperature.ex", pubsub_temp_template(assigns))
+    create_file("lib/pubsub/readme.txt", Common.pubsub_readme(assigns))
 
     """
 
@@ -211,8 +215,8 @@ defmodule Mix.Tasks.Scenic.New.Example do
     scene_sprites: "templates/new_example/lib/scenes/sprites.ex.eex",
     scene_fills: "templates/new_example/lib/scenes/fills.ex.eex",
     scene_strokes: "templates/new_example/lib/scenes/strokes.ex.eex",
-    sensor_sup: "templates/new_example/lib/sensors/supervisor.ex.eex",
-    sensor_temp: "templates/new_example/lib/sensors/temperature.ex.eex"
+    pubsub_sup: "templates/new_example/lib/pubsub/supervisor.ex.eex",
+    pubsub_temp: "templates/new_example/lib/pubsub/temperature.ex.eex"
   ]
 
   Enum.each(templates, fn {name, content} ->

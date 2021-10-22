@@ -34,7 +34,7 @@ defmodule Mix.Tasks.Scenic.NewExampleTest do
                assert_file("#{@app_name}/lib/#{@app_name}.ex", fn file ->
                  assert file =~ "defmodule #{@module_name} do"
                  assert file =~ "Application.get_env(:#{@app_name}, :viewport)"
-                 assert file =~ "#{@module_name}.Sensors.Supervisor"
+                 assert file =~ "#{@module_name}.PubSub.Supervisor"
                end)
 
                assert_file("#{@app_name}/lib/scenes/components.ex")
@@ -47,14 +47,14 @@ defmodule Mix.Tasks.Scenic.NewExampleTest do
                assert_file("#{@app_name}/lib/scenes/sprites.ex")
                assert_file("#{@app_name}/lib/components/nav.ex")
                assert_file("#{@app_name}/lib/components/notes.ex")
-               assert_file("#{@app_name}/lib/sensors/supervisor.ex")
-               assert_file("#{@app_name}/lib/sensors/temperature.ex")
+               assert_file("#{@app_name}/lib/pubsub/supervisor.ex")
+               assert_file("#{@app_name}/lib/pubsub/temperature.ex")
 
                assert_file("#{@app_name}/mix.exs", fn file ->
                  assert file =~ "mod: {#{@module_name}, []}"
 
                  assert file =~ "{:scenic, \"~> 0.11.0-beta.0\"}"
-                 assert file =~ "{:scenic_driver_local, \"~> 0.11.0-beta.0\", targets: :host}"
+                 assert file =~ "{:scenic_driver_local, \"~> 0.11.0-beta.0\"}"
                end)
              end) =~ "Your Scenic project was created successfully."
     end)
