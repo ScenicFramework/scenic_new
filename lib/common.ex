@@ -24,7 +24,7 @@ defmodule ScenicNew.Common do
     comp_readme: "templates/common/comp_readme.txt",
     pubsub_readme: "templates/common/pubsub_readme.txt",
     assets_readme: "templates/common/assets_readme.txt",
-    scene_readme: "templates/common/scene_readme.txt",
+    scene_readme: "templates/common/scene_readme.txt"
   ]
 
   Enum.each(templates, fn {name, content} ->

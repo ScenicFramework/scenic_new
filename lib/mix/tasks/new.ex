@@ -201,7 +201,7 @@ defmodule Mix.Tasks.Scenic.New do
     app: "templates/new/lib/app.ex.eex",
     assets: "templates/new/lib/assets.ex.eex",
     scene_home: "templates/new/lib/scenes/home.ex.eex",
-    pubsub_sup: "templates/new/lib/pubsub/supervisor.ex.eex",
+    pubsub_sup: "templates/new/lib/pubsub/supervisor.ex.eex"
   ]
 
   Enum.each(templates, fn {name, content} ->

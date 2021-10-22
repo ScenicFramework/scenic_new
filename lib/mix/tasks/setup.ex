@@ -59,7 +59,7 @@ defmodule Mix.Tasks.Scenic.Setup do
   ```
 
   ### Add Scenic to your app's supervisor
-  
+
   Next, you need to add Scenic to your app's supervisor so that it starts scenic.
   Something like this should be in your `MyApp` or `MyApp.Application` module.
 
@@ -158,17 +158,18 @@ defmodule Mix.Tasks.Scenic.Setup do
     module: :string
   ]
 
-import IEx
+  import IEx
 
   # --------------------------------------------------------
   def run(argv) do
     {opts, argv} = OptionParser.parse!(argv, strict: @switches)
     Common.elixir_version_check!()
 
-    path = case argv do
-      [] -> "."
-      [path | _] -> path
-    end
+    path =
+      case argv do
+        [] -> "."
+        [path | _] -> path
+      end
 
     app = opts[:app] || Path.basename(Path.expand(path))
     Common.check_application_name!(app, !opts[:app])
@@ -176,7 +177,8 @@ import IEx
     Common.check_mod_name_validity!(mod)
     Common.check_mod_name_availability!(mod)
 
-pry()
+    pry()
+
     File.cd!(path, fn ->
       generate(app, mod, path, opts)
     end)
