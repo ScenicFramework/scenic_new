@@ -19,7 +19,7 @@ defmodule ScenicNew.MixProject do
       package: [
         contributors: ["Boyd Multerer"],
         maintainers: ["Boyd Multerer"],
-        licenses: ["Apache 2"],
+        licenses: ["Apache-2.0"],
         links: %{github: @github},
         files: [
           "templates/**/*.jpg",
