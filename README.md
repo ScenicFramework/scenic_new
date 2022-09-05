@@ -10,7 +10,7 @@ you. This is the easiest way to set up a new Scenic project.
 the v0.11 beta, run the following command in your terminal.
 
 ```
-mix archive.install hex scenic_new 0.11.0-beta.0
+mix archive.install hex scenic_new 0.11.0
 ```
 
 Then you can create the example applications.
@@ -71,6 +71,18 @@ The easiest way to install on Ubuntu is to use apt-get. Just run the following:
 ```bash
 sudo apt-get update
 sudo apt-get install pkgconf libglfw3 libglfw3-dev libglew2.0 libglew-dev
+```
+
+Once these components have been installed, you should be able to build the
+`scenic_driver_local` driver.
+
+### Installing on Ubuntu 20.04
+
+The easiest way to install on Ubuntu is to use apt-get. Just run the following:
+
+```bash
+apt-get update
+apt-get install pkgconf libglfw3 libglfw3-dev libglew2.2 libglew-dev
 ```
 
 Once these components have been installed, you should be able to build the
