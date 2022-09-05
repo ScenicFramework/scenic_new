@@ -163,5 +163,4 @@ defmodule <%= @mod %>.Scene.Primitives do
   def init(scene, _param, _opts) do
     {:ok, push_graph(scene, @graph)}
   end
-
 end

@@ -45,5 +45,4 @@ defmodule <%= @mod %>.PubSub.Temperature do
 
     {:noreply, %{state | t: t + 1}}
   end
-
 end

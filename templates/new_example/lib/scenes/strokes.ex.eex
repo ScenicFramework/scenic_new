@@ -80,12 +80,12 @@ defmodule <%= @mod %>.Scene.Strokes do
     :timer.send_interval(@interval_draw, self(), :draw)
 
     texture =
-      Bitmap.build( :rgb, @width, @height, clear: @start_color, commit: true )
-      |> Stream.put!( @stream )
+      Bitmap.build(:rgb, @width, @height, clear: @start_color, commit: true)
+      |> Stream.put!(@stream)
 
     scene =
       scene
-      |> assign( color: @start_color, texture: texture )
+      |> assign(color: @start_color, texture: texture)
       |> push_graph(graph)
 
     {:ok, scene}
@@ -110,12 +110,10 @@ defmodule <%= @mod %>.Scene.Strokes do
     texture =
       texture
       |> Bitmap.mutable()
-      |> Bitmap.clear( color )
+      |> Bitmap.clear(color)
       |> Bitmap.commit()
-      |> Stream.put!( @stream )
+      |> Stream.put!(@stream)
 
     {:noreply, assign(scene, :texture, texture)}
   end
-
-
 end

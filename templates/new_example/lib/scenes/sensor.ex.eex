@@ -42,7 +42,7 @@ defmodule <%= @mod %>.Scene.Sensor do
 
     # build the graph
     graph =
-      Graph.build( font: :roboto, font_size: 16 )
+      Graph.build(font: :roboto, font_size: 16)
       # text input
       |> group(
         fn graph ->
@@ -85,12 +85,12 @@ defmodule <%= @mod %>.Scene.Sensor do
       |> Notes.add_to_graph(@notes)
 
     # subscribe to the simulated temperature sensor
-    Scenic.PubSub.subscribe( :temperature )
+    Scenic.PubSub.subscribe(:temperature)
 
     scene =
       scene
-      |> assign( :graph, graph )
-      |> push_graph( graph )
+      |> assign(:graph, graph)
+      |> push_graph(graph)
 
     {:ok, scene}
   end

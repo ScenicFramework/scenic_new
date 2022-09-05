@@ -4,5 +4,4 @@ defmodule <%= @mod %>.Assets do
     alias: [
       parrot: "images/cyanoramphus_zealandicus_1849.jpg"
     ]
-
 end
