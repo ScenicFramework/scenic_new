@@ -53,7 +53,7 @@ defmodule <%= @mod %>.Scene.SensorSpec do
                          font_size: @font_size
                        )
 
-  @graph Graph.build( font: :roboto, font_size: 16 )
+  @graph Graph.build(font: :roboto, font_size: 16)
          |> add_specs_to_graph(
            [
              @temperature_display,
@@ -92,12 +92,12 @@ defmodule <%= @mod %>.Scene.SensorSpec do
       )
 
     # subscribe to the simulated temperature sensor
-    Scenic.PubSub.subscribe( :temperature )
+    Scenic.PubSub.subscribe(:temperature)
 
     scene =
       scene
-      |> assign( :graph, graph )
-      |> push_graph( graph )
+      |> assign(:graph, graph)
+      |> push_graph(graph)
 
     {:ok, scene}
   end

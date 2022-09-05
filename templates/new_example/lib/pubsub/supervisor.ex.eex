@@ -13,6 +13,6 @@ defmodule <%= @mod %>.PubSub.Supervisor do
       # add your data publishers here
       <%= @mod %>.PubSub.Temperature
     ]
-    |> Supervisor.init( strategy: :one_for_one )
+    |> Supervisor.init(strategy: :one_for_one)
   end
 end

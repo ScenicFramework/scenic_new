@@ -11,6 +11,7 @@ defmodule <%= @mod %>.Component.Notes do
   @doc false
   @impl Scenic.Component
   def validate(notes) when is_bitstring(notes), do: {:ok, notes}
+
   def validate(data) do
     {
       :error,
@@ -26,7 +27,7 @@ defmodule <%= @mod %>.Component.Notes do
   # --------------------------------------------------------
   @doc false
   @impl Scenic.Scene
-  def init( scene, notes, opts ) do
+  def init(scene, notes, opts) do
     {vp_width, vp_height} = scene.viewport.size
 
     {background, text} =

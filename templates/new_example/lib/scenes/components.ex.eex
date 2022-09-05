@@ -138,7 +138,6 @@ defmodule <%= @mod %>.Scene.Components do
 
   # ============================================================================
 
-
   defp graph(), do: @graph
 
   @doc false
@@ -160,9 +159,8 @@ defmodule <%= @mod %>.Scene.Components do
   def handle_event(event, _, scene) do
     graph = Graph.modify(graph(), :event_text, &text(&1, @event_str <> inspect(event)))
 
-    scene = push_graph( scene, graph )
+    scene = push_graph(scene, graph)
 
     {:noreply, scene}
   end
-
 end

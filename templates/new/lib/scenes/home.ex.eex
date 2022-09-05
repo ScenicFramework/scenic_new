@@ -40,7 +40,7 @@ defmodule <%= @mod %>.Scene.Home do
         rect_spec({width, height})
       ])
 
-    scene = push_graph( scene, graph )
+    scene = push_graph(scene, graph)
 
     {:ok, scene}
   end

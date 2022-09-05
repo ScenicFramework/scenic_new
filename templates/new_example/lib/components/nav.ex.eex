@@ -62,7 +62,7 @@ defmodule <%= @mod %>.Component.Nav do
            {"Components", <%= @mod %>.Scene.Components},
            {"Transforms", <%= @mod %>.Scene.Transforms},
            {"Sprites", <%= @mod %>.Scene.Sprites}
-          ], current_scene},
+         ], current_scene},
         id: :nav,
         translate: {90, 10}
       )
@@ -72,11 +72,11 @@ defmodule <%= @mod %>.Component.Nav do
         theme: :secondary,
         translate: {width - 60, 16}
       )
-      |> digital_clock(styles: [text_align: :center], translate: {width/2, 35})
+      |> digital_clock(styles: [text_align: :center], translate: {width / 2, 35})
 
     scene = push_graph(scene, graph)
 
-    { :ok, scene }
+    {:ok, scene}
   end
 
   # --------------------------------------------------------
