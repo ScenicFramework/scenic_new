@@ -31,6 +31,7 @@ defmodule <%= @mod %>.Scene.Home do
     driver_ver = Application.spec(:scenic_driver_local, :vsn) |> to_string()
 
     info = "scenic: v#{scenic_ver}\nscenic_driver_local: v#{driver_ver}"
+    request_input(scene, [:key, :cursor_pos, :codepoint])
 
     graph =
       Graph.build(font: :roboto, font_size: @text_size)
