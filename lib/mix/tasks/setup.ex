@@ -158,8 +158,6 @@ defmodule Mix.Tasks.Scenic.Setup do
     module: :string
   ]
 
-  import IEx
-
   # --------------------------------------------------------
   def run(argv) do
     {opts, argv} = OptionParser.parse!(argv, strict: @switches)
@@ -176,8 +174,6 @@ defmodule Mix.Tasks.Scenic.Setup do
     mod = opts[:module] || Macro.camelize(app)
     Common.check_mod_name_validity!(mod)
     Common.check_mod_name_availability!(mod)
-
-    pry()
 
     File.cd!(path, fn ->
       generate(app, mod, path, opts)
