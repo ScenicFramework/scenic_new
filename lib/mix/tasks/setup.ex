@@ -41,21 +41,8 @@ defmodule Mix.Tasks.Scenic.Setup do
   the device target...)
 
   ```elixir
-  {:scenic, "~> 0.11.0-beta.0"},
-  {:scenic_driver_local, "~> 0.11.0-beta.0"},
-  ```
-
-  ### Make sure your application is configured to start
-
-  This should be in your `mix.exs` file. If using Nerves, it will start `MyApplication.Application`
-
-  ```elixir
-  def application do
-    [
-      mod: {MyApplication, []},
-      extra_applications: [:logger, :scenic]
-    ]
-  end
+  {:scenic, "~> 0.11.0"},
+  {:scenic_driver_local, "~> 0.11.0"},
   ```
 
   ### Add Scenic to your app's supervisor
@@ -222,19 +209,8 @@ defmodule Mix.Tasks.Scenic.Setup do
 
 
     ------
-    Make sure your mix.exs file starts your application and scenic
-
-        def application do
-          [
-            mod: {#{mod}, []},
-            extra_applications: [:logger, :scenic]
-          ]
-        end
-
-
-    ------
     Add Scenic to your app's supervisor so that it starts scenic.
-    Something like this should be in your `#{app}.ex` module.
+    Something like this should be in your `#{app}/application.ex` module.
 
         def start(_type, _args) do
           # start the application with the configured viewport
@@ -246,6 +222,8 @@ defmodule Mix.Tasks.Scenic.Setup do
           |> Supervisor.start_link( strategy: :one_for_one )
         end
 
+    Note: if you don't have an `#{app}/application.ex` module then you probably
+    didn't generate your application with `mix new my_app_name --sup`
 
     ------
     Add the following to your config.exs file. Change the app name as appropriate. This
