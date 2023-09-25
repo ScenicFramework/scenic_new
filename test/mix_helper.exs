@@ -4,7 +4,7 @@ defmodule ScenicNew.MixHelper do
   import ExUnit.Assertions
 
   def tmp_path do
-    Path.expand("../../tmp", __DIR__)
+    Path.expand("../tmp", __DIR__)
   end
 
   defp random_string(len) do
