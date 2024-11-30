@@ -17,14 +17,16 @@ Then you can create the example applications.
 
 ```
 mix scenic.new simple
+# Alternatively if you want a fully featured example application you can run:
 mix scenic.new.example demo
 ```
 
 
 ## Erlang/Elixir versions
 
-Please note, it currently needs OTP 21 and Elixir 1.7. If you have trouble
-compiling, please check that you are running those versions first.
+Please note, Scenic currently needs OTP 23 and Elixir 1.11 or greater. If you
+have trouble compiling, please check that you are running those versions or
+greater first.
 
 ## Install Prerequisites
 
@@ -32,8 +34,9 @@ The design of Scenic goes to great lengths to minimize its dependencies to just
 the minimum. Namely, it needs Erlang/Elixir and OpenGL.
 
 Rendering your application into a window on your local computer (MacOS, Ubuntu
-and others) is done by the `scenic_driver_local` driver. It uses the GLFW and
-GLEW libraries to connect to OpenGL.
+and others) is done by the
+[`scenic_driver_local`](https://github.com/ScenicFramework/scenic_driver_local/)
+driver. It uses the GLFW and GLEW libraries to connect to OpenGL.
 
 The instructions below assume you have already installed Elixir/Erlang. If you
 need to install Elixir/Erlang there are instructions on the [elixir-lang
