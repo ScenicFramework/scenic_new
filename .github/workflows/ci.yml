@@ -37,7 +37,7 @@ jobs:
           ~/.mix
           _build
           priv/plts
-        key: ${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
+        key: otp:${{ matrix.otp }}-elixir:${{ matrix.elixir }}-mix-lock:${{ hashFiles('**/mix.lock') }}
     - name: Install Dependencies
       run: |
         mix local.rebar --force
