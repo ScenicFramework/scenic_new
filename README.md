@@ -17,7 +17,7 @@ Then you can create the example applications.
 
 ```
 mix scenic.new simple
-# Alternatively if you want a full-feature example application you can run:
+# Alternatively if you want a fully featured example application you can run:
 mix scenic.new.example demo
 ```
 
