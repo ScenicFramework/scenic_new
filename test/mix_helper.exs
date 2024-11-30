@@ -4,7 +4,7 @@ defmodule ScenicNew.MixHelper do
   import ExUnit.Assertions
 
   def tmp_path do
-    Path.expand("../../tmp", __DIR__)
+    Path.expand("../tmp", __DIR__)
   end
 
   defp random_string(len) do
@@ -36,7 +36,7 @@ defmodule ScenicNew.MixHelper do
       is_list(match) ->
         assert_file(file, &Enum.each(match, fn m -> assert &1 =~ m end))
 
-      is_binary(match) or Regex.regex?(match) ->
+      is_binary(match) or is_struct(match, Regex) ->
         assert_file(file, &assert(&1 =~ match))
 
       is_function(match, 1) ->
