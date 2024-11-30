@@ -18,11 +18,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - elixir: '1.11.4'
-            otp: '24.2'
+          - elixir: '1.15.8'
+            otp: '25.3.2.15'
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - uses: erlef/setup-beam@v1
       with:
@@ -30,7 +30,7 @@ jobs:
         elixir-version: ${{matrix.elixir}}
 
     - name: Cache build artifacts
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           ~/.hex
